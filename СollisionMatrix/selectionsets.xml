@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<selectionsets>
+	<selectionset name="АР">
+		<selection>АР_Вертикальные конструкции</selection>
+		<selection>АР_Горизонтальные конструкции</selection>
+		<selection>АР_Каркас несущий</selection>
+		<selection>АР_Потолки</selection>
+		<selection>АР_Отделка</selection>
+		<selection>АР_Двери</selection>
+		<selection>АР_Окна</selection>
+		<selection>АР_Лестницы</selection>
+		<selection>АР_Сантехнические приборы</selection>
+		<selection>АР_Оборудование</selection>
+		<selection>АР_Арматура трубопроводов</selection>
+	</selectionset>
+	<selectionset name="КР">
+		<selection>КР_Вертикальные конструкции</selection>
+		<selection>КР_Перекрытия</selection>
+		<selection>КР_Каркас несущий</selection>
+		<selection>КР_Лестницы</selection>
+		<selection>КР_Фундамент</selection>
+	</selectionset>
+	<selectionset name="ВК">
+		<selection>ВК_Оборудование</selection>
+		<selection>ВК_Система</selection>
+	</selectionset>
+	<selectionset name="ОВ1">
+		<selection>ОВ1_Оборудование</selection>
+		<selection>ОВ1_Система</selection>
+	</selectionset>
+	<selectionset name="ОВ2">
+		<selection>ОВ2_Оборудование</selection>
+		<selection>ОВ2_Гибкие водуховоды</selection>
+		<selection>ОВ2_Система_Водуховоды</selection>
+		<selection>ОВ2_Воздухораспределители</selection>
+		<selection>ОВ2_Система_Трубы</selection>
+		<selection>ОВ2_Система_Лотки</selection>
+	</selectionset>
+	<selectionset name="ОВ3">
+		<selection>ОВ3_Оборудование</selection>
+		<selection>ОВ3_Система_Трубы</selection>
+		<selection>ОВ3_Система_Воздуховоды</selection>
+	</selectionset>
+	<selectionset name="ОВ4">
+		<selection>ОВ4_Оборудование</selection>
+		<selection>ОВ4_Система_Трубы</selection>
+	</selectionset>
+	<selectionset name="МГ">
+		<selection>МГ_Оборудование</selection>
+		<selection>МГ_Трубы</selection>
+	</selectionset>
+	<selectionset name="ЭОМ">
+		<selection>ЭОМ_Шкафы</selection>
+		<selection>ЭОМ_Охранная сигнализация</selection>
+		<selection>ЭОМ_Эл. приборы</selection>
+		<selection>ЭОМ_Осветительные приборы</selection>
+		<selection>ЭОМ_Воздуховоды</selection>
+		<selection>ЭОМ_Лотки</selection>
+	</selectionset>
+	<selectionset name="СС">
+		<selection>СС_Шкафы</selection>
+		<selection>СС_Сигнализация</selection>
+		<selection>СС_Лотки</selection>
+	</selectionset>
+	<selectionset name="АК">
+		<selection>АК_Датчики</selection>
+		<selection>АК_Электооборудование</selection>
+	</selectionset>
+	<selectionset name="ТХ">
+		<selection>ТХ_Оборудование</selection>
+	</selectionset>
+</selectionsets>

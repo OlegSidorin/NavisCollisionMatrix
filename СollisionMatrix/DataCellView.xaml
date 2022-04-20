@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="СollisionMatrix.DataCellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:СollisionMatrix"
+             mc:Ignorable="d" Background="Transparent"
+             d:DesignHeight="50" d:DesignWidth="50">
+    <Grid>
+        <Border Background="Snow" Margin="0"/>
+        <Border Background="White" Margin="1"/>
+        <TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="9"/>
+    </Grid>
+</UserControl>
