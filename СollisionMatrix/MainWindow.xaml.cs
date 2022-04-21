@@ -22,7 +22,6 @@ namespace СollisionMatrix
     {
         public MainWindow()
         {
-            
             InitializeComponent();
             MainWindowModel mainWindowModel = (MainWindowModel)DataContext;
             mainWindowModel.ThisView = this;

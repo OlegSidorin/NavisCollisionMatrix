@@ -10,6 +10,9 @@ using СollisionMatrix.Subviews;
 using Xceed.Wpf;
 using System.Windows;
 using System.Reflection;
+using Forms = System.Windows.Forms;
+using OfficeOpenXml;
+using System.IO;
 
 namespace СollisionMatrix
 {
@@ -29,11 +32,99 @@ namespace СollisionMatrix
             }
         }
 
+        private double _matrixWidth;
+        public double MatrixWidth
+        {
+            get { return _matrixWidth; }
+            set
+            {
+                if (_matrixWidth != value)
+                {
+                    _matrixWidth = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double _matrixHeight;
+        public double MatrixHeight
+        {
+            get { return _matrixHeight; }
+            set
+            {
+                if (_matrixHeight != value)
+                {
+                    _matrixHeight = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double _matrixHeaderHeight;
+        public double MatrixHeaderHeight
+        {
+            get { return _matrixHeaderHeight; }
+            set
+            {
+                if (_matrixHeaderHeight != value)
+                {
+                    _matrixHeaderHeight = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double _matrixHeaderWidth;
+        public double MatrixHeaderWidth
+        {
+            get { return _matrixHeaderWidth; }
+            set
+            {
+                if (_matrixHeaderWidth != value)
+                {
+                    _matrixHeaderWidth = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double _matrixSelectionHeaderHeight;
+        public double MatrixSelectionHeaderHeight
+        {
+            get { return _matrixSelectionHeaderHeight; }
+            set
+            {
+                if (_matrixSelectionHeaderHeight != value)
+                {
+                    _matrixSelectionHeaderHeight = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public System.Windows.Media.SolidColorBrush Color15 { get; set; } = System.Windows.Media.Brushes.OrangeRed;
+        private System.Windows.Media.SolidColorBrush Color30 { get; set; } = System.Windows.Media.Brushes.PaleVioletRed;
+        private System.Windows.Media.SolidColorBrush Color50 { get; set; } = System.Windows.Media.Brushes.LightBlue;
+        private System.Windows.Media.SolidColorBrush Color80 { get; set; } = System.Windows.Media.Brushes.LightGreen;
+
+        private List<List<string>> ExlsCells { get; set; }
+
         public ObservableCollection<SelectionSet> SelectionSets { get; set; }
+        public ObservableCollection<SelectionSetNode> SelectionSetNodes { get; set; }
+        public ObservableCollection<ClashTest> ClashTests { get; set; }
 
         public MainWindowModel()
         {
+            MatrixHeight = 800;
+            MatrixWidth = 800;
+            MatrixHeaderHeight = 150;
+            MatrixHeaderWidth = 150;
+            MatrixSelectionHeaderHeight = 18;
+
             SelectionSets = new ObservableCollection<SelectionSet>();
+            SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
+            ClashTests = new ObservableCollection<ClashTest>();
+
             Commanda = new RelayCommand(OnCommandaExecuted, CanCommandaExecute);
             Com1 = new RelayCommand(OnCom1Executed, CanCom1Execute);
             Com2 = new RelayCommand(OnCom2Executed, CanCom2Execute);
@@ -64,30 +155,128 @@ namespace СollisionMatrix
         public ICommand Com1 { get; set; }
         private void OnCom1Executed(object p)
         {
+            int selectionsNumber = 0;
+
+            #region reading xml file
             string pathtoexe = Assembly.GetExecutingAssembly().Location;
             string folderpath = pathtoexe.Replace("СollisionMatrix.exe", "");
             string pathtoxml = folderpath + "selectionsets.xml";
+
+            Forms.OpenFileDialog openFileDialog = new Forms.OpenFileDialog();
+            openFileDialog.ShowDialog();
+            pathtoxml = openFileDialog.FileName;
+
             //Xceed.Wpf.Toolkit.MessageBox.Show(pathtoxml, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(pathtoxml);
-            XmlElement xRoot = xDoc.DocumentElement;
-            foreach (XmlElement xnode in xRoot)
+            try
             {
-                SelectionSet selectionSet = new SelectionSet();
-                selectionSet.Selections = new List<string>();
+                xDoc.Load(pathtoxml);
+            }
+            catch (Exception ex)
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show(ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            #endregion
 
-                XmlNode setName = xnode.Attributes.GetNamedItem("name");
+            #region creating array SelectionSet from xml file
 
-                selectionSet.Name = setName.Value;
-
-                foreach (XmlNode childnode in xnode.ChildNodes)
+            XmlElement _exchange_ = xDoc.DocumentElement;
+            foreach (XmlNode _selectionsets_ in _exchange_)
+            {
+                foreach (XmlNode _selectionset_ in _selectionsets_.ChildNodes)
                 {
-                    selectionSet.Selections.Add(childnode.InnerText);
+                    SelectionSet selectionSet = new SelectionSet();
+                    selectionSet.Name = _selectionset_.Attributes.GetNamedItem("name").InnerText;
+                    int divider = 0;
+                    divider = selectionSet.Name.IndexOf("_");
+                    if (divider != 0)
+                    {
+                        selectionSet.DraftName = selectionSet.Name.Substring(0, divider);
+                    }
+                    else
+                    {
+                        selectionSet.DraftName = "?";
+                    }
+                    SelectionSets.Add(selectionSet);
                 }
-
-                SelectionSets.Add(selectionSet);
+                
             }
 
+            /*
+            string output = string.Empty;
+            foreach (SelectionSet en in SelectionSets)
+            {
+                output += en.Name + "(" + en.DraftName + ")" + "\n";
+            }
+
+            Xceed.Wpf.Toolkit.MessageBox.Show("SelectionSets\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+            */
+
+            List<string> drafts = new List<string>();
+            foreach (SelectionSet ss in SelectionSets)
+            {
+                bool included = false;
+                foreach (string draft in drafts)
+                {
+                    if (ss.DraftName == draft) included = true;
+                }
+                if (!included) drafts.Add(ss.DraftName);
+            }
+
+            List<string> sortedDrafts = drafts.OrderBy(o => o).ToList();
+            //List<string> sortedDrafts = drafts;
+            /*
+            string output = string.Empty;
+            foreach (string en in sortedDrafts)
+            {
+                output += en + "\n";
+            }
+
+            Xceed.Wpf.Toolkit.MessageBox.Show("Drafts\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+            */
+            List<SelectionSetNode> selectionSetNodes = new List<SelectionSetNode>();
+            foreach (string draft in sortedDrafts)
+            {
+                SelectionSetNode selectionSetNode = new SelectionSetNode();
+                selectionSetNode.DraftName = draft;
+                selectionSetNode.SelectionSets = new List<SelectionSet>();
+                foreach (SelectionSet selectionSet in SelectionSets)
+                {
+                    if (selectionSet.DraftName == draft) selectionSetNode.SelectionSets.Add(selectionSet);
+                }
+                selectionSetNodes.Add(selectionSetNode);
+            }
+            
+
+            foreach (SelectionSetNode ssn in selectionSetNodes)
+            {
+                SelectionSetNode newSSN = new SelectionSetNode();
+                newSSN.DraftName = ssn.DraftName;
+                newSSN.SelectionSets = ssn.SelectionSets.OrderBy(o => o.Name).ToList();
+                SelectionSetNodes.Add(newSSN);
+            }
+
+            /*
+            string output = string.Empty;
+            foreach (SelectionSetNode ssn in SelectionSetNodes)
+            {
+                output += ssn.DraftName + "\n";
+                foreach (SelectionSet ss in ssn.SelectionSets)
+                {
+                    output += "   " + ss.Name + "\n";
+                }
+            }
+
+            Xceed.Wpf.Toolkit.MessageBox.Show("SelectionSets\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+            */
+
+
+            #endregion
+            selectionsNumber = SelectionSets.Count;
+            MatrixHeight = selectionsNumber * MatrixSelectionHeaderHeight + MatrixHeaderHeight;
+            MatrixWidth = selectionsNumber * MatrixSelectionHeaderHeight + MatrixHeaderWidth;
+
+            #region see SelectionSet
             /*
             string output = string.Empty;
             foreach (SelectionSet en in SelectionSets)
@@ -102,39 +291,48 @@ namespace СollisionMatrix
             Xceed.Wpf.Toolkit.MessageBox.Show("Вот такая матрица\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
 
             */
+            #endregion
 
-            foreach (SelectionSet selSet in SelectionSets)
+            #region creating matrix headers horizontal
+            foreach (SelectionSetNode selSetNode in SelectionSetNodes)
             {
                 NodeHView nodeHView = new NodeHView();
                 NodeHViewModel nodeHViewModel = (NodeHViewModel)nodeHView.DataContext;
-                nodeHViewModel.Header = selSet.Name;
-                foreach (string selName in selSet.Selections)
+                nodeHViewModel.Header = selSetNode.DraftName;
+                foreach (SelectionSet selSet in selSetNode.SelectionSets)
                 {
                     SubNodeVView subView = new SubNodeVView();
-                    subView.Width = 20;
+                    subView.Width = MatrixSelectionHeaderHeight;
                     SubNodeVViewModel subViewModel = (SubNodeVViewModel)subView.DataContext;
-                    subViewModel.Header = selName;
+                    subViewModel.Header = selSet.Name;
 
                     nodeHView.spSelectionNames.Children.Add(subView);
                 }
                 ThisView.spSelectionSetsH.Children.Add(nodeHView);
             }
-            foreach (SelectionSet selSet in SelectionSets)
+            #endregion
+
+            #region creating matrix headers vertical left
+            foreach (SelectionSetNode selSetNode in SelectionSetNodes)
             {
                 NodeVView nodeVView = new NodeVView();
                 NodeVViewModel nodeVViewModel = (NodeVViewModel)nodeVView.DataContext;
-                nodeVViewModel.Header = selSet.Name;
-                foreach (string selName in selSet.Selections)
+                nodeVViewModel.Header = selSetNode.DraftName;
+                foreach (SelectionSet selSet in selSetNode.SelectionSets)
                 {
                     SubNodeHView subView = new SubNodeHView();
-                    subView.Height = 20;
+                    subView.Height = MatrixSelectionHeaderHeight;
                     SubNodeHViewModel subViewModel = (SubNodeHViewModel)subView.DataContext;
-                    subViewModel.Header = selName;
+                    subViewModel.Header = selSet.Name;
 
                     nodeVView.spSelectionNames.Children.Add(subView);
                 }
                 ThisView.spSelectionSetsV.Children.Add(nodeVView);
             }
+            #endregion
+
+            ThisView.borderUpLeft.BorderThickness = new Thickness(0, 0, 1, 1);
+            ThisView.borderUpLeft.BorderBrush = System.Windows.Media.Brushes.DarkRed;
 
         }
         private bool CanCom1Execute(object p) => true;
@@ -142,35 +340,232 @@ namespace СollisionMatrix
         public ICommand Com2 { get; set; }
         private void OnCom2Executed(object p)
         {
-            
-            foreach (SelectionSet selVerSet in SelectionSets)
+            ClashTests.Clear();
+
+            #region reading xml file
+
+            string pathtoexe = Assembly.GetExecutingAssembly().Location;
+            string folderpath = pathtoexe.Replace("СollisionMatrix.exe", "");
+            string pathtoxml = folderpath + "batchtest.xml";
+
+            Forms.OpenFileDialog openFileDialog = new Forms.OpenFileDialog();
+            openFileDialog.ShowDialog();
+            pathtoxml = openFileDialog.FileName;
+
+            //Xceed.Wpf.Toolkit.MessageBox.Show(pathtoxml, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            XmlDocument xDoc = new XmlDocument();
+
+            try
             {
-                foreach (string subH in selVerSet.Selections)
+                xDoc.Load(pathtoxml);
+            }
+            catch (Exception ex)
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show(ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            #endregion
+
+            #region creating array ClashTests from xml file
+            
+            try
+            {
+                XmlElement _exchange_ = xDoc.DocumentElement; // <exchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" units="m" filename="" filepath="">
+
+                foreach (XmlNode _batchtest_ in _exchange_) // <batchtest name="Report" internal_name="Report" units="m">
+                {
+                    foreach (XmlNode _clashtests_ in _batchtest_.ChildNodes) // <clashtests>
+                    {
+                        foreach (XmlNode _clashtest_ in _clashtests_.ChildNodes) // <clashtest name="АР_Вертикальные конструкции - АР_Вертикальные конструкции" test_type="duplicate" status="ok" tolerance="0.000" merge_composites="0">
+                        {
+                            ClashTest clashTest = new ClashTest();
+                            clashTest.Name = _clashtest_.Attributes.GetNamedItem("name").InnerText;
+                            clashTest.Tolerance = _clashtest_.Attributes.GetNamedItem("tolerance").InnerText;
+                            foreach (XmlNode _elementInClashTest_ in _clashtest_.ChildNodes)
+                            {
+                                // <left><clashselection selfintersect="0" primtypes="1"><locator>lcop_selection_set_tree/АР_Вертикальные конструкции</locator></clashselection></left>
+                                if (_elementInClashTest_.Name == "left")
+                                {
+                                    foreach (XmlNode _left_ in _elementInClashTest_.ChildNodes)
+                                    {
+                                        foreach (XmlNode _clashselection_ in _left_.ChildNodes)
+                                        {
+                                            foreach (XmlNode _locator_ in _clashselection_.ChildNodes)
+                                            {
+                                                clashTest.SelectionLeftName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
+                                            }
+                                        }
+                                    }
+                                }
+                                if (_elementInClashTest_.Name == "right")
+                                {
+                                    foreach (XmlNode _right_ in _elementInClashTest_.ChildNodes)
+                                    {
+                                        foreach (XmlNode _clashselection_ in _right_.ChildNodes)
+                                        {
+                                            foreach (XmlNode _locator_ in _clashselection_.ChildNodes)
+                                            {
+                                                clashTest.SelectionRightName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
+                                            }
+                                        }
+                                    }
+                                }
+                                if (_elementInClashTest_.Name == "summary")
+                                {
+                                    clashTest.SummaryTotal = _elementInClashTest_.Attributes.GetNamedItem("total").InnerText;
+                                }
+                            }
+                            ClashTests.Add(clashTest);
+                        }
+                    }
+                }
+            } 
+            catch (Exception ex)
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show(ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            #endregion
+
+            #region see ClashTests
+            /*
+            string output = string.Empty;
+            foreach (ClashTest ct in ClashTests)
+            {
+                output += ct.Name + " -> " + ct.SummaryTotal + "\n";
+            }
+
+            Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+            */
+            #endregion
+
+            ExlsCells = new List<List<string>>();
+            foreach (SelectionSetNode selectionSetNodeVerticalSet in SelectionSetNodes)
+            {
+                foreach (SelectionSet selectionSetHName in selectionSetNodeVerticalSet.SelectionSets)
                 {
                     DataLineView dataLineView = new DataLineView();
-                    foreach (SelectionSet selHorSet in SelectionSets)
+                    List<string> cellsLine = new List<string>();
+
+                    foreach (SelectionSetNode selectionSetNodeHorizontalSet in SelectionSetNodes)
                     {
-                        foreach (string subV in selHorSet.Selections)
+                        foreach (SelectionSet selectionSetVName in selectionSetNodeHorizontalSet.SelectionSets)
                         {
                             DataCellView dataCellView = new DataCellView();
-                            dataCellView.Width = 20;
-                            dataCellView.Height = 20;
+                            dataCellView.Width = MatrixSelectionHeaderHeight;
+                            dataCellView.Height = MatrixSelectionHeaderHeight;
+                            DataCellViewModel dataCellViewModel = (DataCellViewModel)dataCellView.DataContext;
+                            dataCellViewModel.Selection1Name = selectionSetHName.Name;
+                            dataCellViewModel.Selection2Name = selectionSetVName.Name;
+                            dataCellViewModel.CollisionsNumber = "";
+                            dataCellView.ToolTip = $"{selectionSetHName.Name} / {selectionSetVName.Name}";
+                            foreach (ClashTest clashTest in ClashTests)
+                            {
+                                if (dataCellViewModel.Selection1Name == clashTest.SelectionLeftName)
+                                {
+                                    if (dataCellViewModel.Selection2Name == clashTest.SelectionRightName)
+                                    {
+                                        dataCellViewModel.CollisionsNumber = clashTest.SummaryTotal;
+                                        bool result = double.TryParse(clashTest.Tolerance.Replace(".", ","), out double tolerance);
+                                        
+                                        if (result)
+                                        {
+                                            if (tolerance <= 0.08) dataCellView.border.Background = Color80;
+                                            if (tolerance <= 0.05) dataCellView.border.Background = Color50;
+                                            if (tolerance <= 0.03) dataCellView.border.Background = Color30;
+                                            if (tolerance <= 0.015) dataCellView.border.Background = Color15;
+                                        }
+                                    }
+                                }
+                            }
+                            
                             dataLineView.spLine.Children.Add(dataCellView);
+                            cellsLine.Add(dataCellViewModel.CollisionsNumber);
                         }
 
                     }
                     ThisView.spDataVLine.Children.Add(dataLineView);
+                    ExlsCells.Add(cellsLine);
                 }
             }
 
+            string output = string.Empty;
+            foreach (List<string> ls in ExlsCells)
+            {
+                foreach (string cell in ls)
+                {
+                    output += cell + " ";
+                }
+                output += "\n";
+            }
+
+            Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private bool CanCom2Execute(object p) => true;
 
         public ICommand Com3 { get; set; }
         private void OnCom3Executed(object p)
         {
-            
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            ExcelPackage excel = new ExcelPackage();
 
+            Forms.OpenFileDialog openFileDialog = new Forms.OpenFileDialog();
+            openFileDialog.ShowDialog();
+            string pathtoxls = openFileDialog.FileName;
+
+            if (!File.Exists(pathtoxls))
+            {
+                try
+                {
+                    File.Create(pathtoxls).Close();
+                }
+                catch (Exception ex)
+                {
+                    Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, нет доступа к папке\n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+
+            if (File.Exists(pathtoxls))
+            {
+                try
+                {
+                    File.Delete(pathtoxls);
+                    excel.Workbook.Worksheets.Add("Матрица");
+                    ExcelWorksheet worksheet = excel.Workbook.Worksheets["Матрица"];
+                    int rowCount = 1;
+                    int colCount = 1;
+                    foreach(SelectionSetNode ssn in SelectionSetNodes)
+                    {
+                        foreach(SelectionSet ss in ssn.SelectionSets)
+                        {
+                            worksheet.Cells[rowCount, colCount].Value = ssn.DraftName;
+                            worksheet.Cells[rowCount + 1, colCount].Value = ss.Name;
+                            colCount++;
+                        }
+                        
+                    }
+                    rowCount = 3;
+                    colCount = 1;
+                    foreach (List<string> ls in ExlsCells)
+                    {
+                        foreach (string cell in ls)
+                        {
+                            worksheet.Cells[rowCount, colCount].Value = cell;
+                            colCount++;
+                        }
+                        rowCount++;
+                        colCount = 1;
+                    }
+                    FileInfo excelFile = new FileInfo(pathtoxls);
+                    excel.SaveAs(excelFile);
+                }
+                catch (Exception ex)
+                {
+                    Xceed.Wpf.Toolkit.MessageBox.Show("Что-то произошло\n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
 
         }
         private bool CanCom3Execute(object p) => true;

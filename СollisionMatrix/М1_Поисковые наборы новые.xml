@@ -1,0 +1,1679 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<exchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd" units="ft" filename="" filepath="">
+  <selectionsets>
+    <selectionset name="АР_Каркас несущий" guid="b9c74c1c-a584-44f7-8511-eb657ca9308e">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Каркас несущий</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Вертикальные конструкции" guid="672a2950-d51f-44ce-9546-7a7a34462564">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Стены</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="42">
+            <category>
+              <name internal="LcRevitData_Type">Тип в приложении Revit</name>
+            </category>
+            <property>
+              <name internal="lcldrevit_parameter_5547749">М1_Назначение элемента</name>
+            </property>
+            <value>
+              <data type="wstring">Отделка</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Несущие колонны</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Горизонтальные конструкции" guid="f6975900-d91e-4c34-9541-4b93a3625b6c">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Перекрытия</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Крыши</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Двери" guid="449f73fc-983b-4c8f-80b5-b57ecea38834">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Двери</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Лестницы" guid="14779b70-ed18-4e86-9b14-b4a658eb40cd">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Лестницы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Окна" guid="702b5e85-59e3-4d16-898c-66789666cad5">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Окна</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Отделка" guid="5668a261-3c2c-4f4d-80b6-9a32d4b6efc8">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Стены</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Type">Тип в приложении Revit</name>
+            </category>
+            <property>
+              <name internal="lcldrevit_parameter_?1_?????????? ????????_PG_TEXT">М1_Назначение элемента</name>
+            </property>
+            <value>
+              <data type="wstring">Отделка</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Арматура трубопроводов" guid="5150051c-f592-40f3-a5a8-db2ae3ade4a5">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Сантехнические приборы" guid="bea4091a-523e-4ccc-8b1f-49cb1f7852eb">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Сантехнические приборы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Оборудование" guid="d9ffd647-a413-4502-8905-6d7dbf3a0a60">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АР_Потолки" guid="da50a5ea-d3c5-4784-88aa-99dbec58a5b0">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Потолки</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ВК_Оборудование" guid="e4517735-8540-48ca-9e72-3b38c8587027">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ВК</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Сантехнические приборы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ВК</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ВК_Система" guid="cd6015bd-311c-419c-915e-dbf8eb2da7d3">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Трубы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ВК</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ВК</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ВК</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="КР_Вертикальные конструкции" guid="c6092162-60c7-4832-b978-44523ad777af">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Стены</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">КР</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Несущие колонны</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">КР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="КР_Каркас несущий" guid="c40e21d4-1702-479e-b86a-a4e02a2a779e">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Каркас несущий</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">КР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="КР_Лестницы" guid="183ae2c1-b8cb-46e3-9913-43e92f9a2f60">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Лестницы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">КР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="КР_Перекрытия" guid="8f7574df-0ff3-417e-8bc4-3e50981647d4">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Перекрытия</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">КР</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="КР_Фундамент" guid="f4ca94ce-b045-4a26-9515-ed0fa99a818e">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Фундамент несущей конструкции</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="МГ_Оборудование" guid="02351edf-5944-4b46-a70d-4fd625f2f696">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="42">
+            <category>
+              <name internal="LcRevitData_Type">Тип в приложении Revit</name>
+            </category>
+            <property>
+              <name internal="lcldrevit_parameter_?1_???????_PG_TEXT">М1_Задание</name>
+            </property>
+            <value>
+              <data type="wstring">МГ</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">МГ</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="МГ_Трубы" guid="b294b157-1645-45fb-9760-7790fcbaaa60">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">МГ_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Трубы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">МГ_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ1_Оборудование" guid="5d853df0-af45-4230-a1ac-b586142d5c2d">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ1</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ1_Система" guid="a0bc5330-1a3e-49a7-a479-b36181951cd8">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Трубы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ1</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ1</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ1</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ2_Оборудование" guid="fd2139a2-7f77-4c98-ac29-7e701f6ed959">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ2_Система_Лотки" guid="c5ee3771-5e0f-4707-a57e-3ba67d988db3">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Кабельные лотки</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали кабельных лотков</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ2_Система_Трубы" guid="70b3b0ea-0c49-42c6-ab84-06657e9ef7d4">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Трубы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ2_Гибкие водуховоды" guid="ee5a31c1-9384-4f36-b065-3cb984d575cb">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Гибкие воздуховоды</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ2_Воздухораспределители" guid="7a5f9bf3-4a02-462e-a11a-286c16f91b2e">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Воздухораспределители</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ2_Система_Водуховоды" guid="2f6bfe97-7430-46d0-a5dd-6dfd43c50443">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Воздуховоды</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали воздуховодов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура воздуховодов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ2_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ4_Оборудование" guid="89237c36-522b-4840-86f2-bb767bd11253">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ4_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Обобщенные модели</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ4_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ3_Оборудование " guid="da3f3dd7-aa44-4ebe-93c7-b830a5a58014">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ3</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ3_Система_Воздуховоды" guid="a590f19a-23a5-43aa-8f50-87cb70790c99">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Воздуховоды</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ3</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали воздуховодов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ3</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура воздуховодов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ3</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ4_Система_Трубы" guid="beabb113-90ed-45df-8579-0c8a9705e6b1">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Трубы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ4_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ4_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ4_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ОВ3_Система_Трубы" guid="6eede914-76b8-4673-89bd-b8f0e19a8286">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Трубы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ3</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ3</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Арматура трубопроводов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ОВ3</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="СС_Лотки" guid="0c37f927-de0d-4fb9-9738-f3a377366431">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Кабельные лотки</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">СС_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали кабельных лотков</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">СС_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="СС_Сигнализация" guid="6ecf7a96-28c8-48cb-9989-203ea83ab5ae">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Пожарная сигнализация</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">СС_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Охранная сигнализация</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">СС_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Обобщенные модели</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">СС_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="СС_Шкафы" guid="1faf9874-5f27-4d9d-a81b-a66e1e054a38">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Электрооборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">СС</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ТХ_Оборудование" guid="d16e110f-f881-4180-ba5d-7b9c2dd1acd9">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Оборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ТХ</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ЭОМ_Воздуховоды" guid="5a0887df-66e9-4e30-94a7-c9534d270903">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Воздуховоды</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали воздуховодов</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ЭОМ_Лотки" guid="67bff815-13fb-4aa5-9070-21219614e04e">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Кабельные лотки</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ</data>
+            </value>
+          </condition>
+          <condition test="equals" flags="74">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Соединительные детали кабельных лотков</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ</data>
+            </value>
+          </condition>
+        </conditions>
+      </findspec>
+    </selectionset>
+    <selectionset name="ЭОМ_Осветительные приборы" guid="003d4a5e-ee34-401a-babc-e6549eecbc19">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Осветительные приборы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ЭОМ_Эл. приборы" guid="e534bc91-ac5f-4bd3-9723-604cbcfc5d2e">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Электрические приборы</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ЭОМ_Охранная сигнализация" guid="a8e1a940-6f9a-432c-9b02-ba6dc4c80184">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Охранная сигнализация</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АК_Электооборудование" guid="6b141d7a-b745-4896-94b3-b2d054abf53f">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Электрооборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АК_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="АК_Датчики" guid="516b1527-4dd4-4d44-833a-b62f90fb2091">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Датчики</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">АК_Р01_ЕКА-ЦКЛ-П-20_ОБЩ_отсоединено.rvt</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+    <selectionset name="ЭОМ_Шкафы" guid="6c49e361-b41d-485f-8fb1-c8a00ff8dcf9">
+      <findspec mode="all" disjoint="0">
+        <conditions>
+          <condition test="equals" flags="10">
+            <category>
+              <name internal="LcRevitData_Element">Объект</name>
+            </category>
+            <property>
+              <name internal="LcRevitPropertyElementCategory">Категория</name>
+            </property>
+            <value>
+              <data type="wstring">Электрооборудование</data>
+            </value>
+          </condition>
+          <condition test="contains" flags="10">
+            <property>
+              <name internal="LcOaNodeSourceFile">Файл источника</name>
+            </property>
+            <value>
+              <data type="wstring">ЭОМ</data>
+            </value>
+          </condition>
+        </conditions>
+        <locator>/</locator>
+      </findspec>
+    </selectionset>
+  </selectionsets>
+</exchange>

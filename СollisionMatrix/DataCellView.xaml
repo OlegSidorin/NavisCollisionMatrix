@@ -6,9 +6,11 @@
              xmlns:local="clr-namespace:СollisionMatrix"
              mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="50" d:DesignWidth="50">
+    <UserControl.DataContext>
+        <local:DataCellViewModel />
+    </UserControl.DataContext>
     <Grid>
-        <Border Background="Snow" Margin="0"/>
-        <Border Background="White" Margin="1"/>
-        <TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="9"/>
+        <Border x:Name="border" Background="Snow" Margin="1"/>
+        <TextBlock Text="{Binding CollisionsNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="9"/>
     </Grid>
 </UserControl>

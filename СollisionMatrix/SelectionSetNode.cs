@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace СollisionMatrix
 {
-    public class SelectionSet
+    public class SelectionSetNode
     {
-        public string Name { get; set; }
         public string DraftName { get; set; }
-        public List<string> Selections { get; set; }
+        public List<SelectionSet> SelectionSets { get; set; }
+
     }
 }
