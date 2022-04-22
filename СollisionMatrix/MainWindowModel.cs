@@ -88,15 +88,29 @@ namespace СollisionMatrix
             }
         }
 
-        private double _matrixSelectionHeaderHeight;
-        public double MatrixSelectionHeaderHeight
+        private double _matrixCellHorizontalDimension;
+        public double MatrixCellHorizontalDimension
         {
-            get { return _matrixSelectionHeaderHeight; }
+            get { return _matrixCellHorizontalDimension; }
             set
             {
-                if (_matrixSelectionHeaderHeight != value)
+                if (_matrixCellHorizontalDimension != value)
                 {
-                    _matrixSelectionHeaderHeight = value;
+                    _matrixCellHorizontalDimension = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private double _matrixCellVerticalDimension;
+        public double MatrixCellVerticalDimension
+        {
+            get { return _matrixCellVerticalDimension; }
+            set
+            {
+                if (_matrixCellVerticalDimension != value)
+                {
+                    _matrixCellVerticalDimension = value;
                     OnPropertyChanged();
                 }
             }
@@ -119,7 +133,8 @@ namespace СollisionMatrix
             MatrixWidth = 800;
             MatrixHeaderHeight = 150;
             MatrixHeaderWidth = 150;
-            MatrixSelectionHeaderHeight = 18;
+            MatrixCellHorizontalDimension = 36;
+            MatrixCellVerticalDimension = 26;
 
             SelectionSets = new ObservableCollection<SelectionSet>();
             SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
@@ -224,6 +239,37 @@ namespace СollisionMatrix
             }
 
             List<string> sortedDrafts = drafts.OrderBy(o => o).ToList();
+
+            List<string> reversedDrafts = new List<string>();
+            foreach (string draft in sortedDrafts)
+            {
+                reversedDrafts.Add(draft);
+            }
+
+            Stack<string> stackDrafts = new Stack<string>();
+
+            bool IncludedInList(string input, List<string> inputlist)
+            {
+                string draft = input.ToLower();
+                foreach (string d in inputlist)
+                {
+                    if (d.ToLower().Contains(draft)) return true;
+                }
+                return false;
+            }
+
+            string GetDraftWith(string input, List<string> inputlist)
+            {
+                foreach (string d in inputlist)
+                {
+                    if (IncludedInList(input, inputlist)) return d;
+                }
+                return "";
+            }
+            
+            //sortedDrafts = stackDrafts.ToList();
+
+
             //List<string> sortedDrafts = drafts;
             /*
             string output = string.Empty;
@@ -272,9 +318,10 @@ namespace СollisionMatrix
 
 
             #endregion
+
             selectionsNumber = SelectionSets.Count;
-            MatrixHeight = selectionsNumber * MatrixSelectionHeaderHeight + MatrixHeaderHeight;
-            MatrixWidth = selectionsNumber * MatrixSelectionHeaderHeight + MatrixHeaderWidth;
+            MatrixHeight = selectionsNumber * MatrixCellVerticalDimension + MatrixHeaderHeight;
+            MatrixWidth = selectionsNumber * MatrixCellHorizontalDimension + MatrixHeaderWidth;
 
             #region see SelectionSet
             /*
@@ -302,7 +349,7 @@ namespace СollisionMatrix
                 foreach (SelectionSet selSet in selSetNode.SelectionSets)
                 {
                     SubNodeVView subView = new SubNodeVView();
-                    subView.Width = MatrixSelectionHeaderHeight;
+                    subView.Width = MatrixCellHorizontalDimension;
                     SubNodeVViewModel subViewModel = (SubNodeVViewModel)subView.DataContext;
                     subViewModel.Header = selSet.Name;
 
@@ -321,7 +368,7 @@ namespace СollisionMatrix
                 foreach (SelectionSet selSet in selSetNode.SelectionSets)
                 {
                     SubNodeHView subView = new SubNodeHView();
-                    subView.Height = MatrixSelectionHeaderHeight;
+                    subView.Height = MatrixCellVerticalDimension;
                     SubNodeHViewModel subViewModel = (SubNodeHViewModel)subView.DataContext;
                     subViewModel.Header = selSet.Name;
 
@@ -414,6 +461,9 @@ namespace СollisionMatrix
                                 if (_elementInClashTest_.Name == "summary")
                                 {
                                     clashTest.SummaryTotal = _elementInClashTest_.Attributes.GetNamedItem("total").InnerText;
+                                    clashTest.SummaryActive = _elementInClashTest_.Attributes.GetNamedItem("active").InnerText;
+                                    clashTest.SummaryReviewed = _elementInClashTest_.Attributes.GetNamedItem("reviewed").InnerText;
+                                    clashTest.SummaryResolved = _elementInClashTest_.Attributes.GetNamedItem("resolved").InnerText;
                                 }
                             }
                             ClashTests.Add(clashTest);
@@ -441,32 +491,41 @@ namespace СollisionMatrix
             #endregion
 
             ExlsCells = new List<List<string>>();
+
             foreach (SelectionSetNode selectionSetNodeVerticalSet in SelectionSetNodes)
             {
                 foreach (SelectionSet selectionSetHName in selectionSetNodeVerticalSet.SelectionSets)
                 {
                     DataLineView dataLineView = new DataLineView();
-                    List<string> cellsLine = new List<string>();
+
+                    List<string> cellsLine = new List<string>(); // create new line in exls
 
                     foreach (SelectionSetNode selectionSetNodeHorizontalSet in SelectionSetNodes)
                     {
                         foreach (SelectionSet selectionSetVName in selectionSetNodeHorizontalSet.SelectionSets)
                         {
                             DataCellView dataCellView = new DataCellView();
-                            dataCellView.Width = MatrixSelectionHeaderHeight;
-                            dataCellView.Height = MatrixSelectionHeaderHeight;
+                            dataCellView.Width = MatrixCellHorizontalDimension;
+                            dataCellView.Height = MatrixCellVerticalDimension;
                             DataCellViewModel dataCellViewModel = (DataCellViewModel)dataCellView.DataContext;
                             dataCellViewModel.Selection1Name = selectionSetHName.Name;
                             dataCellViewModel.Selection2Name = selectionSetVName.Name;
-                            dataCellViewModel.CollisionsNumber = "";
-                            dataCellView.ToolTip = $"{selectionSetHName.Name} / {selectionSetVName.Name}";
+                            dataCellViewModel.CollisionsTotalNumber = "";
+                            dataCellViewModel.CollisionsActiveNumber = "";
+                            dataCellViewModel.CollisionsResolvedNumber = "";
+                            dataCellViewModel.CollisionsReviewedNumber = "";
+                            
                             foreach (ClashTest clashTest in ClashTests)
                             {
                                 if (dataCellViewModel.Selection1Name == clashTest.SelectionLeftName)
                                 {
                                     if (dataCellViewModel.Selection2Name == clashTest.SelectionRightName)
                                     {
-                                        dataCellViewModel.CollisionsNumber = clashTest.SummaryTotal;
+                                        dataCellViewModel.CollisionsTotalNumber = clashTest.SummaryTotal;
+                                        dataCellViewModel.CollisionsActiveNumber = clashTest.SummaryActive;
+                                        dataCellViewModel.CollisionsReviewedNumber = clashTest.SummaryReviewed;
+                                        dataCellViewModel.CollisionsResolvedNumber = clashTest.SummaryResolved;
+
                                         bool result = double.TryParse(clashTest.Tolerance.Replace(".", ","), out double tolerance);
                                         
                                         if (result)
@@ -475,13 +534,32 @@ namespace СollisionMatrix
                                             if (tolerance <= 0.05) dataCellView.border.Background = Color50;
                                             if (tolerance <= 0.03) dataCellView.border.Background = Color30;
                                             if (tolerance <= 0.015) dataCellView.border.Background = Color15;
+
+                                            dataCellView.tbLeftBracket.Visibility = Visibility.Visible;
+                                            dataCellView.tbRightBracket.Visibility = Visibility.Visible;
+                                            dataCellView.divider.Visibility = Visibility.Visible;
+
+                                            dataCellView.ToolTip = $"{selectionSetHName.Name} / {selectionSetVName.Name}\nАктивно: {clashTest.SummaryActive}\nИсправлено: {clashTest.SummaryResolved}\nВсего: {clashTest.SummaryTotal}";
+                                            
                                         }
                                     }
                                 }
                             }
                             
                             dataLineView.spLine.Children.Add(dataCellView);
-                            cellsLine.Add(dataCellViewModel.CollisionsNumber);
+
+                            if (dataCellViewModel.CollisionsTotalNumber != "")
+                            {
+                                bool s1 = int.TryParse(dataCellViewModel.CollisionsTotalNumber, out int total);
+                                bool s2 = int.TryParse(dataCellViewModel.CollisionsResolvedNumber, out int resolved);
+
+                                int diff = total - resolved;
+
+                                cellsLine.Add(diff.ToString() +
+                                    "(" + dataCellViewModel.CollisionsResolvedNumber + ")" + 
+                                    "\n" + dataCellViewModel.CollisionsTotalNumber);  // create cell 
+                            }
+                            else cellsLine.Add("");
                         }
 
                     }
@@ -490,6 +568,7 @@ namespace СollisionMatrix
                 }
             }
 
+            /*
             string output = string.Empty;
             foreach (List<string> ls in ExlsCells)
             {
@@ -501,6 +580,7 @@ namespace СollisionMatrix
             }
 
             Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+            */
         }
         private bool CanCom2Execute(object p) => true;
 
@@ -534,20 +614,36 @@ namespace СollisionMatrix
                     File.Delete(pathtoxls);
                     excel.Workbook.Worksheets.Add("Матрица");
                     ExcelWorksheet worksheet = excel.Workbook.Worksheets["Матрица"];
-                    int rowCount = 1;
+                    int rowCount = 3;
                     int colCount = 1;
+                    foreach (SelectionSetNode ssn in SelectionSetNodes)
+                    {
+                        foreach (SelectionSet ss in ssn.SelectionSets)
+                        {
+                            worksheet.Cells[rowCount, colCount].Value = ssn.DraftName;
+                            worksheet.Cells[rowCount, colCount + 1].Value = ss.Name;
+
+                            rowCount += 1;
+                        }
+
+                    }
+
+                    rowCount = 1;
+                    colCount = 3;
                     foreach(SelectionSetNode ssn in SelectionSetNodes)
                     {
                         foreach(SelectionSet ss in ssn.SelectionSets)
                         {
                             worksheet.Cells[rowCount, colCount].Value = ssn.DraftName;
                             worksheet.Cells[rowCount + 1, colCount].Value = ss.Name;
-                            colCount++;
+                            worksheet.Cells[rowCount + 1, colCount].Style.TextRotation = 90;
+
+                            colCount += 1;
                         }
                         
                     }
                     rowCount = 3;
-                    colCount = 1;
+                    colCount = 3;
                     foreach (List<string> ls in ExlsCells)
                     {
                         foreach (string cell in ls)
@@ -556,8 +652,16 @@ namespace СollisionMatrix
                             colCount++;
                         }
                         rowCount++;
-                        colCount = 1;
+                        colCount = 3;
                     }
+
+                    for (int i = 1; i <= ExlsCells.Count + 2; i++)
+                    {
+                        worksheet.Row(i).Style.WrapText = true;
+                        worksheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        worksheet.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    }
+
                     FileInfo excelFile = new FileInfo(pathtoxls);
                     excel.SaveAs(excelFile);
                 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:СollisionMatrix"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1150" Width="1300">
+        Title="Collision Matrix" Height="1150" Width="1300">
     <Window.DataContext>
         <local:MainWindowModel />
     </Window.DataContext>
@@ -31,7 +31,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="{Binding MatrixHeight}" />
-                <RowDefinition Height="2*" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" BorderThickness="1" BorderBrush="Snow" />
             <Grid Grid.Row="1" Grid.Column="1">
@@ -43,6 +43,7 @@
                     <RowDefinition Height="150" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+
                 <Border x:Name="borderUpLeft" />
                 <StackPanel x:Name="spSelectionSetsH" 
                             Orientation="Horizontal" 
@@ -74,21 +75,30 @@
                         Content="Открыть проверки .xml" Command="{Binding Com2}" Margin="5" />
                 <Button Grid.Column="1" Grid.Row="4" 
                         Content="Сохранить в .xls" Command="{Binding Com3}" Margin="5" />
-                
-            </Grid>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Margin="150 0 0 0">
-                <TextBlock Width="20" Height="20" Text="" Background="OrangeRed" />
-                <TextBlock Width="100" Height="20" Text=" - до 0,015м;" />
-                <TextBlock Width="20" Height="20" Text="" Background="PaleVioletRed" />
-                <TextBlock Width="100" Height="20" Text=" - до 0,030м;" />
-                <TextBlock Width="20" Height="20" Text="" Background="LightBlue" />
-                <TextBlock Width="100" Height="20" Text=" - до 0,050м;" />
-                <TextBlock Width="20" Height="20" Text="" Background="LightGreen" />
-                <TextBlock Width="100" Height="20" Text=" - до 0,080м;" />
-                
+                <StackPanel Orientation="Vertical" 
+                        Grid.Column="1" Grid.Row="5"
+                        HorizontalAlignment="Center" 
+                        Margin="0 50 0 0">
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Width="20" Height="20" Text="" Background="OrangeRed" />
+                        <TextBlock Width="100" Height="20" Text=" - до 0,015м;" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Width="20" Height="20" Text="" Background="PaleVioletRed" />
+                        <TextBlock Width="100" Height="20" Text=" - до 0,030м;" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Width="20" Height="20" Text="" Background="LightBlue" />
+                        <TextBlock Width="100" Height="20" Text=" - до 0,050м;" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Width="20" Height="20" Text="" Background="LightGreen" />
+                        <TextBlock Width="100" Height="20" Text=" - до 0,080м;" />
+                    </StackPanel>
+                </StackPanel>
 
-                
-            </StackPanel>
+            </Grid>
+            
             
         </Grid>
     </Grid>

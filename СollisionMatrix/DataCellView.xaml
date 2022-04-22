@@ -5,12 +5,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:СollisionMatrix"
              mc:Ignorable="d" Background="Transparent"
-             d:DesignHeight="50" d:DesignWidth="50">
+             d:DesignHeight="26" d:DesignWidth="26">
     <UserControl.DataContext>
         <local:DataCellViewModel />
     </UserControl.DataContext>
     <Grid>
         <Border x:Name="border" Background="Snow" Margin="1"/>
-        <TextBlock Text="{Binding CollisionsNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="9"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="{Binding CollisionsActiveNumber}" 
+                       Margin="0 0 0 0"
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       FontSize="8"/>
+                <TextBlock x:Name="tbLeftBracket" Text="(" 
+                           Visibility="Hidden"
+                       Margin="0 0 0 0"
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       FontSize="8"/>
+                <TextBlock Text="{Binding CollisionsResolvedNumber}" 
+                       Margin="0 0 0 0"
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       FontSize="8"/>
+                <TextBlock x:Name="tbRightBracket"  Text=")" 
+                           Visibility="Hidden"
+                       Margin="0 0 0 0"
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       FontSize="8"/>
+            </StackPanel>
+            <Separator x:Name="divider" Margin="0" Width="20" BorderBrush="DarkSlateGray" BorderThickness="1" Visibility="Hidden"/>
+            <TextBlock Text="{Binding CollisionsTotalNumber}" 
+                       Margin="0 0 0 0"
+                       FontWeight="DemiBold"
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       FontSize="8"/>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

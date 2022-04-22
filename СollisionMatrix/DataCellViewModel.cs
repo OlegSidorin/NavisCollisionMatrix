@@ -50,15 +50,71 @@ namespace СollisionMatrix
             }
         }
 
-        private string _collisionsNumber;
-        public string CollisionsNumber
+        private string _collisionsTotalNumber;
+        public string CollisionsTotalNumber
         {
-            get { return _collisionsNumber; }
+            get { return _collisionsTotalNumber; }
             set
             {
-                if (_collisionsNumber != value)
+                if (_collisionsTotalNumber != value)
                 {
-                    _collisionsNumber = value;
+                    _collisionsTotalNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _collisionsActiveNumber;
+        public string CollisionsActiveNumber
+        {
+            get { return _collisionsActiveNumber; }
+            set
+            {
+                if (_collisionsActiveNumber != value)
+                {
+                    _collisionsActiveNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _collisionsResolvedNumber;
+        public string CollisionsResolvedNumber
+        {
+            get { return _collisionsResolvedNumber; }
+            set
+            {
+                if (_collisionsResolvedNumber != value)
+                {
+                    _collisionsResolvedNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _collisionsReviewedNumber;
+        public string CollisionsReviewedNumber
+        {
+            get { return _collisionsReviewedNumber; }
+            set
+            {
+                if (_collisionsReviewedNumber != value)
+                {
+                    _collisionsReviewedNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _collisionsApprovedNumber;
+        public string CollisionsApprovedNumber
+        {
+            get { return _collisionsApprovedNumber; }
+            set
+            {
+                if (_collisionsApprovedNumber != value)
+                {
+                    _collisionsApprovedNumber = value;
                     OnPropertyChanged();
                 }
             }

@@ -14,8 +14,8 @@
         <TextBlock Text="{Binding Header}" 
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Left" 
-                   FontSize="6"
-                   Margin="10 0 0 0" />
+                   FontSize="8"
+                   Margin="5 0 0 0" />
 
     </Grid>
 </UserControl>
