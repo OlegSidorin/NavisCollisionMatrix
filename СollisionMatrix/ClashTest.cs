@@ -11,6 +11,8 @@ namespace СollisionMatrix
         public string Name { get; set; }
         public string SelectionLeftName { get; set; }
         public string SelectionRightName { get; set; }
+        public string DraftLeftName { get; set; }
+        public string DraftRightName { get; set; }
         public string Tolerance { get; set; }
         public string SummaryTestType { get; set; } 
         public string SummaryTotal { get; set; } 

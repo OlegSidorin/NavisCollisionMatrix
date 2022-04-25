@@ -122,10 +122,13 @@ namespace СollisionMatrix
         private System.Windows.Media.SolidColorBrush Color80 { get; set; } = System.Windows.Media.Brushes.LightGreen;
 
         private List<List<string>> ExlsCells { get; set; }
+        private List<List<string>> ExlsCellsColors { get; set; }
+        private List<List<string>> ExlsCellsTotal { get; set; }
 
         public ObservableCollection<SelectionSet> SelectionSets { get; set; }
         public ObservableCollection<SelectionSetNode> SelectionSetNodes { get; set; }
         public ObservableCollection<ClashTest> ClashTests { get; set; }
+        public ObservableCollection<string> Drafts { get; set; }
 
         public MainWindowModel()
         {
@@ -139,6 +142,7 @@ namespace СollisionMatrix
             SelectionSets = new ObservableCollection<SelectionSet>();
             SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
             ClashTests = new ObservableCollection<ClashTest>();
+            Drafts = new ObservableCollection<string>();
 
             Commanda = new RelayCommand(OnCommandaExecuted, CanCommandaExecute);
             Com1 = new RelayCommand(OnCom1Executed, CanCom1Execute);
@@ -266,7 +270,7 @@ namespace СollisionMatrix
                 }
                 return "";
             }
-            
+
             //sortedDrafts = stackDrafts.ToList();
 
 
@@ -280,8 +284,14 @@ namespace СollisionMatrix
 
             Xceed.Wpf.Toolkit.MessageBox.Show("Drafts\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
             */
-            List<SelectionSetNode> selectionSetNodes = new List<SelectionSetNode>();
+
             foreach (string draft in sortedDrafts)
+            {
+                Drafts.Add(draft);
+            };
+
+            List<SelectionSetNode> selectionSetNodes = new List<SelectionSetNode>();
+            foreach (string draft in Drafts)
             {
                 SelectionSetNode selectionSetNode = new SelectionSetNode();
                 selectionSetNode.DraftName = draft;
@@ -441,6 +451,17 @@ namespace СollisionMatrix
                                             foreach (XmlNode _locator_ in _clashselection_.ChildNodes)
                                             {
                                                 clashTest.SelectionLeftName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
+
+                                                int divider = 0;
+                                                divider = clashTest.SelectionLeftName.IndexOf("_");
+                                                if (divider != 0)
+                                                {
+                                                    clashTest.DraftLeftName = clashTest.SelectionLeftName.Substring(0, divider);
+                                                }
+                                                else
+                                                {
+                                                    clashTest.DraftLeftName = "?";
+                                                }
                                             }
                                         }
                                     }
@@ -454,6 +475,17 @@ namespace СollisionMatrix
                                             foreach (XmlNode _locator_ in _clashselection_.ChildNodes)
                                             {
                                                 clashTest.SelectionRightName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
+
+                                                int divider = 0;
+                                                divider = clashTest.SelectionRightName.IndexOf("_");
+                                                if (divider != 0)
+                                                {
+                                                    clashTest.DraftRightName = clashTest.SelectionRightName.Substring(0, divider);
+                                                }
+                                                else
+                                                {
+                                                    clashTest.DraftRightName = "?";
+                                                }
                                             }
                                         }
                                     }
@@ -483,7 +515,7 @@ namespace СollisionMatrix
             string output = string.Empty;
             foreach (ClashTest ct in ClashTests)
             {
-                output += ct.Name + " -> " + ct.SummaryTotal + "\n";
+                output += ct.Name + "(" + ct.SelectionLeftName + " / " + ct.SelectionRightName + ")" + " -> " + ct.SummaryTotal + "\n";
             }
 
             Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -491,7 +523,7 @@ namespace СollisionMatrix
             #endregion
 
             ExlsCells = new List<List<string>>();
-
+            ExlsCellsColors = new List<List<string>>();
             foreach (SelectionSetNode selectionSetNodeVerticalSet in SelectionSetNodes)
             {
                 foreach (SelectionSet selectionSetHName in selectionSetNodeVerticalSet.SelectionSets)
@@ -499,6 +531,7 @@ namespace СollisionMatrix
                     DataLineView dataLineView = new DataLineView();
 
                     List<string> cellsLine = new List<string>(); // create new line in exls
+                    List<string> cellsLineColors = new List<string>(); // create new line in exls
 
                     foreach (SelectionSetNode selectionSetNodeHorizontalSet in SelectionSetNodes)
                     {
@@ -553,19 +586,84 @@ namespace СollisionMatrix
                                 bool s1 = int.TryParse(dataCellViewModel.CollisionsTotalNumber, out int total);
                                 bool s2 = int.TryParse(dataCellViewModel.CollisionsResolvedNumber, out int resolved);
 
-                                int diff = total - resolved;
+                                if (s1 && s2)
+                                {
+                                    int diff = total - resolved;
 
-                                cellsLine.Add(diff.ToString() +
-                                    "(" + dataCellViewModel.CollisionsResolvedNumber + ")" + 
-                                    "\n" + dataCellViewModel.CollisionsTotalNumber);  // create cell 
+                                    cellsLine.Add(diff.ToString() +
+                                        "(" + dataCellViewModel.CollisionsResolvedNumber + ")" +
+                                        "\n" + dataCellViewModel.CollisionsTotalNumber);  // create cell 
+
+                                    if (total == 0)
+                                    {
+                                        cellsLineColors.Add("gray");
+                                    }
+                                    else
+                                    {
+                                        if (total == resolved)
+                                        {
+                                            cellsLineColors.Add("green");
+                                        }
+                                        else
+                                        {
+                                            if (resolved == 0)
+                                            {
+                                                cellsLineColors.Add("yellow");
+                                            }
+                                            else
+                                            {
+                                                cellsLineColors.Add("blue");
+                                            } 
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    cellsLine.Add("error");  // create cell 
+                                    cellsLineColors.Add("error");
+                                }
+
                             }
-                            else cellsLine.Add("");
+                            else
+                            {
+                                cellsLine.Add("");
+                                cellsLineColors.Add("");
+                            }
                         }
-
+                        
                     }
                     ThisView.spDataVLine.Children.Add(dataLineView);
                     ExlsCells.Add(cellsLine);
+                    ExlsCellsColors.Add(cellsLineColors);
                 }
+            }
+
+            ExlsCellsTotal = new List<List<string>>();
+            foreach (string draftV in Drafts)
+            {
+                List<string> cellsLineTotal = new List<string>(); // create new line in exls
+                foreach (string draftH in Drafts)
+                {
+                    int totalTotal = 0;
+                    int totalResolved = 0;
+                    int totalDiff = 0;
+                    string output2 = "";
+
+                    foreach(ClashTest ct in ClashTests)
+                    {
+                        if (ct.DraftLeftName == draftV && ct.DraftRightName == draftH)
+                        {
+                            bool resulttotal = int.TryParse(ct.SummaryTotal, out int total);
+                            bool resultresolved = int.TryParse(ct.SummaryResolved, out int resolved);
+                            totalTotal += total;
+                            totalResolved += resolved;
+                            totalDiff += total - resolved;
+                            output2 += "(" + ct.DraftLeftName + " / " + ct.DraftRightName + ")";
+                        }
+                    }
+                    cellsLineTotal.Add(totalDiff + "(" + totalResolved + ")" + "\n" + totalTotal);
+                }
+                ExlsCellsTotal.Add(cellsLineTotal);
             }
 
             /*
@@ -604,16 +702,20 @@ namespace СollisionMatrix
                 {
                     Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, нет доступа к папке\n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             }
 
             if (File.Exists(pathtoxls))
             {
+                
                 try
                 {
                     File.Delete(pathtoxls);
-                    excel.Workbook.Worksheets.Add("Матрица");
-                    ExcelWorksheet worksheet = excel.Workbook.Worksheets["Матрица"];
+
+                    // создание листа Matrix
+                    #region Matrix worksheet
+                    excel.Workbook.Worksheets.Add("Matrix");
+                    ExcelWorksheet worksheet = excel.Workbook.Worksheets["Matrix"];
+
                     int rowCount = 3;
                     int colCount = 1;
                     foreach (SelectionSetNode ssn in SelectionSetNodes)
@@ -622,6 +724,16 @@ namespace СollisionMatrix
                         {
                             worksheet.Cells[rowCount, colCount].Value = ssn.DraftName;
                             worksheet.Cells[rowCount, colCount + 1].Value = ss.Name;
+
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                            worksheet.Cells[rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
 
                             rowCount += 1;
                         }
@@ -638,28 +750,149 @@ namespace СollisionMatrix
                             worksheet.Cells[rowCount + 1, colCount].Value = ss.Name;
                             worksheet.Cells[rowCount + 1, colCount].Style.TextRotation = 90;
 
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                            worksheet.Cells[rowCount + 1, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount + 1, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount + 1, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount + 1, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
                             colCount += 1;
                         }
                         
                     }
+
                     rowCount = 3;
                     colCount = 3;
-                    foreach (List<string> ls in ExlsCells)
+
+                    for (int v1 = 0; v1 < ExlsCells.Count; v1++)
                     {
-                        foreach (string cell in ls)
+                        for (int h1 = 0; h1 < ExlsCells[v1].Count; h1++)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = cell;
+                            worksheet.Cells[rowCount, colCount].Value = ExlsCells[v1][h1];
+
+                            if (ExlsCellsColors[v1][h1] == "gray")
+                            {
+                                worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236,236,236));
+                            }
+                            if (ExlsCellsColors[v1][h1] == "green")
+                            {
+                                worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            }
+                            if (ExlsCellsColors[v1][h1] == "yellow")
+                            {
+                                worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            }
+                            if (ExlsCellsColors[v1][h1] == "blue")
+                            {
+                                worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            }
+
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
                             colCount++;
                         }
                         rowCount++;
                         colCount = 3;
                     }
-
+                    
+                    // выравнивание содержимого ячеек результатов проверок
                     for (int i = 1; i <= ExlsCells.Count + 2; i++)
                     {
                         worksheet.Row(i).Style.WrapText = true;
                         worksheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                         worksheet.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    }
+
+                    // выравнивание наименований поисковых запросов
+                    worksheet.Row(2).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Bottom;
+                    worksheet.Row(2).Height = 150;
+                    worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    worksheet.Column(2).Width = 25;
+
+                    // объединение ячеек разделов проекта
+                    int startcolumn = 3;
+                    int startrow = 3;
+                    int column = 0;
+                    int row = 0;
+                    foreach (SelectionSetNode ssn in SelectionSetNodes) // worksheet.Cells[FromRow, FromColumn, ToRow, ToColumn].Merge = true;
+                    {
+                        worksheet.Cells[1, startcolumn + column, 1, startcolumn + column + ssn.SelectionSets.Count - 1].Merge = true;
+                        worksheet.Cells[startrow + row, 1, startrow + row + ssn.SelectionSets.Count - 1, 1].Merge = true;
+
+                        for (int i2 = 0; i2 < ssn.SelectionSets.Count; i2++)
+                        {
+                            worksheet.Row(startrow + row + i2).CustomHeight = true;
+                        }
+
+                        for (int i2 = 0; i2 < ssn.SelectionSets.Count; i2++)
+                        {
+                            worksheet.Column(startcolumn + column + i2).AutoFit();
+                        }
+
+                        column += ssn.SelectionSets.Count;
+                        row += ssn.SelectionSets.Count;
+                    }
+                    worksheet.Cells[1, 1, 2, 2].Merge = true;
+                    worksheet.Cells[1, 1, 2, 2].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    worksheet.Cells[1, 1, 2, 2].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    worksheet.Cells[1, 1, 2, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    worksheet.Cells[1, 1, 2, 2].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                    #endregion
+
+                    // создание обобщенной матрицы 
+                    excel.Workbook.Worksheets.Add("Total Matrix");
+                    worksheet = excel.Workbook.Worksheets["Total Matrix"];
+                    rowCount = 2;
+                    colCount = 1;
+                    foreach (SelectionSetNode ssn in SelectionSetNodes)
+                    {
+                        worksheet.Cells[rowCount, colCount].Value = ssn.DraftName;
+
+                        worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                        rowCount += 1;
+                    }
+
+                    rowCount = 1;
+                    colCount = 2;
+                    foreach (SelectionSetNode ssn in SelectionSetNodes)
+                    {
+                        worksheet.Cells[rowCount, colCount].Value = ssn.DraftName;
+
+                        worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                        colCount += 1;
+                    }
+
+                    rowCount = 2;
+                    colCount = 2;
+                    for (int v1 = 0; v1 < ExlsCellsTotal.Count; v1++)
+                    {
+                        for (int h1 = 0; h1 < ExlsCellsTotal[v1].Count; h1++)
+                        {
+                            worksheet.Cells[rowCount, colCount].Value = ExlsCellsTotal[v1][h1];
+                            colCount++;
+                        }
+                        rowCount++;
+                        colCount = 2;
                     }
 
                     FileInfo excelFile = new FileInfo(pathtoxls);
@@ -669,6 +902,7 @@ namespace СollisionMatrix
                 {
                     Xceed.Wpf.Toolkit.MessageBox.Show("Что-то произошло\n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
             }
 
         }

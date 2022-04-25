@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:СollisionMatrix"
         mc:Ignorable="d"
-        Title="Collision Matrix" Height="1150" Width="1300">
+        Title="Collision Matrix" Height="1150" Width="1350">
     <Window.DataContext>
         <local:MainWindowModel />
     </Window.DataContext>
@@ -43,8 +43,7 @@
                     <RowDefinition Height="150" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
-                <Border x:Name="borderUpLeft" />
+                <Border x:Name="borderUpLeft"/>
                 <StackPanel x:Name="spSelectionSetsH" 
                             Orientation="Horizontal" 
                             Grid.Row="0" Grid.Column="1" />
@@ -69,16 +68,19 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
-                <Button Grid.Column="1" Grid.Row="2" 
+                <Button Grid.Column="1" Grid.Row="2" ToolTip="Создать матрицу по поисковым запросам из Navisworks в формате .xml"
                         Content="Создать матрицу" Command="{Binding Com1}" Margin="5" />
-                <Button Grid.Column="1" Grid.Row="3" 
-                        Content="Открыть проверки .xml" Command="{Binding Com2}" Margin="5" />
+                <Button Grid.Column="1" Grid.Row="3" ToolTip="Открыть отчет проверок из Navisworks в формате .xml"
+                        Content="Открыть отчет" Command="{Binding Com2}" Margin="5" />
                 <Button Grid.Column="1" Grid.Row="4" 
                         Content="Сохранить в .xls" Command="{Binding Com3}" Margin="5" />
-                <StackPanel Orientation="Vertical" 
-                        Grid.Column="1" Grid.Row="5"
-                        HorizontalAlignment="Center" 
-                        Margin="0 50 0 0">
+                <StackPanel x:Name="note"
+                            Orientation="Vertical"  
+                            Visibility="Hidden"
+                            Grid.Column="1" Grid.Row="5"
+                            HorizontalAlignment="Center" 
+                            Margin="0 50 0 0">
+                    <TextBlock Text="Допуск:" FontSize="14" FontWeight="DemiBold" Margin="5 0 0 5" />
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <TextBlock Width="20" Height="20" Text="" Background="OrangeRed" />
                         <TextBlock Width="100" Height="20" Text=" - до 0,015м;" />
@@ -96,10 +98,7 @@
                         <TextBlock Width="100" Height="20" Text=" - до 0,080м;" />
                     </StackPanel>
                 </StackPanel>
-
             </Grid>
-            
-            
         </Grid>
     </Grid>
 </Window>
