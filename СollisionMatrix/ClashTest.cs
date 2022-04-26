@@ -9,6 +9,7 @@ namespace СollisionMatrix
     public class ClashTest
     {
         public string Name { get; set; }
+
         public string SelectionLeftName { get; set; }
         public string SelectionRightName { get; set; }
         public string DraftLeftName { get; set; }
@@ -16,7 +17,7 @@ namespace СollisionMatrix
         public string Tolerance { get; set; }
         public string SummaryTestType { get; set; } 
         public string SummaryTotal { get; set; } 
-        public string SummaryNew { get; set; }
+        public string SummaryNovy { get; set; }
         public string SummaryActive { get; set; }
         public string SummaryReviewed { get; set; }
         public string SummaryApproved { get; set; }

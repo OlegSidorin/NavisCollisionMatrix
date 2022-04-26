@@ -69,12 +69,12 @@
                     <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
                 <Button Grid.Column="1" Grid.Row="2" ToolTip="Создать матрицу по поисковым запросам из Navisworks в формате .xml"
-                        Content="Создать матрицу" Command="{Binding Com1}" Margin="5" />
+                        Content="Создать матрицу" Command="{Binding ImportXMLSelectionSets}" Margin="5" />
                 <Button Grid.Column="1" Grid.Row="3" ToolTip="Открыть отчет проверок из Navisworks в формате .xml"
-                        Content="Открыть отчет" Command="{Binding Com2}" Margin="5" />
+                        Content="Открыть отчет" Command="{Binding ImportXMLClashTests}" Margin="5" />
                 <Button Grid.Column="1" Grid.Row="4" 
-                        Content="Сохранить в .xls" Command="{Binding Com3}" Margin="5" />
-                <StackPanel x:Name="note"
+                        Content="Сохранить в .xls" Command="{Binding ExcelExport}" Margin="5" />
+                <StackPanel x:Name="notes"
                             Orientation="Vertical"  
                             Visibility="Hidden"
                             Grid.Column="1" Grid.Row="5"
