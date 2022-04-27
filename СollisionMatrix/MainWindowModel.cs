@@ -134,7 +134,7 @@ namespace СollisionMatrix
             MatrixHeaderHeight = 150;
             MatrixHeaderWidth = 150;
             MatrixCellHorizontalDimension = 36;
-            MatrixCellVerticalDimension = 26;
+            MatrixCellVerticalDimension = 24;
 
             SelectionSets = new ObservableCollection<SelectionSet>();
             SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
@@ -173,11 +173,24 @@ namespace СollisionMatrix
         public ICommand ImportXMLSelectionSets { get; set; }
         private void OnImportXMLSelectionSetsExecuted(object p)
         {
+            bool success = true;
+
             int selectionsNumber = 0;
+
+            SelectionSets = new ObservableCollection<SelectionSet>();
+            SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
+            Drafts = new ObservableCollection<string>();
+            ThisView.spSelectionSetsH.Children.Clear();
+            ThisView.spSelectionSetsV.Children.Clear();
+            ThisView.spDataVLine.Children.Clear();
+            ThisView.borderUpLeft.Visibility = Visibility.Hidden;
+            MatrixHeight = 800;
+            MatrixWidth = 800;
 
             #region reading xml file
             string pathtoexe = Assembly.GetExecutingAssembly().Location;
-            string folderpath = pathtoexe.Replace("СollisionMatrix.exe", "");
+            string dllname = Assembly.GetExecutingAssembly().GetName().Name.ToString();
+            string folderpath = pathtoexe.Replace(dllname + ".exe", "");
             string pathtoxml = folderpath + "selectionsets.xml";
 
             Forms.OpenFileDialog openFileDialog = new Forms.OpenFileDialog();
@@ -192,32 +205,42 @@ namespace СollisionMatrix
             }
             catch (Exception ex)
             {
-                Xceed.Wpf.Toolkit.MessageBox.Show(ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
+                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             #endregion
 
             #region creating array SelectionSet from xml file
 
-            XmlElement _exchange_ = xDoc.DocumentElement;
-            foreach (XmlNode _selectionsets_ in _exchange_)
+            try
             {
-                foreach (XmlNode _selectionset_ in _selectionsets_.ChildNodes)
+                XmlElement _exchange_ = xDoc.DocumentElement;
+                foreach (XmlNode _selectionsets_ in _exchange_)
                 {
-                    SelectionSet selectionSet = new SelectionSet();
-                    selectionSet.Name = _selectionset_.Attributes.GetNamedItem("name").InnerText;
-                    int divider = 0;
-                    divider = selectionSet.Name.IndexOf("_");
-                    if (divider != 0)
+                    foreach (XmlNode _selectionset_ in _selectionsets_.ChildNodes)
                     {
-                        selectionSet.DraftName = selectionSet.Name.Substring(0, divider);
+                        SelectionSet selectionSet = new SelectionSet();
+                        selectionSet.Name = _selectionset_.Attributes.GetNamedItem("name").InnerText;
+                        int divider = 0;
+                        divider = selectionSet.Name.IndexOf("_");
+                        if (divider != 0)
+                        {
+                            selectionSet.DraftName = selectionSet.Name.Substring(0, divider);
+                        }
+                        else
+                        {
+                            selectionSet.DraftName = "?";
+                        }
+                        SelectionSets.Add(selectionSet);
                     }
-                    else
-                    {
-                        selectionSet.DraftName = "?";
-                    }
-                    SelectionSets.Add(selectionSet);
                 }
             }
+            catch (Exception ex)
+            {
+                success = false;
+                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, файл не содержит поисковых наборов ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
 
             /*
             string output = string.Empty;
@@ -228,6 +251,8 @@ namespace СollisionMatrix
 
             Xceed.Wpf.Toolkit.MessageBox.Show("SelectionSets\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
             */
+
+            if (!success) return;
 
             List<string> drafts = new List<string>();
             foreach (SelectionSet ss in SelectionSets)
@@ -300,7 +325,6 @@ namespace СollisionMatrix
                 }
                 selectionSetNodes.Add(selectionSetNode);
             }
-            
 
             foreach (SelectionSetNode ssn in selectionSetNodes)
             {
@@ -388,6 +412,7 @@ namespace СollisionMatrix
 
             ThisView.borderUpLeft.BorderThickness = new Thickness(0, 0, 1, 1);
             ThisView.borderUpLeft.BorderBrush = System.Windows.Media.Brushes.DarkRed;
+            ThisView.borderUpLeft.Visibility = Visibility.Visible;
 
         }
         private bool CanImportXMLSelectionSetsExecute(object p) => true;
@@ -395,13 +420,18 @@ namespace СollisionMatrix
         public ICommand ImportXMLClashTests { get; set; }
         private void OnImportXMLClashTestsExecuted(object p)
         {
-            ClashTests.Clear();
-            ClashTestsTotal.Clear();
+            bool success = true;
+
+            ClashTests = new ObservableCollection<ClashTest>();
+            ClashTestsTotal = new ObservableCollection<ClashTest>();
+            ThisView.spDataVLine.Children.Clear();
+
 
             #region reading xml file
 
             string pathtoexe = Assembly.GetExecutingAssembly().Location;
-            string folderpath = pathtoexe.Replace("СollisionMatrix.exe", "");
+            string dllname = Assembly.GetExecutingAssembly().GetName().Name.ToString();
+            string folderpath = pathtoexe.Replace(dllname + ".exe", "");
             string pathtoxml = folderpath + "batchtest.xml";
 
             Forms.OpenFileDialog openFileDialog = new Forms.OpenFileDialog();
@@ -418,9 +448,12 @@ namespace СollisionMatrix
             }
             catch (Exception ex)
             {
-                Xceed.Wpf.Toolkit.MessageBox.Show(ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
+                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
+
+            if (!success) return;
+
             #endregion
 
             #region creating array ClashTests from xml file
@@ -507,8 +540,11 @@ namespace СollisionMatrix
             } 
             catch (Exception ex)
             {
-                Xceed.Wpf.Toolkit.MessageBox.Show(ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
+                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, файл не содержит результатов проверки... \n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            if (!success) return;
 
             #endregion
 
@@ -692,7 +728,7 @@ namespace СollisionMatrix
                 }
                 catch (Exception ex)
                 {
-                    Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, нет доступа к папке\n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, нет доступа к папке\n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
@@ -966,8 +1002,17 @@ namespace СollisionMatrix
 
                     #region creating MatrixTotal worksheet
 
-                    excel.Workbook.Worksheets.Add("Draft Matrix");
-                    ExcelWorksheet worksheetDraft = excel.Workbook.Worksheets["Draft Matrix"];
+                    excel.Workbook.Worksheets.Add("DraftMatrix");
+                    excel.Workbook.Worksheets.Add("DraftMatrix-Active");
+                    excel.Workbook.Worksheets.Add("DraftMatrix-Resolved");
+                    excel.Workbook.Worksheets.Add("DraftMatrix-Total");
+
+                    List<ExcelWorksheet> worksheetsDraft = new List<ExcelWorksheet>();
+
+                    worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix"]);
+                    worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Active"]);
+                    worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Resolved"]);
+                    worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Total"]);
 
                     #region headers
 
@@ -975,12 +1020,15 @@ namespace СollisionMatrix
                     colCount = 1;
                     foreach (SelectionSetNode ssn in SelectionSetNodes)
                     {
-                        worksheetDraft.Cells[rowCount, colCount].Value = ssn.DraftName;
+                        foreach (ExcelWorksheet worksheetDraft in worksheetsDraft) 
+                        {
+                            worksheetDraft.Cells[rowCount, colCount].Value = ssn.DraftName;
 
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        }
 
                         rowCount += 1;
                     }
@@ -989,12 +1037,15 @@ namespace СollisionMatrix
                     colCount = 2;
                     foreach (SelectionSetNode ssn in SelectionSetNodes)
                     {
-                        worksheetDraft.Cells[rowCount, colCount].Value = ssn.DraftName;
+                        foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
+                        {
+                            worksheetDraft.Cells[rowCount, colCount].Value = ssn.DraftName;
 
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        }
 
                         colCount += 1;
                     }
@@ -1024,28 +1075,40 @@ namespace СollisionMatrix
 
                                     int summary = novy + active + reviewed + approved;
 
-                                    worksheetDraft.Cells[rowCount, colCount].Value = summary + "(" + clashTest.SummaryResolved + ")" + "\n" + clashTest.SummaryTotal;
+                                    foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
+                                    {
+                                        if (worksheetDraft.Name.Equals("DraftMatrix"))
+                                            worksheetDraft.Cells[rowCount, colCount].Value = summary + "(" + clashTest.SummaryResolved + ")" + "\n" + clashTest.SummaryTotal;
+                                        else if (worksheetDraft.Name.Equals("DraftMatrix-Active"))
+                                            worksheetDraft.Cells[rowCount, colCount].Value = active;
+                                        else if (worksheetDraft.Name.Equals("DraftMatrix-Resolved"))
+                                            worksheetDraft.Cells[rowCount, colCount].Value = resolved;
+                                        else if (worksheetDraft.Name.Equals("DraftMatrix-Total"))
+                                            worksheetDraft.Cells[rowCount, colCount].Value = total;
+                                        
+                                        if (total == 0)
+                                        {
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                                        }
+                                        else if (resolved == total)
+                                        {
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                                        }
+                                        else if (resolved == 0)
+                                        {
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                                        }
+                                        else
+                                        {
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                                        };
+                                    }
 
-                                    if (total == 0)
-                                    {
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
-                                    }
-                                    else if (resolved == total)
-                                    {
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
-                                    }
-                                    else if (resolved == 0)
-                                    {
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
-                                    }
-                                    else
-                                    {
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                        worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
-                                    };
+                                    
                                 }
                                 
                             }
@@ -1059,41 +1122,60 @@ namespace СollisionMatrix
                     {
                         for (int j = 1; j < Drafts.Count + 2; j++)
                         {
-                            worksheetDraft.Cells[i, j].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                            worksheetDraft.Cells[i, j].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                            worksheetDraft.Cells[i, j].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                            worksheetDraft.Cells[i, j].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
+                            {
+                                worksheetDraft.Cells[i, j].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                worksheetDraft.Cells[i, j].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                worksheetDraft.Cells[i, j].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                worksheetDraft.Cells[i, j].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            }
                         }
                     }
 
                     // выравнивание содержимого ячеек результатов проверок
                     for (int i = 1; i <= Drafts.Count + 1; i++)
                     {
-                        worksheetDraft.Row(i).Style.WrapText = true;
-                        worksheetDraft.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
-                        worksheetDraft.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheetDraft.Column(i).AutoFit();
+                        foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
+                        {
+                            worksheetDraft.Row(i).Style.WrapText = true;
+                            worksheetDraft.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Column(i).AutoFit();
+                        }
                     }
-
-                    worksheetDraft.Row(1).Style.Font.Bold = true;
-                    worksheetDraft.Row(1).Height = 25;
-                    worksheetDraft.Column(1).Style.Font.Bold = true;
+                    foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
+                    {
+                        worksheetDraft.Row(1).Style.Font.Bold = true;
+                        worksheetDraft.Row(1).Height = 25;
+                        worksheetDraft.Column(1).Style.Font.Bold = true;
+                    }
+                        
 
                     // пояснение 
                     rowCount = Drafts.Count + 3;
                     colCount = Drafts.Count;
-                    worksheetDraft.Row(rowCount).Height = 35;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "В работе(Исправлено)\nВсего";
-                    worksheetDraft.Row(rowCount).Style.WrapText = true;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
-                    worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
+                    {
+                        worksheetDraft.Row(rowCount).Height = 35;
+                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                        worksheetDraft.Row(rowCount).Style.WrapText = true;
+                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        
+                        if (worksheetDraft.Name.Equals("DraftMatrix"))
+                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "В работе(Исправлено)\nВсего";
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Active"))
+                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "Активные";
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Resolved"))
+                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "Исправленные";
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Total"))
+                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "Всего";
+
+                    }
 
                     #endregion
 
@@ -1103,6 +1185,14 @@ namespace СollisionMatrix
 
                     FileInfo excelFile = new FileInfo(pathtoxls);
                     excel.SaveAs(excelFile);
+
+                    var choose = Xceed.Wpf.Toolkit.MessageBox.Show("Сохранен файл с отчетом:\n" + pathtoxls, "Вопросик", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (choose == MessageBoxResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(pathtoxls);
+                    }
+
                 }
                 catch (Exception ex)
                 {

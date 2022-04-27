@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:СollisionMatrix"
         mc:Ignorable="d"
-        Title="Collision Matrix" Height="1150" Width="1350">
+        Title="Collision Matrix Excel Exporter" Height="1150" Width="1350">
     <Window.DataContext>
         <local:MainWindowModel />
     </Window.DataContext>
@@ -43,7 +43,7 @@
                     <RowDefinition Height="150" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border x:Name="borderUpLeft"/>
+                <Border x:Name="borderUpLeft" Visibility="Hidden"/>
                 <StackPanel x:Name="spSelectionSetsH" 
                             Orientation="Horizontal" 
                             Grid.Row="0" Grid.Column="1" />
