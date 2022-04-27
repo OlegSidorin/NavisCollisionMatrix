@@ -217,21 +217,68 @@ namespace СollisionMatrix
                 XmlElement _exchange_ = xDoc.DocumentElement;
                 foreach (XmlNode _selectionsets_ in _exchange_)
                 {
-                    foreach (XmlNode _selectionset_ in _selectionsets_.ChildNodes)
+                    foreach (XmlNode _child_ in _selectionsets_.ChildNodes)
                     {
-                        SelectionSet selectionSet = new SelectionSet();
-                        selectionSet.Name = _selectionset_.Attributes.GetNamedItem("name").InnerText;
-                        int divider = 0;
-                        divider = selectionSet.Name.IndexOf("_");
-                        if (divider != 0)
+                        if (_child_.Name.Equals("selectionset"))
                         {
-                            selectionSet.DraftName = selectionSet.Name.Substring(0, divider);
+                            SelectionSet selectionSet = new SelectionSet();
+                            selectionSet.Name = _child_.Attributes.GetNamedItem("name").InnerText;
+                            
+                            var names = selectionSet.Name.Split('_');
+                            if (names.Count() > 1)
+                            {
+                                selectionSet.DraftName = names.First();
+                            }
+                            else
+                            {
+                                selectionSet.DraftName = "?";
+                            }
+
+                            //int divUnderscore = 0;
+                            //divUnderscore = selectionSet.Name.IndexOf("_");
+                            //if (divUnderscore > 0)
+                            //{
+                            //    selectionSet.DraftName = selectionSet.Name.Substring(0, divUnderscore);
+                            //}
+                            //else
+                            //{
+                            //    selectionSet.DraftName = "?";
+                            //}
+                            SelectionSets.Add(selectionSet);
                         }
-                        else
+                        if (_child_.Name.Equals("viewfolder"))
                         {
-                            selectionSet.DraftName = "?";
+                            foreach (XmlNode _child2_ in _child_.ChildNodes)
+                            {
+                                if (_child2_.Name.Equals("selectionset"))
+                                {
+                                    SelectionSet selectionSet = new SelectionSet();
+                                    selectionSet.Name = _child2_.Attributes.GetNamedItem("name").InnerText;
+
+                                    var names = selectionSet.Name.Split('_');
+                                    if (names.Count() > 1)
+                                    {
+                                        selectionSet.DraftName = names.First();
+                                    }
+                                    else
+                                    {
+                                        selectionSet.DraftName = "?";
+                                    }
+
+                                    //int divUnderscore = 0;
+                                    //divUnderscore = selectionSet.Name.IndexOf("_");
+                                    //if (divUnderscore > 0)
+                                    //{
+                                    //    selectionSet.DraftName = selectionSet.Name.Substring(0, divUnderscore);
+                                    //}
+                                    //else
+                                    //{
+                                    //    selectionSet.DraftName = "?";
+                                    //}
+                                    SelectionSets.Add(selectionSet);
+                                }  
+                            }  
                         }
-                        SelectionSets.Add(selectionSet);
                     }
                 }
             }
@@ -484,16 +531,29 @@ namespace СollisionMatrix
                                             {
                                                 clashTest.SelectionLeftName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
 
-                                                int divider = 0;
-                                                divider = clashTest.SelectionLeftName.IndexOf("_");
-                                                if (divider != 0)
+                                                var names = clashTest.SelectionLeftName.Split('/');
+                                                clashTest.SelectionLeftName = names.LastOrDefault();
+
+                                                var names2 = clashTest.SelectionLeftName.Split('_');
+                                                if (names2.Count() > 1)
                                                 {
-                                                    clashTest.DraftLeftName = clashTest.SelectionLeftName.Substring(0, divider);
+                                                    clashTest.DraftLeftName = names2.First();
                                                 }
                                                 else
                                                 {
                                                     clashTest.DraftLeftName = "?";
                                                 }
+
+                                                //int divUnderscore = 0;
+                                                //divUnderscore = clashTest.SelectionLeftName.IndexOf("_");
+                                                //if (divUnderscore != 0 && divUnderscore > 0)
+                                                //{
+                                                //    clashTest.DraftLeftName = clashTest.SelectionLeftName.Substring(0, divUnderscore);
+                                                //}
+                                                //else
+                                                //{
+                                                //    clashTest.DraftLeftName = "?";
+                                                //}
                                             }
                                         }
                                     }
@@ -508,16 +568,29 @@ namespace СollisionMatrix
                                             {
                                                 clashTest.SelectionRightName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
 
-                                                int divider = 0;
-                                                divider = clashTest.SelectionRightName.IndexOf("_");
-                                                if (divider != 0)
+                                                var names = clashTest.SelectionRightName.Split('/');
+                                                clashTest.SelectionRightName = names.LastOrDefault();
+
+                                                var names2 = clashTest.SelectionRightName.Split('_');
+                                                if (names2.Count() > 1)
                                                 {
-                                                    clashTest.DraftRightName = clashTest.SelectionRightName.Substring(0, divider);
+                                                    clashTest.DraftRightName = names2.First();
                                                 }
                                                 else
                                                 {
                                                     clashTest.DraftRightName = "?";
                                                 }
+
+                                                //int divUnderscore = 0;
+                                                //divUnderscore = clashTest.SelectionRightName.IndexOf("_");
+                                                //if (divUnderscore > 0)
+                                                //{
+                                                //    clashTest.DraftRightName = clashTest.SelectionRightName.Substring(0, divUnderscore);
+                                                //}
+                                                //else
+                                                //{
+                                                //    clashTest.DraftRightName = "?";
+                                                //}
                                             }
                                         }
                                     }
