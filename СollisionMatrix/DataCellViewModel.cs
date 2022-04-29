@@ -23,7 +23,7 @@ namespace СollisionMatrix
         }
 
         private string _selection1Name;
-        public string Selection1Name
+        public string SelectionLeftName
         {
             get { return _selection1Name; }
             set
@@ -37,7 +37,7 @@ namespace СollisionMatrix
         }
 
         private string _selection2Name;
-        public string Selection2Name
+        public string SelectionRightName
         {
             get { return _selection2Name; }
             set
@@ -59,6 +59,20 @@ namespace СollisionMatrix
                 if (_collisionsTotalNumber != value)
                 {
                     _collisionsTotalNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _collisionsSumma;
+        public string CollisionsSumma
+        {
+            get { return _collisionsSumma; }
+            set
+            {
+                if (_collisionsSumma != value)
+                {
+                    _collisionsSumma = value;
                     OnPropertyChanged();
                 }
             }

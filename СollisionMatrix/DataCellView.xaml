@@ -13,7 +13,7 @@
         <Border x:Name="border" Background="Snow" Margin="1"/>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="{Binding CollisionsActiveNumber}" 
+                <TextBlock Text="{Binding CollisionsSumma}" 
                        Margin="0 0 0 0"
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Center" 

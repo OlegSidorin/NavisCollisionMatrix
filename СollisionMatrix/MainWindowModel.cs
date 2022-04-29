@@ -116,16 +116,114 @@ namespace СollisionMatrix
             }
         }
 
-        public System.Windows.Media.SolidColorBrush Color15 { get; set; } = System.Windows.Media.Brushes.OrangeRed;
-        private System.Windows.Media.SolidColorBrush Color30 { get; set; } = System.Windows.Media.Brushes.PaleVioletRed;
-        private System.Windows.Media.SolidColorBrush Color50 { get; set; } = System.Windows.Media.Brushes.LightBlue;
-        private System.Windows.Media.SolidColorBrush Color80 { get; set; } = System.Windows.Media.Brushes.LightGreen;
+        private int _totalTotalCollisions;
+        public int TotalTotalCollisions
+        {
+            get { return _totalTotalCollisions; }
+            set
+            {
+                if (_totalTotalCollisions != value)
+                {
+                    _totalTotalCollisions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _totalNovyCollisions;
+        public int TotalNovyCollisions
+        {
+            get { return _totalNovyCollisions; }
+            set
+            {
+                if (_totalNovyCollisions != value)
+                {
+                    _totalNovyCollisions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
+        private int _totalActiveCollisions;
+        public int TotalActiveCollisions
+        {
+            get { return _totalActiveCollisions; }
+            set
+            {
+                if (_totalActiveCollisions != value)
+                {
+                    _totalActiveCollisions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _totalReviewedCollisions;
+        public int TotalReviewedCollisions
+        {
+            get { return _totalReviewedCollisions; }
+            set
+            {
+                if (_totalReviewedCollisions != value)
+                {
+                    _totalReviewedCollisions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _totalApprovedCollisions;
+        public int TotalApprovedCollisions
+        {
+            get { return _totalApprovedCollisions; }
+            set
+            {
+                if (_totalApprovedCollisions != value)
+                {
+                    _totalApprovedCollisions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _totalResolvedCollisions;
+        public int TotalResolvedCollisions
+        {
+            get { return _totalResolvedCollisions; }
+            set
+            {
+                if (_totalResolvedCollisions != value)
+                {
+                    _totalResolvedCollisions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public System.Windows.Media.SolidColorBrush Color15 { get; set; } = new System.Windows.Media.SolidColorBrush()
+        {
+            Color = System.Windows.Media.Color.FromArgb(255, 255, 199, 199)
+        };
+        public System.Windows.Media.SolidColorBrush Color30 { get; set; } = new System.Windows.Media.SolidColorBrush()
+        {
+            Color = System.Windows.Media.Color.FromArgb(255, 248, 212, 255)
+        };
+        public System.Windows.Media.SolidColorBrush Color50 { get; set; } = new System.Windows.Media.SolidColorBrush()
+        {
+            Color = System.Windows.Media.Color.FromArgb(255, 204, 222, 255)
+        };
+        public System.Windows.Media.SolidColorBrush Color80 { get; set; } = new System.Windows.Media.SolidColorBrush()
+        {
+            Color = System.Windows.Media.Color.FromArgb(204, 204, 255, 220)
+        };
 
         public ObservableCollection<SelectionSet> SelectionSets { get; set; }
         public ObservableCollection<SelectionSetNode> SelectionSetNodes { get; set; }
         public ObservableCollection<ClashTest> ClashTests { get; set; }
         public ObservableCollection<ClashTest> ClashTestsTotal { get; set; }
         public ObservableCollection<string> Drafts { get; set; }
+
+        public DataCellViewModel[,] DataCellViewModels { get; set; }
 
         public MainWindowModel()
         {
@@ -135,6 +233,13 @@ namespace СollisionMatrix
             MatrixHeaderWidth = 150;
             MatrixCellHorizontalDimension = 36;
             MatrixCellVerticalDimension = 24;
+
+            TotalTotalCollisions = 0;
+            TotalNovyCollisions = 0;
+            TotalActiveCollisions = 0;
+            TotalReviewedCollisions = 0;
+            TotalApprovedCollisions = 0;
+            TotalResolvedCollisions = 0;
 
             SelectionSets = new ObservableCollection<SelectionSet>();
             SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
@@ -223,7 +328,15 @@ namespace СollisionMatrix
                         {
                             SelectionSet selectionSet = new SelectionSet();
                             selectionSet.Name = _child_.Attributes.GetNamedItem("name").InnerText;
-                            
+
+                            char lastchar = selectionSet.Name.Last();
+                            do
+                            {
+                                if (lastchar.Equals(' ')) selectionSet.Name = selectionSet.Name.Remove(selectionSet.Name.Length - 1);
+                                lastchar = selectionSet.Name.Last();
+                            }
+                            while (lastchar.Equals(' '));
+
                             var names = selectionSet.Name.Split('_');
                             if (names.Count() > 1)
                             {
@@ -254,6 +367,14 @@ namespace СollisionMatrix
                                 {
                                     SelectionSet selectionSet = new SelectionSet();
                                     selectionSet.Name = _child2_.Attributes.GetNamedItem("name").InnerText;
+
+                                    char lastchar = selectionSet.Name.Last();
+                                    do
+                                    {
+                                        if (lastchar.Equals(' ')) selectionSet.Name = selectionSet.Name.Remove(selectionSet.Name.Length - 1);
+                                        lastchar = selectionSet.Name.Last();
+                                    }
+                                    while (lastchar.Equals(' '));
 
                                     var names = selectionSet.Name.Split('_');
                                     if (names.Count() > 1)
@@ -287,7 +408,6 @@ namespace СollisionMatrix
                 success = false;
                 Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, файл не содержит поисковых наборов ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
 
             /*
             string output = string.Empty;
@@ -626,7 +746,7 @@ namespace СollisionMatrix
             string output = string.Empty;
             foreach (ClashTest ct in ClashTests)
             {
-                output += ct.Name + "(" + ct.SelectionLeftName + " / " + ct.SelectionRightName + ")" + " -> " + ct.SummaryTotal + "\n";
+                output += ct.Name + "\n" + "  (" + ct.SelectionLeftName + " / " + ct.SelectionRightName + ")" + "\n" + " -> " + ct.SummaryTotal + "\n";
             }
 
             Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -637,6 +757,21 @@ namespace СollisionMatrix
 
             foreach (ClashTest ct in ClashTests)
             {
+                bool resTotal = int.TryParse(ct.SummaryTotal, out int ct_total);
+                bool resResolved = int.TryParse(ct.SummaryResolved, out int ct_resolved);
+                bool resApproved = int.TryParse(ct.SummaryApproved, out int ct_approved);
+                bool resReviewed = int.TryParse(ct.SummaryReviewed, out int ct_reviewed);
+                bool resActive = int.TryParse(ct.SummaryActive, out int ct_active);
+                bool resNovy = int.TryParse(ct.SummaryNovy, out int ct_novy);
+
+                TotalTotalCollisions += ct_total;
+                TotalResolvedCollisions += ct_resolved;
+                TotalApprovedCollisions += ct_approved;
+                TotalReviewedCollisions += ct_reviewed;
+                TotalActiveCollisions += ct_active;
+                TotalNovyCollisions += ct_novy;
+
+
                 foreach (string draftV in Drafts)
                 {
                     foreach (string draftH in Drafts)
@@ -706,23 +841,28 @@ namespace СollisionMatrix
             */
             #endregion
 
+            //string filename = @"C:\Users\" + Environment.UserName + @"\Downloads\reportcollisions.txt";
+
+            int row_models = 0;
+            int col_models = 0;
+            DataCellViewModels = new DataCellViewModel[SelectionSets.Count, SelectionSets.Count];
 
             foreach (SelectionSetNode selectionSetNodeVerticalSet in SelectionSetNodes)
             {
-                foreach (SelectionSet selectionSetHName in selectionSetNodeVerticalSet.SelectionSets)
+                foreach (SelectionSet selectionSetVName in selectionSetNodeVerticalSet.SelectionSets)
                 {
                     DataLineView dataLineView = new DataLineView();
 
                     foreach (SelectionSetNode selectionSetNodeHorizontalSet in SelectionSetNodes)
                     {
-                        foreach (SelectionSet selectionSetVName in selectionSetNodeHorizontalSet.SelectionSets)
+                        foreach (SelectionSet selectionSetHName in selectionSetNodeHorizontalSet.SelectionSets)
                         {
                             DataCellView dataCellView = new DataCellView();
                             dataCellView.Width = MatrixCellHorizontalDimension;
                             dataCellView.Height = MatrixCellVerticalDimension;
                             DataCellViewModel dataCellViewModel = (DataCellViewModel)dataCellView.DataContext;
-                            dataCellViewModel.Selection1Name = selectionSetHName.Name;
-                            dataCellViewModel.Selection2Name = selectionSetVName.Name;
+                            dataCellViewModel.SelectionLeftName = selectionSetVName.Name;
+                            dataCellViewModel.SelectionRightName = selectionSetHName.Name;
                             dataCellViewModel.CollisionsTotalNumber = "";
                             dataCellViewModel.CollisionsActiveNumber = "";
                             dataCellViewModel.CollisionsResolvedNumber = "";
@@ -730,54 +870,72 @@ namespace СollisionMatrix
                             
                             foreach (ClashTest clashTest in ClashTests)
                             {
-                                if (dataCellViewModel.Selection1Name == clashTest.SelectionLeftName)
+                                //bool result1 = dataCellViewModel.SelectionLeftName.Equals(clashTest.SelectionLeftName);
+                                //bool result2 = dataCellViewModel.SelectionRightName.Equals(clashTest.SelectionRightName);
+
+                                //WriteToFile(filename, "dataCellView.SelectionLeftName: " + dataCellViewModel.SelectionLeftName + ", clashTest.SelectionLeftName: " + clashTest.SelectionLeftName + result1);
+                                //WriteToFile(filename, "dataCellView.SelectionRightName: " + dataCellViewModel.SelectionRightName + ", clashTest.SelectionRightName: " + clashTest.SelectionRightName + result2);
+
+                                if (dataCellViewModel.SelectionLeftName.Equals(clashTest.SelectionLeftName) && dataCellViewModel.SelectionRightName.Equals(clashTest.SelectionRightName))
                                 {
-                                    if (dataCellViewModel.Selection2Name == clashTest.SelectionRightName)
+                                    bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
+                                    bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
+                                    bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
+                                    bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
+                                    bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
+                                    bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
+
+                                    int summary = novy + active + reviewed; // + approved;
+
+                                    dataCellViewModel.CollisionsSumma = summary.ToString();
+                                    dataCellViewModel.CollisionsTotalNumber = clashTest.SummaryTotal;
+                                    dataCellViewModel.CollisionsActiveNumber = clashTest.SummaryActive;
+                                    dataCellViewModel.CollisionsReviewedNumber = clashTest.SummaryReviewed;
+                                    dataCellViewModel.CollisionsResolvedNumber = clashTest.SummaryResolved;
+
+                                    dataCellViewModel.ClashTest = clashTest;
+
+                                    bool result = double.TryParse(clashTest.Tolerance.Replace(".", ","), out double tolerance);
+
+                                    if (result)
                                     {
-                                        dataCellViewModel.CollisionsTotalNumber = clashTest.SummaryTotal;
-                                        dataCellViewModel.CollisionsActiveNumber = clashTest.SummaryActive;
-                                        dataCellViewModel.CollisionsReviewedNumber = clashTest.SummaryReviewed;
-                                        dataCellViewModel.CollisionsResolvedNumber = clashTest.SummaryResolved;
+                                        if (tolerance <= 0.08) dataCellView.border.Background = Color80;
+                                        if (tolerance <= 0.05) dataCellView.border.Background = Color50;
+                                        if (tolerance <= 0.03) dataCellView.border.Background = Color30;
+                                        if (tolerance <= 0.015) dataCellView.border.Background = Color15;
 
-                                        bool result = double.TryParse(clashTest.Tolerance.Replace(".", ","), out double tolerance);
-                                        
-                                        if (result)
-                                        {
-                                            if (tolerance <= 0.08) dataCellView.border.Background = Color80;
-                                            if (tolerance <= 0.05) dataCellView.border.Background = Color50;
-                                            if (tolerance <= 0.03) dataCellView.border.Background = Color30;
-                                            if (tolerance <= 0.015) dataCellView.border.Background = Color15;
+                                        dataCellView.tbLeftBracket.Visibility = Visibility.Visible;
+                                        dataCellView.tbRightBracket.Visibility = Visibility.Visible;
+                                        dataCellView.divider.Visibility = Visibility.Visible;
 
-                                            dataCellView.tbLeftBracket.Visibility = Visibility.Visible;
-                                            dataCellView.tbRightBracket.Visibility = Visibility.Visible;
-                                            dataCellView.divider.Visibility = Visibility.Visible;
-
-                                            dataCellView.ToolTip = $"{selectionSetHName.Name} / {selectionSetVName.Name}\nАктивно: {clashTest.SummaryActive}\nИсправлено: {clashTest.SummaryResolved}\nВсего: {clashTest.SummaryTotal}";
-                                            
-                                        }
+                                        dataCellView.ToolTip = $"{selectionSetVName.Name} / {selectionSetHName.Name}\nАктивно: {clashTest.SummaryActive}\nИсправлено: {clashTest.SummaryResolved}\nВсего: {clashTest.SummaryTotal}";
                                     }
                                 }
                             }
                             
                             dataLineView.spLine.Children.Add(dataCellView);
+                            DataCellViewModels[row_models, col_models] = (DataCellViewModel)dataCellView.DataContext;
+                            col_models += 1;
                         }
                         
                     }
                     ThisView.spDataVLine.Children.Add(dataLineView);
+                    col_models = 0;
+                    row_models += 1;
                 }
             }
 
             /*
             string output = string.Empty;
-            foreach (List<string> ls in ExlsCells)
+            for (int r = 0; r < SelectionSets.Count; r++)
             {
-                foreach (string cell in ls)
+                for (int c = 0; c < SelectionSets.Count; c++)
                 {
-                    output += cell + " ";
+                    output += DataCellViewModels[r, c].CollisionsTotalNumber + ",";
                 }
                 output += "\n";
             }
-
+            
             Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
             */
         }
@@ -940,81 +1098,164 @@ namespace СollisionMatrix
 
                     rowCount = 3;
                     colCount = 3;
-                    foreach (SelectionSet selSetV in SelectionSets)
+                    for (int r = 0; r < SelectionSets.Count; r++)
                     {
-                        foreach (SelectionSet selSetH in SelectionSets)
+                        rowCount = 3 + r;
+
+                        for (int c = 0; c < SelectionSets.Count; c++)
                         {
-                            foreach (ClashTest clashTest in ClashTests)
+                            colCount = 3 + c;
+
+                            if (DataCellViewModels[r, c].ClashTest != null)
                             {
-                                if (clashTest.SelectionLeftName != null && clashTest.SelectionRightName != null && 
-                                    clashTest.SelectionLeftName.Equals(selSetV.Name) && clashTest.SelectionRightName.Equals(selSetH.Name))
-                                {
-                                    //worksheet.Cells[rowCount, colCount].Value = clashTest.Name;
+                                ClashTest clashTest = DataCellViewModels[r, c].ClashTest;
 
-                                    bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
-                                    bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
-                                    bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
-                                    bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
-                                    bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
-                                    bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
+                                bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
+                                bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
+                                bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
+                                bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
+                                bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
+                                bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
 
-                                    int summary = novy + active + reviewed + approved;
+                                int summary = novy + active + reviewed; // + approved;
 
-                                    foreach (ExcelWorksheet worksheet in worksheets)
-                                    {
-                                        if (worksheet.Name.Equals("Matrix"))
-                                            worksheet.Cells[rowCount, colCount].Value = summary + "(" + clashTest.SummaryResolved + ")" + "\n" + clashTest.SummaryTotal;
-                                        else if (worksheet.Name.Equals("Matrix-New"))
-                                            worksheet.Cells[rowCount, colCount].Value = novy;
-                                        else if (worksheet.Name.Equals("Matrix-Active"))
-                                            worksheet.Cells[rowCount, colCount].Value = active;
-                                        else if (worksheet.Name.Equals("Matrix-Reviewed"))
-                                            worksheet.Cells[rowCount, colCount].Value = reviewed;
-                                        else if (worksheet.Name.Equals("Matrix-Approved"))
-                                            worksheet.Cells[rowCount, colCount].Value = approved;
-                                        else if (worksheet.Name.Equals("Matrix-Resolved"))
-                                            worksheet.Cells[rowCount, colCount].Value = resolved;
-                                        else if (worksheet.Name.Equals("Matrix-Total"))
-                                            worksheet.Cells[rowCount, colCount].Value = total;
-
-                                        if (total == 0)
-                                        {
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
-                                        }
-                                        else if (resolved == total)
-                                        {
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
-                                        }
-                                        else if (resolved == 0)
-                                        {
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
-                                        }
-                                        else
-                                        {
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
-                                        };
-                                    }
-
-                                }
                                 foreach (ExcelWorksheet worksheet in worksheets)
                                 {
-                                    worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                                    worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                                    worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                                    worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                    if (worksheet.Name.Equals("Matrix"))
+                                        worksheet.Cells[rowCount, colCount].Value = summary + "(" + resolved + ")" + "\n" + total;
+                                    else if (worksheet.Name.Equals("Matrix-New"))
+                                        worksheet.Cells[rowCount, colCount].Value = novy;
+                                    else if (worksheet.Name.Equals("Matrix-Active"))
+                                        worksheet.Cells[rowCount, colCount].Value = active;
+                                    else if (worksheet.Name.Equals("Matrix-Reviewed"))
+                                        worksheet.Cells[rowCount, colCount].Value = reviewed;
+                                    else if (worksheet.Name.Equals("Matrix-Approved"))
+                                        worksheet.Cells[rowCount, colCount].Value = approved;
+                                    else if (worksheet.Name.Equals("Matrix-Resolved"))
+                                        worksheet.Cells[rowCount, colCount].Value = resolved;
+                                    else if (worksheet.Name.Equals("Matrix-Total"))
+                                        worksheet.Cells[rowCount, colCount].Value = total;
+
+                                    if (total == 0)
+                                    {
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                                    }
+                                    else if (resolved == total)
+                                    {
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                                    }
+                                    else if (resolved == 0)
+                                    {
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                                    }
+                                    else
+                                    {
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                        worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                                    };
                                 }
                             }
-                            colCount++;
+                            foreach (ExcelWorksheet worksheet in worksheets)
+                            {
+                                worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            }
                         }
-                        rowCount++;
-                        colCount = 3;
                     }
 
-                    
+                    #region other way
+                    /*
+                    rowCount = 3;
+                    colCount = 3;
+                    foreach (SelectionSetNode ssnV in SelectionSetNodes)
+                    {
+                        foreach (SelectionSet selSetV in ssnV.SelectionSets)
+                        {
+                            foreach(SelectionSetNode ssnH in SelectionSetNodes)
+                            {
+                                foreach (SelectionSet selSetH in ssnH.SelectionSets)
+                                {
+                                    foreach (ClashTest clashTest in ClashTests)
+                                    {
+                                        if (clashTest.SelectionLeftName != null && clashTest.SelectionRightName != null &&
+                                            clashTest.SelectionLeftName.Equals(selSetV.Name) && clashTest.SelectionRightName.Equals(selSetH.Name))
+                                        {
+                                            //worksheet.Cells[rowCount, colCount].Value = clashTest.Name;
+
+                                            bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
+                                            bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
+                                            bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
+                                            bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
+                                            bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
+                                            bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
+
+                                            int summary = novy + active + reviewed + approved;
+
+                                            foreach (ExcelWorksheet worksheet in worksheets)
+                                            {
+                                                if (worksheet.Name.Equals("Matrix"))
+                                                    worksheet.Cells[rowCount, colCount].Value = summary + "(" + clashTest.SummaryResolved + ")" + "\n" + clashTest.SummaryTotal;
+                                                    //worksheet.Cells[rowCount, colCount].Value = clashTest.SelectionLeftName + "\n" + clashTest.SelectionRightName;
+                                                else if (worksheet.Name.Equals("Matrix-New"))
+                                                    worksheet.Cells[rowCount, colCount].Value = novy;
+                                                else if (worksheet.Name.Equals("Matrix-Active"))
+                                                    worksheet.Cells[rowCount, colCount].Value = active;
+                                                else if (worksheet.Name.Equals("Matrix-Reviewed"))
+                                                    worksheet.Cells[rowCount, colCount].Value = reviewed;
+                                                else if (worksheet.Name.Equals("Matrix-Approved"))
+                                                    worksheet.Cells[rowCount, colCount].Value = approved;
+                                                else if (worksheet.Name.Equals("Matrix-Resolved"))
+                                                    worksheet.Cells[rowCount, colCount].Value = resolved;
+                                                else if (worksheet.Name.Equals("Matrix-Total"))
+                                                    worksheet.Cells[rowCount, colCount].Value = total;
+
+                                                if (total == 0)
+                                                {
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                                                }
+                                                else if (resolved == total)
+                                                {
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                                                }
+                                                else if (resolved == 0)
+                                                {
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                                                }
+                                                else
+                                                {
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                                                };
+                                            }
+
+                                        }
+                                        foreach (ExcelWorksheet worksheet in worksheets)
+                                        {
+                                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                        }
+                                    }
+                                    colCount++;
+                                }
+                            }
+                            rowCount++;
+                            colCount = 3;
+                        }
+
+                    }
+                    */
+                    #endregion
+
                     // выравнивание содержимого ячеек результатов проверок
                     for (int i = 1; i <= ClashTests.Count + 2; i++)
                     {
@@ -1039,35 +1280,482 @@ namespace СollisionMatrix
                     // пояснение 
                     foreach (ExcelWorksheet worksheet in worksheets)
                     {
+                        int colstart = 6;
+                        int coldelta = 4;
+                        int colmerge = 3;
                         rowCount = SelectionSets.Count + 4;
-                        colCount = SelectionSets.Count;
-                        worksheet.Row(rowCount).Height = 30;
-                        worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Merge = true;
-                        
-                        worksheet.Row(rowCount).Style.WrapText = true;
-                        worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        //worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        //worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
-                        worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
-                        worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                         if (worksheet.Name.Equals("Matrix"))
-                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Value = "В работе(Исправлено)\nВсего";
+                        {
+                            colCount = colstart;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheet.Cells[rowCount, colCount].Value = "0(0)\n0";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheet.Cells[rowCount, colCount].Value = "0(6)\n6";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 2;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheet.Cells[rowCount, colCount].Value = "6(0)\n6";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 3;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheet.Cells[rowCount, colCount].Value = "12(4)\n16";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 4 + 1;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Value = $"{TotalNovyCollisions + TotalActiveCollisions + TotalReviewedCollisions}({TotalResolvedCollisions})\n{TotalTotalCollisions}";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Value = "В работе(Устранено)\nВсего";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                        }
                         else if (worksheet.Name.Equals("Matrix-New"))
-                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Value = "Новые";
+                        {
+                            colCount = colstart;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 2;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 3;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 4 + 1;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Value = TotalNovyCollisions;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Value = "Всего новых созданных коллизий";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                        }
                         else if (worksheet.Name.Equals("Matrix-Active"))
-                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Value = "Активные";
+                        {
+                            colCount = colstart;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 2;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 3;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 4 + 1;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Value = TotalActiveCollisions;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Value = "Всего активных коллизий";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+                        }
                         else if (worksheet.Name.Equals("Matrix-Reviewed"))
-                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Value = "Проверенные";
+                        {
+                            colCount = colstart;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 2;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 3;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 4 + 1;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Value = TotalReviewedCollisions;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Value = "Всего проверенных коллизий";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+                        }
                         else if (worksheet.Name.Equals("Matrix-Approved"))
-                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Value = "Подтвержденные";
+                        {
+                            colCount = colstart;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 2;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 3;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 4 + 1;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Value = TotalApprovedCollisions;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Value = "Всего подтвержденных коллизий (не коллизии)";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+                        }
                         else if (worksheet.Name.Equals("Matrix-Resolved"))
-                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Value = "Исправленные";
+                        {
+                            colCount = colstart;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 2;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 3;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 4 + 1;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Value = TotalResolvedCollisions;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Value = "Всего исправленных коллизий";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+                        }
                         else if (worksheet.Name.Equals("Matrix-Total"))
-                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 2].Value = "Всего";
+                        {
+                            colCount = colstart;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 0;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 2;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 3;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheet.Cells[rowCount, colCount].Value = 6;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+
+                            colCount = colstart + coldelta * 4 + 1;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheet.Cells[rowCount, colCount, rowCount, colCount + 1].Value = TotalTotalCollisions;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Merge = true;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Value = "Всего коллизий";
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheet.Cells[rowCount, colCount + 2, rowCount, colCount + colmerge + 1].Style.Indent = 1;
+                            worksheet.Row(rowCount).Height = 35;
+                        }
                     }
                         
 
@@ -1076,14 +1764,20 @@ namespace СollisionMatrix
                     #region creating MatrixTotal worksheet
 
                     excel.Workbook.Worksheets.Add("DraftMatrix");
+                    excel.Workbook.Worksheets.Add("DraftMatrix-New");
                     excel.Workbook.Worksheets.Add("DraftMatrix-Active");
+                    excel.Workbook.Worksheets.Add("DraftMatrix-Reviewed");
+                    excel.Workbook.Worksheets.Add("DraftMatrix-Approved");
                     excel.Workbook.Worksheets.Add("DraftMatrix-Resolved");
                     excel.Workbook.Worksheets.Add("DraftMatrix-Total");
 
                     List<ExcelWorksheet> worksheetsDraft = new List<ExcelWorksheet>();
 
                     worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix"]);
+                    worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-New"]);
                     worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Active"]);
+                    worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Reviewed"]);
+                    worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Approved"]);
                     worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Resolved"]);
                     worksheetsDraft.Add(excel.Workbook.Worksheets["DraftMatrix-Total"]);
 
@@ -1138,22 +1832,27 @@ namespace СollisionMatrix
                                 if (clashTest.DraftLeftName.Equals(draftV) && clashTest.DraftRightName.Equals(draftH))
                                 {
                                     //worksheet.Cells[rowCount, colCount].Value = clashTest.Name;
-
-                                    bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
-                                    bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
-                                    bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
-                                    bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
-                                    bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
                                     bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
+                                    bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
+                                    bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
+                                    bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
+                                    bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
+                                    bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
 
-                                    int summary = novy + active + reviewed + approved;
+                                    int summary = novy + active + reviewed; // + approved;
 
                                     foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
                                     {
                                         if (worksheetDraft.Name.Equals("DraftMatrix"))
-                                            worksheetDraft.Cells[rowCount, colCount].Value = summary + "(" + clashTest.SummaryResolved + ")" + "\n" + clashTest.SummaryTotal;
+                                            worksheetDraft.Cells[rowCount, colCount].Value = summary + "(" + resolved + ")" + "\n" + total;
+                                        else if (worksheetDraft.Name.Equals("DraftMatrix-New"))
+                                            worksheetDraft.Cells[rowCount, colCount].Value = novy;
                                         else if (worksheetDraft.Name.Equals("DraftMatrix-Active"))
                                             worksheetDraft.Cells[rowCount, colCount].Value = active;
+                                        else if (worksheetDraft.Name.Equals("DraftMatrix-Reviewed"))
+                                            worksheetDraft.Cells[rowCount, colCount].Value = reviewed;
+                                        else if (worksheetDraft.Name.Equals("DraftMatrix-Approved"))
+                                            worksheetDraft.Cells[rowCount, colCount].Value = approved;
                                         else if (worksheetDraft.Name.Equals("DraftMatrix-Resolved"))
                                             worksheetDraft.Cells[rowCount, colCount].Value = resolved;
                                         else if (worksheetDraft.Name.Equals("DraftMatrix-Total"))
@@ -1180,10 +1879,7 @@ namespace СollisionMatrix
                                             worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
                                         };
                                     }
-
-                                    
                                 }
-                                
                             }
                             colCount++;
                         }
@@ -1201,6 +1897,7 @@ namespace СollisionMatrix
                                 worksheetDraft.Cells[i, j].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                                 worksheetDraft.Cells[i, j].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                                 worksheetDraft.Cells[i, j].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                if (i > 1 && j > 1) worksheetDraft.Cells[i, j].Style.Font.Size = 10;
                             }
                         }
                     }
@@ -1214,6 +1911,7 @@ namespace СollisionMatrix
                             worksheetDraft.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                             worksheetDraft.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                             worksheetDraft.Column(i).AutoFit();
+                            if (i > 1) worksheetDraft.Column(i).Width = 10;
                         }
                     }
                     foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
@@ -1225,29 +1923,688 @@ namespace СollisionMatrix
                         
 
                     // пояснение 
-                    rowCount = Drafts.Count + 3;
-                    colCount = Drafts.Count;
+                    
                     foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
                     {
-                        worksheetDraft.Row(rowCount).Height = 35;
-                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Merge = true;
-                        worksheetDraft.Row(rowCount).Style.WrapText = true;
-                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
-                        worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        
+                        int rowstart = Drafts.Count + 4;
+                        int rowdelta = 2;
+                        int colmerge = 3;
+
+                        colCount = 2;
                         
                         if (worksheetDraft.Name.Equals("DraftMatrix"))
-                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "В работе(Исправлено)\nВсего";
-                        else if (worksheetDraft.Name.Equals("DraftMatrix-Active"))
-                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "Активные";
-                        else if (worksheetDraft.Name.Equals("DraftMatrix-Resolved"))
-                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "Исправленные";
-                        else if (worksheetDraft.Name.Equals("DraftMatrix-Total"))
-                            worksheetDraft.Cells[rowCount, colCount, rowCount, colCount + 1].Value = "Всего";
+                        {
+                            rowCount = rowstart;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheetDraft.Cells[rowCount, colCount].Value = "0(0)\n0";
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
 
+                            rowCount = rowstart + rowdelta;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = "0(6)\n6";
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 2;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = "0(6)\n6";
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 3;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheetDraft.Cells[rowCount, colCount].Value = "12(4)\n16";
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 4;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Value = $"{TotalNovyCollisions + TotalActiveCollisions + TotalReviewedCollisions}({TotalResolvedCollisions})\n{TotalTotalCollisions}";
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "В работе(Устранено)\nВсего";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+                        }
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-New"))
+                        {
+                            rowCount = rowstart;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 2;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 3;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 4;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Value = TotalNovyCollisions;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Всего новых созданных коллизий";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+                        }
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Active"))
+                        {
+                            rowCount = rowstart;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 2;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 3;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 4;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Value = TotalActiveCollisions;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Всего активных коллизий";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+                        }
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Reviewed"))
+                        {
+                            rowCount = rowstart;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 2;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 3;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 4;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Value = TotalReviewedCollisions;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Всего проверенных коллизий";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+                        }
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Approved"))
+                        {
+                            rowCount = rowstart;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 2;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 3;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 4;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Value = TotalApprovedCollisions;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Всего подтвержденных коллизий (не коллизии)";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+                        }
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Resolved"))
+                        {
+                            rowCount = rowstart;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 2;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 3;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 4;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Value = TotalResolvedCollisions;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Всего исправленных коллизий";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+                        }
+                        else if (worksheetDraft.Name.Equals("DraftMatrix-Total"))
+                        {
+                            rowCount = rowstart;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии отсуствуют";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 0;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Все коллизии устранены";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 2;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Устранение коллизий не ведется";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 3;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
+                            worksheetDraft.Cells[rowCount, colCount].Value = 6;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Коллизии устранены частично";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+
+                            rowCount = rowstart + rowdelta * 4;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            worksheetDraft.Cells[rowCount, colCount].Value = TotalTotalCollisions;
+                            worksheetDraft.Cells[rowCount, colCount].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount].Style.Font.Size = 10;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Merge = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Value = "Всего коллизий";
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.WrapText = true;
+                            worksheetDraft.Cells[rowCount, colCount + 1, rowCount, colCount + colmerge].Style.Indent = 1;
+                            worksheetDraft.Row(rowCount).Height = 30;
+                        }
                     }
 
                     #endregion
@@ -1276,5 +2633,31 @@ namespace СollisionMatrix
 
         }
         private bool CanExcelExportExecute(object p) => true;
+
+        private static void WriteToFile(string fileName, string txt)
+        {
+            Encoding u16LE = Encoding.Unicode; // UTF-16 little endian
+
+            if (!File.Exists(fileName))
+            {
+                try
+                {
+                    using (FileStream fs = File.Create(fileName))
+                    {
+                        byte[] byteString = new UnicodeEncoding().GetBytes("");
+                        fs.Write(byteString, 0, byteString.Length);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.ToString());
+                }
+            }
+            using (StreamWriter writer = new StreamWriter(fileName, true))
+            {
+                writer.WriteLine(txt);
+            }
+
+        }
     }
 }

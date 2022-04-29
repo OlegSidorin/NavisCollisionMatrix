@@ -82,19 +82,19 @@
                             Margin="0 50 0 0">
                     <TextBlock Text="Допуск:" FontSize="14" FontWeight="DemiBold" Margin="5 0 0 5" />
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="OrangeRed" />
+                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color15}" />
                         <TextBlock Width="100" Height="20" Text=" - до 0,015м;" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="PaleVioletRed" />
+                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color30}" />
                         <TextBlock Width="100" Height="20" Text=" - до 0,030м;" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="LightBlue" />
+                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color50}" />
                         <TextBlock Width="100" Height="20" Text=" - до 0,050м;" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="LightGreen" />
+                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color80}" />
                         <TextBlock Width="100" Height="20" Text=" - до 0,080м;" />
                     </StackPanel>
                 </StackPanel>
