@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:СollisionMatrix"
+        xmlns:subv="clr-namespace:СollisionMatrix.Subviews"
         mc:Ignorable="d"
         Title="Collision Matrix Excel Exporter" Height="1150" Width="1350">
     <Window.DataContext>
@@ -65,14 +66,27 @@
                     <RowDefinition Height="60" />
                     <RowDefinition Height="60" />
                     <RowDefinition Height="60" />
+                    <RowDefinition Height="60" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
                 <Button Grid.Column="1" Grid.Row="2" ToolTip="Создать матрицу по поисковым запросам из Navisworks в формате .xml"
-                        Content="Создать матрицу" Command="{Binding ImportXMLSelectionSets}" Margin="5" />
-                <Button Grid.Column="1" Grid.Row="3" ToolTip="Открыть отчет проверок из Navisworks в формате .xml"
+                        Command="{Binding MatrixCreatingCommand}" Margin="5" >
+                    <StackPanel Orientation="Horizontal" >
+                        <!--<subv:IconTable Width="42" Height="42" />-->
+                        <TextBlock Text="Создать матрицу" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="3" ToolTip="Создать матрицу по поисковым запросам из Navisworks в формате .xml"
+                        Command="{Binding ImportXMLSelectionSets}" Margin="5" >
+                    <StackPanel Orientation="Horizontal" >
+                        <!--<subv:IconTable Width="42" Height="42" />-->
+                        <TextBlock Text="Создать матрицу" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="4" ToolTip="Открыть отчет проверок из Navisworks в формате .xml"
                         Content="Открыть отчет" Command="{Binding ImportXMLClashTests}" Margin="5" />
-                <Button Grid.Column="1" Grid.Row="4" 
+                <Button Grid.Column="1" Grid.Row="5" 
                         Content="Сохранить в .xls" Command="{Binding ExcelExport}" Margin="5" />
                 <StackPanel x:Name="notes"
                             Orientation="Vertical"  

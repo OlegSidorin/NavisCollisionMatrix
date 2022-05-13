@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="СollisionMatrix.MatrixSelectionLineUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:СollisionMatrix"
+             mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="500">
+    <UserControl.DataContext>
+        <local:MatrixSelectionLineViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NameOfSelection}" VerticalContentAlignment="Center" Margin="1" Height="25"/>
+        <ItemsControl ItemsSource="{Binding ToleranceViews}" 
+                      HorizontalAlignment="Left" 
+                      Grid.Row="1" Grid.Column="2" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+    </Grid>
+</UserControl>

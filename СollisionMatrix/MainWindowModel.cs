@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
+using СollisionMatrix;
 using СollisionMatrix.Subviews;
 using Xceed.Wpf;
 using System.Windows;
@@ -248,6 +249,7 @@ namespace СollisionMatrix
             Drafts = new ObservableCollection<string>();
 
             Commanda = new RelayCommand(OnCommandaExecuted, CanCommandaExecute); // example
+            MatrixCreatingCommand = new RelayCommand(OnMatrixCreatingCommandExecuted, CanMatrixCreatingCommandExecute);
             ImportXMLSelectionSets = new RelayCommand(OnImportXMLSelectionSetsExecuted, CanImportXMLSelectionSetsExecute);
             ImportXMLClashTests = new RelayCommand(OnImportXMLClashTestsExecuted, CanImportXMLClashTestsExecute);
             ExcelExport = new RelayCommand(OnExcelExportExecuted, CanExcelExportExecute);
@@ -274,6 +276,15 @@ namespace СollisionMatrix
 
         }
         private bool CanCommandaExecute(object p) => true;
+
+        public ICommand MatrixCreatingCommand { get; set; }
+        private void OnMatrixCreatingCommandExecuted(object p)
+        {
+            MatrixCreating matrixCreatingWindow = new MatrixCreating();
+            
+            matrixCreatingWindow.Show();
+        }
+        private bool CanMatrixCreatingCommandExecute(object p) => true;
 
         public ICommand ImportXMLSelectionSets { get; set; }
         private void OnImportXMLSelectionSetsExecuted(object p)
@@ -2634,6 +2645,7 @@ namespace СollisionMatrix
         }
         private bool CanExcelExportExecute(object p) => true;
 
+
         private static void WriteToFile(string fileName, string txt)
         {
             Encoding u16LE = Encoding.Unicode; // UTF-16 little endian
@@ -2659,5 +2671,6 @@ namespace СollisionMatrix
             }
 
         }
+
     }
 }

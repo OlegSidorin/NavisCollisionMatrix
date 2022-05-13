@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="СollisionMatrix.MatrixSelectionCellUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:СollisionMatrix"
+             mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="25">
+    <UserControl.DataContext>
+        <local:MatrixSelectionCellVewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <TextBox Text="{Binding Tolerance}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="25" Height="25" Margin="1"
+                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+    </Grid>
+</UserControl>
