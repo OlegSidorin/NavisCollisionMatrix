@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:СollisionMatrix"
+        xmlns:subviews="clr-namespace:СollisionMatrix.Subviews"
         mc:Ignorable="d"
         Title="MatrixCreating" Height="450" Width="800">
     <Window.DataContext>
@@ -25,12 +26,35 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
-            <RowDefinition Height="150" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
-        <ItemsControl ItemsSource="{Binding UserControls}" 
-                      Grid.Row="2" Grid.Column="1" />
+        <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Visible">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <ItemsControl ItemsSource="{Binding UserControlsInWholeMatrix}" 
+                      Grid.Row="2" Grid.Column="2" />
 
+            </Grid>
+        </ScrollViewer>
+        <Button Grid.Column="1" Grid.Row="2"
+                Width="200" Height="40"
+                HorizontalAlignment="Right"
+                Margin="0 0 20 0"
+            Content="Экспорт в .xml"  />
     </Grid>
+    
+
 </Window>

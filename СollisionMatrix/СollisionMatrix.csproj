@@ -141,6 +141,9 @@
       <DependentUpon>NodeVView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Subviews\NodeVViewModel.cs" />
+    <Compile Include="Subviews\PlusIcon.xaml.cs">
+      <DependentUpon>PlusIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Subviews\SubNodeHView.xaml.cs">
       <DependentUpon>SubNodeHView.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Subviews\NodeVView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Subviews\PlusIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

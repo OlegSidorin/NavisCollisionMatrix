@@ -11,7 +11,7 @@ namespace СollisionMatrix
     public class MatrixCreatingViewModel : ObservableObject
     {
         public ObservableCollection<MatrixSelectionLineModel> Selections { get; set; }
-        public ObservableCollection<UserControl> UserControls { get; set; }
+        public ObservableCollection<UserControl> UserControlsInWholeMatrix { get; set; }
         public MatrixCreatingViewModel()
         {
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
@@ -44,11 +44,15 @@ namespace СollisionMatrix
             Selections.Add(new2);
             Selections.Add(new3);
 
-            UserControls = new ObservableCollection<UserControl>();
+            UserControlsInWholeMatrix = new ObservableCollection<UserControl>();
             foreach (MatrixSelectionLineModel model in Selections)
             {
                 MatrixSelectionLineViewModel userControlvm = new MatrixSelectionLineViewModel();
                 userControlvm.MatrixSelectionLineModel = model;
+                userControlvm.RowNum = Selections.IndexOf(model);
+                userControlvm.Selections = Selections;
+                userControlvm.Selection = model;
+                
                 userControlvm.ToleranceViews = new ObservableCollection<UserControl>();
                 foreach (string tolerance in model.SelectionIntersectionTolerance)
                 {
@@ -58,8 +62,6 @@ namespace СollisionMatrix
                         Tolerance = tolerance
                     };
                     MatrixSelectionCellUserControl cellView = new MatrixSelectionCellUserControl();
-                    cellView.Width = 25;
-                    cellView.Height = 25;
                     cellView.DataContext = cellViewModel;
 
                     userControlvm.ToleranceViews.Add(cellView);
@@ -67,8 +69,10 @@ namespace СollisionMatrix
 
 
                 MatrixSelectionLineUserControl userControl = new MatrixSelectionLineUserControl();
+                userControlvm.UserControl_MatrixSelectionLineUserControl = userControl;
+                userControlvm.UserControlsInAllMatrixWithLineUserControls = UserControlsInWholeMatrix;
                 userControl.DataContext = userControlvm;
-                UserControls.Add(userControl);
+                UserControlsInWholeMatrix.Add(userControl);
             };
             
 

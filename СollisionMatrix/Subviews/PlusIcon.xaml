@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="СollisionMatrix.Subviews.PlusIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:СollisionMatrix.Subviews"
+             Width="25" Height="20"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" d:DesignWidth="25">
+    <Grid>
+        <Path Stroke="PaleVioletRed" StrokeThickness="1"
+              Data="M 3 10 L 17 10 M 10 3 L 10 17 
+              "
+              />
+        <Path Stroke="LightGray" StrokeThickness="1"
+              Data="M 10 1 A 8 8 90 0 0 10 19
+              M 10 1 A 8 8 90 0 1 10 19
+              "
+              />
+        <Path Stroke="LightGray" StrokeThickness="1"
+              Data="M 19 10 L 25 10
+              "
+              />
+    </Grid>
+</UserControl>

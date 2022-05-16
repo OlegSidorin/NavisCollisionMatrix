@@ -24,5 +24,17 @@ namespace СollisionMatrix
         {
             InitializeComponent();
         }
+
+        private void UserControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)this.DataContext;
+            vm.ButtonsVisibility = Visibility.Visible;
+        }
+
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)this.DataContext;
+            vm.ButtonsVisibility = Visibility.Hidden;
+        }
     }
 }
