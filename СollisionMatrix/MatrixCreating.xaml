@@ -6,16 +6,13 @@
         xmlns:local="clr-namespace:СollisionMatrix"
         xmlns:subviews="clr-namespace:СollisionMatrix.Subviews"
         mc:Ignorable="d"
-        Title="MatrixCreating" Height="450" Width="800">
+        Title="MatrixCreating" Height="600" Width="800">
     <Window.DataContext>
         <local:MatrixCreatingViewModel />
     </Window.DataContext>
     <Window.Resources>
         <DataTemplate x:Key="TemplateForSelection">
-           
-                <TextBlock Text="{Binding}" 
-                           HorizontalAlignment="Stretch" />
-
+            <TextBlock Text="{Binding}" HorizontalAlignment="Stretch" />
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -30,7 +27,8 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Visible">
+        <ScrollViewer Grid.Row="1" Grid.Column="1" 
+                      HorizontalScrollBarVisibility="Visible">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5" />
@@ -44,16 +42,33 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
+                <ItemsControl Grid.Row="1" Grid.Column="2"
+                              ItemsSource="{Binding UserControlsSelectionNames}"
+                              Margin="245 0 0 0">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
                 <ItemsControl ItemsSource="{Binding UserControlsInWholeMatrix}" 
                       Grid.Row="2" Grid.Column="2" />
 
             </Grid>
         </ScrollViewer>
-        <Button Grid.Column="1" Grid.Row="2"
-                Width="200" Height="40"
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Width="300" Height="40"
                 HorizontalAlignment="Right"
                 Margin="0 0 20 0"
-            Content="Экспорт в .xml"  />
+            Content="Открыть файл .xml c Матрицей коллизий"  />
+            <Button Width="300" Height="40"
+                HorizontalAlignment="Right"
+                ToolTip="Для последущего использования в Navisworks"
+                Margin="0 0 20 0"
+                    Command="{Binding DoIfIClickOnCreateXMLCollisionMatrixButton}"
+            Content="Сохранить Матрицу коллизий в формате .xml"  />
+        </StackPanel>
+        
     </Grid>
     
 

@@ -126,6 +126,9 @@
       <DependentUpon>MatrixSelectionLineUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MatrixSelectionLineViewModel.cs" />
+    <Compile Include="MatrixSelectionNameUserControl.xaml.cs">
+      <DependentUpon>MatrixSelectionNameUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SelectionSet.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MatrixSelectionLineUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MatrixSelectionNameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
