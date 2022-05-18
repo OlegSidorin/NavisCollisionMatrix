@@ -164,6 +164,7 @@ namespace СollisionMatrix
             }
         }
 
+
         public MatrixSelectionLineViewModel()
         {
             MatrixSelectionLineModel = new MatrixSelectionLineModel()

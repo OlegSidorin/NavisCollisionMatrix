@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,10 +17,13 @@ namespace СollisionMatrix
     public class MatrixCreatingViewModel : ObservableObject
     {
         public ObservableCollection<MatrixSelectionLineModel> Selections { get; set; }
+        public ObservableCollection<ClashTest> Clashtests { get; set; }
         public ObservableCollection<UserControl> UserControlsInWholeMatrix { get; set; }
         public ObservableCollection<UserControl> UserControlsSelectionNames { get; set; }
         public MatrixCreatingViewModel()
         {
+            Clashtests = new ObservableCollection<ClashTest>();
+
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
             var new1 = new MatrixSelectionLineModel()
             {
@@ -102,6 +106,7 @@ namespace СollisionMatrix
             }
 
             DoIfIClickOnCreateXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnCreateXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnCreateXMLCollisionMatrixButtonExecute);
+            DoIfIClickOnOpenXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnOpenXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute);
 
             int linecounter = 0;
             int cellcounter = 0;
@@ -229,6 +234,276 @@ namespace СollisionMatrix
 
         }
         private bool CanDoIfIClickOnCreateXMLCollisionMatrixButtonExecute(object p) => true;
+
+        public ICommand DoIfIClickOnOpenXMLCollisionMatrixButton { get; set; }
+        private void OnDoIfIClickOnOpenXMLCollisionMatrixButtonExecuted(object p)
+        {
+            #region reading xml file
+
+            bool success = true;
+
+            //ClashTests = new ObservableCollection<ClashTest>();
+            //ClashTestsTotal = new ObservableCollection<ClashTest>();
+            //ThisView.spDataVLine.Children.Clear();
+
+            //string pathtoexe = Assembly.GetExecutingAssembly().Location;
+            //string dllname = Assembly.GetExecutingAssembly().GetName().Name.ToString();
+            //string folderpath = pathtoexe.Replace(dllname + ".exe", "");
+            //string pathtoxml = folderpath + "batchtest.xml";
+
+            //System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            //openFileDialog.ShowDialog();
+            //pathtoxml = openFileDialog.FileName;
+
+            //Xceed.Wpf.Toolkit.MessageBox.Show("Приветики", "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            XmlDocument xDoc = new XmlDocument();
+
+            try
+            {
+                xDoc.Load(@"C:\Users\o.sidorin\Downloads\examplexml.xml");
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!success) return;
+
+            #endregion
+
+
+            UserControlsInWholeMatrix.Clear();
+            UserControlsSelectionNames.Clear();
+            Clashtests.Clear();
+
+            try
+            {
+                XmlElement exchange_element = xDoc.DocumentElement; // <exchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd" units="ft" filename="" filepath="">
+
+                foreach (XmlNode batchtest_node in exchange_element) // <batchtest name="Без имени" internal_name="Без имени" units="ft">
+                {
+                    if (batchtest_node.Name == "batchtest")
+                    {
+                        foreach (XmlNode clashtests_node in batchtest_node.ChildNodes) // <clashtests>
+                        {
+                            if (clashtests_node.Name == "clashtests")
+                            {
+                                foreach (XmlNode clashtest_node in clashtests_node.ChildNodes) // <clashtest name="АР_Вертикальные конструкции - АР_Вертикальные конструкции" test_type="duplicate" status="ok" tolerance="0.000" merge_composites="0">
+                                {
+                                    if (clashtest_node.Name == "clashtest")
+                                    {
+                                        ClashTest clashTest_new = new ClashTest();
+                                        clashTest_new.Name = clashtest_node.Attributes.GetNamedItem("name").InnerText;
+                                        clashTest_new.Tolerance = clashtest_node.Attributes.GetNamedItem("tolerance").InnerText;
+                                        bool result = double.TryParse(clashTest_new.Tolerance.Replace(".", ","), out double dt);
+                                        dt *= 304.8;
+                                        clashTest_new.Tolerance = ((int)dt).ToString();
+
+                                        MatrixSelectionLineUserControl msluc_new = new MatrixSelectionLineUserControl();
+                                        MatrixSelectionLineViewModel mslvm_new = new MatrixSelectionLineViewModel();
+
+                                        mslvm_new.NameOfSelection = clashTest_new.Name;
+                                        
+                                        mslvm_new.ToleranceViews = new ObservableCollection<UserControl>();
+
+                                        MatrixSelectionCellUserControl mscuc_new_t = new MatrixSelectionCellUserControl();
+                                        MatrixSelectionCellVewModel mscvm_new_t = new MatrixSelectionCellVewModel();
+                                        mscvm_new_t.Tolerance = clashTest_new.Tolerance;
+                                        mscuc_new_t.DataContext = mscvm_new_t;
+                                        mslvm_new.ToleranceViews.Add(mscuc_new_t);
+
+                                        foreach (XmlNode node_in_clashtest_node in clashtest_node.ChildNodes)
+                                        {
+                                            if (node_in_clashtest_node.Name == "left")
+                                            {
+                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
+                                                {
+                                                    if (clashselection_node.Name == "clashselection")
+                                                    {
+                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
+                                                        {
+                                                            if (locator_node.Name == "locator")
+                                                            {
+                                                                clashTest_new.SelectionLeftName = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
+
+                                                                MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
+                                                                MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
+
+                                                                var names = clashTest_new.SelectionLeftName.Split('/');
+                                                                clashTest_new.SelectionLeftName = names.LastOrDefault();
+
+                                                                var names2 = clashTest_new.SelectionLeftName.Split('_');
+                                                                if (names2.Count() > 1)
+                                                                {
+                                                                    clashTest_new.DraftLeftName = names2.First();
+
+                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
+                                                                    mscuc_new.DataContext = mscvm_new;
+
+                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
+                                                                }
+                                                                else
+                                                                {
+                                                                    clashTest_new.DraftLeftName = "?";
+
+                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
+                                                                    mscuc_new.DataContext = mscvm_new;
+
+                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+
+                                            }
+                                            if (node_in_clashtest_node.Name == "right")
+                                            {
+                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
+                                                {
+                                                    if (clashselection_node.Name == "clashselection")
+                                                    {
+                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
+                                                        {
+                                                            if (locator_node.Name == "locator")
+                                                            {
+                                                                clashTest_new.SelectionRightName = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
+
+                                                                MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
+                                                                MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
+
+                                                                var names = clashTest_new.SelectionRightName.Split('/');
+                                                                clashTest_new.SelectionRightName = names.LastOrDefault();
+
+                                                                var names2 = clashTest_new.SelectionRightName.Split('_');
+                                                                if (names2.Count() > 1)
+                                                                {
+                                                                    clashTest_new.DraftLeftName = names2.First();
+
+                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
+                                                                    mscuc_new.DataContext = mscvm_new;
+
+                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
+                                                                }
+                                                                else
+                                                                {
+                                                                    clashTest_new.DraftLeftName = "?";
+
+                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
+                                                                    mscuc_new.DataContext = mscvm_new;
+
+                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+
+                                            }
+                                        }
+
+                                        Clashtests.Add(clashTest_new);
+
+                                        msluc_new.DataContext = mslvm_new;
+                                        UserControlsInWholeMatrix.Add(msluc_new);
+
+                                        MatrixSelectionNameUserControl msnuc_new = new MatrixSelectionNameUserControl();
+                                        msnuc_new.DataContext = mslvm_new;
+                                        UserControlsSelectionNames.Add(msnuc_new);
+                                    }
+                                    
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                MessageBox.Show("Возможно, файл не содержит результатов проверки... \n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!success) return;
+
+            UserControlsInWholeMatrix.Clear();
+            UserControlsSelectionNames.Clear();
+
+            List<string> selection_names = new List<string>();
+            foreach(ClashTest clashTest in Clashtests)
+            {
+                selection_names.Add(clashTest.SelectionLeftName);
+            }
+            List<string> selection_names_distinct = selection_names.Distinct().ToList<string>();
+            int row_num = 0;
+            foreach(string name_of_selection in selection_names_distinct)
+            {
+                MatrixSelectionLineUserControl msluc_new = new MatrixSelectionLineUserControl();
+                MatrixSelectionLineViewModel mslvm_new = new MatrixSelectionLineViewModel();
+                mslvm_new.NameOfSelection = name_of_selection;
+                mslvm_new.RowNum = row_num;
+                mslvm_new.ToleranceViews = new ObservableCollection<UserControl>();
+                msluc_new.DataContext = mslvm_new;
+                MatrixSelectionNameUserControl msnuc_new = new MatrixSelectionNameUserControl();
+                msnuc_new.DataContext = mslvm_new;
+                mslvm_new.UserControlsInAllMatrixWithLineUserControls = UserControlsInWholeMatrix;
+                mslvm_new.UserControlsInSelectionNameUserControls = UserControlsSelectionNames;
+                mslvm_new.UserControl_MatrixSelectionLineUserControl = msluc_new;
+
+                List<ClashTest> clashTests_with_left_name_of_selection_is_equal_name_of_selection = new List<ClashTest>();
+                foreach(ClashTest ct in Clashtests)
+                {
+                    if (ct.SelectionLeftName == name_of_selection)
+                    {
+                        clashTests_with_left_name_of_selection_is_equal_name_of_selection.Add(ct);
+                    }
+                }
+
+                for(int i = 0; i < selection_names_distinct.Count(); i++)
+                {
+                    bool view_with_clastest = false;
+                    ClashTest clashTest = null;
+                    foreach (ClashTest ct in clashTests_with_left_name_of_selection_is_equal_name_of_selection)
+                    {
+                        if (ct.SelectionRightName == selection_names_distinct.ElementAt(i))
+                        {
+                            view_with_clastest = true;
+                            clashTest = ct;
+                        }
+                    }
+                    if (view_with_clastest)
+                    {
+                        MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
+                        MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
+                        mscvm_new.Tolerance = clashTest.Tolerance;
+                        mscuc_new.DataContext = mscvm_new;
+                        mslvm_new.ToleranceViews.Add(mscuc_new);
+                    }
+                    else
+                    {
+                        MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
+                        MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
+                        mscvm_new.Tolerance = "";
+                        mscuc_new.DataContext = mscvm_new;
+                        mslvm_new.ToleranceViews.Add(mscuc_new);
+                    }
+                    
+                }
+
+                UserControlsInWholeMatrix.Add(msluc_new);
+                UserControlsSelectionNames.Add(msnuc_new);
+                row_num += 1;
+            }
+
+        }
+        private bool CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute(object p) => true;
 
     }
 }

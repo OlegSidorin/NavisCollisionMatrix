@@ -9,7 +9,6 @@ namespace СollisionMatrix
     public class ClashTest
     {
         public string Name { get; set; }
-
         public string SelectionLeftName { get; set; }
         public string SelectionRightName { get; set; }
         public string DraftLeftName { get; set; }
