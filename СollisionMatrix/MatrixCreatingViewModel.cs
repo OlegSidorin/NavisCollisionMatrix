@@ -249,11 +249,11 @@ namespace СollisionMatrix
             //string pathtoexe = Assembly.GetExecutingAssembly().Location;
             //string dllname = Assembly.GetExecutingAssembly().GetName().Name.ToString();
             //string folderpath = pathtoexe.Replace(dllname + ".exe", "");
-            //string pathtoxml = folderpath + "batchtest.xml";
+            string pathtoxml = "";
 
-            //System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            //openFileDialog.ShowDialog();
-            //pathtoxml = openFileDialog.FileName;
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.ShowDialog();
+            pathtoxml = openFileDialog.FileName;
 
             //Xceed.Wpf.Toolkit.MessageBox.Show("Приветики", "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -261,7 +261,7 @@ namespace СollisionMatrix
 
             try
             {
-                xDoc.Load(@"C:\Users\o.sidorin\Downloads\examplexml.xml");
+                xDoc.Load(pathtoxml);
             }
             catch (Exception ex)
             {
