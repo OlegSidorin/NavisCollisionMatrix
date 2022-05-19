@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "СollisionMatrix", "СollisionMatrix\СollisionMatrix.csproj", "{DFB76326-BC52-42D0-A31C-5E4A8E61C3B9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A70DB801-DDBB-4B45-9498-75EA1533D6E8}"
+	ProjectSection(SolutionItems) = preProject
+		example.xml = example.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

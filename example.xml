@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<selectionsets>
+	<selectionset name="АР_Вертикальные конструкции" guid="">
+		<findspec mode="all" disjoint="0">
+			<conditions>
+				<condition test="equals" flags="10">
+					<category>
+						<name internal="LcRevitData_Element">Объект</name>
+					</category>
+					<property>
+						<name internal="LcRevitPropertyElementCategory">Категория</name>
+					</property>
+					<value>
+						<data type="wstring">Стены</data>
+					</value>
+				</condition>
+				<condition test="contains" flags="10">
+					<property>
+						<name internal="LcOaNodeSourceFile">Файл источника</name>
+					</property>
+					<value>
+						<data type="wstring">_АР</data>
+					</value>
+				</condition>
+			</conditions>
+			<locator>/</locator>
+		</findspec>
+	</selectionset>
+</selectionsets>

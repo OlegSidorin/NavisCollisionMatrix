@@ -230,6 +230,17 @@ namespace СollisionMatrix
             XmlElement selectionsets_element = xDoc.CreateElement("selectionsets");
             XmlNode selectionsets_node = batchtest_node.AppendChild(selectionsets_element);
 
+            foreach (UserControl usercontrolline in UserControlsInWholeMatrix)
+            {
+                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)usercontrolline;
+                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
+                XmlElement selectionset_element = xDoc.CreateElement("selectionset");
+                selectionset_element.SetAttribute("name", mslvm.NameOfSelection);
+                selectionset_element.SetAttribute("guid", "");
+                XmlNode selectionset_node = selectionsets_node.AppendChild(selectionset_element);
+            }
+
+
             xDoc.Save(@"C:\Users\o.sidorin\Downloads\examplexml.xml");
 
         }
