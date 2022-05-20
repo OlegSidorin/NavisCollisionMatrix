@@ -129,6 +129,16 @@
     <Compile Include="MatrixSelectionNameUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionNameUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Condition.cs" />
+    <Compile Include="Models\Conditions.cs" />
+    <Compile Include="Models\Data.cs" />
+    <Compile Include="Models\Findspec.cs" />
+    <Compile Include="Models\Locator.cs" />
+    <Compile Include="Models\Name.cs" />
+    <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\Selectionset.cs" />
+    <Compile Include="Models\Value.cs" />
     <Compile Include="SelectionSet.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -245,6 +255,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="navis-pink.ico" />
+    <Resource Include="Examples\examplexml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Examples\Экспорт проверок.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Examples\matrix_example.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="selectionsets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

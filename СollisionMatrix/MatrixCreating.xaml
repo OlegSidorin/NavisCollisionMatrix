@@ -44,7 +44,8 @@
                 </Grid.RowDefinitions>
                 <ItemsControl Grid.Row="1" Grid.Column="2"
                               ItemsSource="{Binding UserControlsSelectionNames}"
-                              Margin="245 0 0 0">
+                              HorizontalAlignment="Center"
+                              Margin="215 0 0 0">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -52,8 +53,8 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
                 <ItemsControl ItemsSource="{Binding UserControlsInWholeMatrix}" 
+                              HorizontalAlignment="Center" Margin="0 0 30 0"
                       Grid.Row="2" Grid.Column="2" />
-
             </Grid>
         </ScrollViewer>
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,0,0,0">

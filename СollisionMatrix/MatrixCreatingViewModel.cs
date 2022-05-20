@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Serialization;
+using СollisionMatrix.Models;
 
 namespace СollisionMatrix
 {
@@ -20,9 +21,11 @@ namespace СollisionMatrix
         public ObservableCollection<ClashTest> Clashtests { get; set; }
         public ObservableCollection<UserControl> UserControlsInWholeMatrix { get; set; }
         public ObservableCollection<UserControl> UserControlsSelectionNames { get; set; }
+        public List<Selectionset> Selectionsets { get; set; }
         public MatrixCreatingViewModel()
         {
             Clashtests = new ObservableCollection<ClashTest>();
+            Selectionsets = new List<Selectionset>();
 
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
             var new1 = new MatrixSelectionLineModel()
@@ -238,6 +241,99 @@ namespace СollisionMatrix
                 selectionset_element.SetAttribute("name", mslvm.NameOfSelection);
                 selectionset_element.SetAttribute("guid", "");
                 XmlNode selectionset_node = selectionsets_node.AppendChild(selectionset_element);
+
+                // <findspec mode="all" disjoint="0">
+                XmlElement findspec_element = xDoc.CreateElement("findspec");
+                findspec_element.SetAttribute("mode", "all");
+                findspec_element.SetAttribute("disjoint", "0");
+                XmlNode findspec_node = selectionset_node.AppendChild(findspec_element);
+
+                // <conditions>
+                XmlElement conditions_element = xDoc.CreateElement("conditions");
+                XmlNode conditions_node = findspec_node.AppendChild(conditions_element);
+
+                var names = mslvm.NameOfSelection.Split('_');
+                string source_file_mask = string.Empty;
+                string category_mask = string.Empty;
+                if (names.Count() > 1)
+                {
+                    source_file_mask = names.First();
+                    category_mask = names.LastOrDefault();
+                }
+                else
+                {
+                    source_file_mask = "AR";
+                    category_mask = "Walls";
+                }
+
+                //---------------------------------------- condition SourceFile --------------
+
+                // <condition test="contains" flags="10">
+                XmlElement condition_SF_element = xDoc.CreateElement("condition");
+                condition_SF_element.SetAttribute("test", "contains");
+                condition_SF_element.SetAttribute("flags", "10");
+                XmlNode condition_SF_node = conditions_node.AppendChild(condition_SF_element);
+
+                // <property>
+                XmlElement property_SF_element = xDoc.CreateElement("property");
+                XmlNode property_SF_node = condition_SF_node.AppendChild(property_SF_element);
+                // <name internal="LcOaNodeSourceFile">Файл источника</name>
+                XmlElement name_SF__element_p = xDoc.CreateElement("name");
+                name_SF__element_p.SetAttribute("internal", "LcOaNodeSourceFile");
+                name_SF__element_p.InnerText = "Файл источника";
+                XmlNode name_SF_node_p = property_SF_node.AppendChild(name_SF__element_p);
+
+                // <value>
+                XmlElement value_SF_element = xDoc.CreateElement("value");
+                XmlNode value_SF_node = condition_SF_node.AppendChild(value_SF_element);
+                // <data type="wstring">_АР</data>
+                XmlElement data_SF_element = xDoc.CreateElement("data");
+                data_SF_element.SetAttribute("type", "wstring");
+                data_SF_element.InnerText = source_file_mask + "_";
+                XmlNode data_SF_node = value_SF_node.AppendChild(data_SF_element);
+
+
+                //---------------------------------------- condition ElementCategory ----------
+
+                // <condition test="equals" flags="10">
+                XmlElement condition_element = xDoc.CreateElement("condition");
+                condition_element.SetAttribute("test", "equals");
+                condition_element.SetAttribute("flags", "10");
+                XmlNode condition_node = conditions_node.AppendChild(condition_element);
+
+                // <category>
+                XmlElement category_element = xDoc.CreateElement("category");
+                XmlNode category_node = condition_node.AppendChild(category_element);
+                // <name internal="LcRevitData_Element">Объект</name>
+                XmlElement name_element = xDoc.CreateElement("name");
+                name_element.SetAttribute("internal", "LcRevitData_Element");
+                name_element.InnerText = "Объект";
+                XmlNode name_node = category_node.AppendChild(name_element);
+
+                // <property>
+                XmlElement property_element = xDoc.CreateElement("property");
+                XmlNode property_node = condition_node.AppendChild(property_element);
+                // <name internal="LcRevitPropertyElementCategory">Категория</name>
+                XmlElement name_element_p = xDoc.CreateElement("name");
+                name_element_p.SetAttribute("internal", "LcRevitPropertyElementCategory");
+                name_element_p.InnerText = "Категория";
+                XmlNode name_node_p = property_node.AppendChild(name_element_p);
+
+                // <value>
+                XmlElement value_element = xDoc.CreateElement("value");
+                XmlNode value_node = condition_node.AppendChild(value_element);
+                // <data type="wstring">Стены</data>
+                XmlElement data_element = xDoc.CreateElement("data");
+                data_element.SetAttribute("type", "wstring");
+                data_element.InnerText = GetSameCategory(category_mask);
+                XmlNode data_node = value_node.AppendChild(data_element);
+
+
+
+                // <locator>/</locator>
+                XmlElement locator_element = xDoc.CreateElement("locator");
+                locator_element.InnerText = "/";
+                XmlNode locator_node = findspec_node.AppendChild(locator_element);
             }
 
 
@@ -245,6 +341,7 @@ namespace СollisionMatrix
 
         }
         private bool CanDoIfIClickOnCreateXMLCollisionMatrixButtonExecute(object p) => true;
+
 
         public ICommand DoIfIClickOnOpenXMLCollisionMatrixButton { get; set; }
         private void OnDoIfIClickOnOpenXMLCollisionMatrixButtonExecuted(object p)
@@ -297,11 +394,11 @@ namespace СollisionMatrix
                 {
                     if (batchtest_node.Name == "batchtest")
                     {
-                        foreach (XmlNode clashtests_node in batchtest_node.ChildNodes) // <clashtests>
+                        foreach (XmlNode node_in_batchtest_node in batchtest_node.ChildNodes) // <clashtests>
                         {
-                            if (clashtests_node.Name == "clashtests")
+                            if (node_in_batchtest_node.Name == "clashtests")
                             {
-                                foreach (XmlNode clashtest_node in clashtests_node.ChildNodes) // <clashtest name="АР_Вертикальные конструкции - АР_Вертикальные конструкции" test_type="duplicate" status="ok" tolerance="0.000" merge_composites="0">
+                                foreach (XmlNode clashtest_node in node_in_batchtest_node.ChildNodes) // <clashtest name="АР_Вертикальные конструкции - АР_Вертикальные конструкции" test_type="duplicate" status="ok" tolerance="0.000" merge_composites="0">
                                 {
                                     if (clashtest_node.Name == "clashtest")
                                     {
@@ -426,15 +523,96 @@ namespace СollisionMatrix
                                         msnuc_new.DataContext = mslvm_new;
                                         UserControlsSelectionNames.Add(msnuc_new);
                                     }
-                                    
                                 }
                             }
-                            
+                            else if (node_in_batchtest_node.Name == "selectionsets")
+                            {
+                                foreach (XmlNode selectionset_node in node_in_batchtest_node.ChildNodes)
+                                {
+                                    if (selectionset_node.Name == "selectionset")
+                                    {
+                                        Selectionset selectionset = new Selectionset();
+                                        selectionset.Tag_name = selectionset_node.Attributes.GetNamedItem("name").InnerText;
+                                        selectionset.Tag_guid = selectionset_node.Attributes.GetNamedItem("guid").InnerText;
+                                        foreach (XmlNode findspec_node in selectionset_node.ChildNodes)
+                                        {
+                                            if (findspec_node.Name == "findspec")
+                                            {
+                                                selectionset.Findspec = new Findspec();
+                                                selectionset.Findspec.Tag_mode = findspec_node.Attributes.GetNamedItem("mode").InnerText;
+                                                selectionset.Findspec.Tag_disjoint = findspec_node.Attributes.GetNamedItem("disjoint").InnerText;
+                                                selectionset.Findspec.Conditions = new Conditions();
+                                                foreach (XmlNode conditions_node in findspec_node.ChildNodes)
+                                                {
+                                                    if (conditions_node.Name == "conditions")
+                                                    {
+                                                        selectionset.Findspec.Conditions.Conditions_list = new List<Models.Condition>();
+                                                        foreach (XmlNode condition_node in conditions_node.ChildNodes)
+                                                        {
+                                                            if (condition_node.Name == "condition")
+                                                            {
+                                                                Models.Condition condition = new Models.Condition();
+                                                                condition.Tag_test = condition_node.Attributes.GetNamedItem("test").InnerText;
+                                                                condition.Tag_flags = condition_node.Attributes.GetNamedItem("flags").InnerText;
+                                                                foreach (XmlNode node_in_condition_node in condition_node.ChildNodes)
+                                                                {
+                                                                    if (node_in_condition_node.Name == "category")
+                                                                    {
+                                                                        condition.Category = new Category();
+                                                                        foreach (XmlNode name_node in node_in_condition_node.ChildNodes)
+                                                                        {
+                                                                            if (name_node.Name == "name")
+                                                                            {
+                                                                                condition.Category.Name = new Name();
+                                                                                condition.Category.Name.Tag_internal = name_node.Attributes.GetNamedItem("internal").InnerText;
+                                                                                condition.Category.Name.Tag_inner_text = name_node.InnerText;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else if (node_in_condition_node.Name == "property")
+                                                                    {
+                                                                        condition.Property = new Property();
+                                                                        foreach (XmlNode name_node in node_in_condition_node.ChildNodes)
+                                                                        {
+                                                                            if (name_node.Name == "name")
+                                                                            {
+                                                                                condition.Property.Name = new Name();
+                                                                                condition.Property.Name.Tag_internal = name_node.Attributes.GetNamedItem("internal").InnerText;
+                                                                                condition.Property.Name.Tag_inner_text = name_node.InnerText;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else if (node_in_condition_node.Name == "value")
+                                                                    {
+                                                                        condition.Value = new Value();
+                                                                        foreach (XmlNode data_node in node_in_condition_node.ChildNodes)
+                                                                        {
+                                                                            if (data_node.Name == "data")
+                                                                            {
+                                                                                condition.Value.Data = new Data();
+                                                                                condition.Value.Data.Tag_type = data_node.Attributes.GetNamedItem("type").InnerText;
+                                                                                condition.Value.Data.Tag_inner_text = data_node.InnerText;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        Selectionsets.Add(selectionset);
+                                    }
+                                }
+                            }
                         }
                     }
                     
                 }
                 
+
             }
             catch (Exception ex)
             {
@@ -513,8 +691,31 @@ namespace СollisionMatrix
                 row_num += 1;
             }
 
+            string output = "";
+            foreach (Selectionset ss in Selectionsets)
+            {
+                output += ss.Tag_name + "\n";
+            }
+            MessageBox.Show(output);
+
         }
         private bool CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute(object p) => true;
 
+        private static List<string> categories_in_revit = new List<string>()
+        {
+            "Стены", "Перекрытия", "Панели витража", "Импосты витража", "Потолки", "Окна", "Двери", "Лестницы", "Крыши", "Несущие колонны",
+            "Каркас несущий", "Лестницы", "Фундамент несущей конструкции", "Оборудование", 
+            "Арматура воздуховодов", "Воздуховоды", "Соединительные детали воздуховодов",
+            "Арматура трубопроводов", "Трубы", "Соединительные детали трубопроводов", "Спринклеры",
+            "Сантехнические приборы", "Электрооборудование", "Кабельные лотки", "Короба", "Осветительные приборы"
+        };
+        private static string GetSameCategory(string input_category)
+        {
+            foreach (string category in categories_in_revit)
+            {
+                if (category.ToLower().Contains(input_category.ToLower())) return category;
+            }
+            return "Стены";
+        }
     }
 }
