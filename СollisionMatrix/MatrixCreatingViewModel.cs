@@ -336,8 +336,13 @@ namespace СollisionMatrix
                 XmlNode locator_node = findspec_node.AppendChild(locator_element);
             }
 
+            string pathtoxml = "";
 
-            xDoc.Save(@"C:\Users\o.sidorin\Downloads\examplexml.xml");
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            var dialog_result = openFileDialog.ShowDialog();
+            pathtoxml = openFileDialog.FileName;
+
+            if (dialog_result == System.Windows.Forms.DialogResult.OK) xDoc.Save(pathtoxml);
 
         }
         private bool CanDoIfIClickOnCreateXMLCollisionMatrixButtonExecute(object p) => true;
@@ -542,12 +547,12 @@ namespace СollisionMatrix
                                                 selectionset.Findspec.Tag_mode = findspec_node.Attributes.GetNamedItem("mode").InnerText;
                                                 selectionset.Findspec.Tag_disjoint = findspec_node.Attributes.GetNamedItem("disjoint").InnerText;
                                                 selectionset.Findspec.Conditions = new Conditions();
-                                                foreach (XmlNode conditions_node in findspec_node.ChildNodes)
+                                                foreach (XmlNode node_in_findspec_node in findspec_node.ChildNodes)
                                                 {
-                                                    if (conditions_node.Name == "conditions")
+                                                    if (node_in_findspec_node.Name == "conditions")
                                                     {
                                                         selectionset.Findspec.Conditions.Conditions_list = new List<Models.Condition>();
-                                                        foreach (XmlNode condition_node in conditions_node.ChildNodes)
+                                                        foreach (XmlNode condition_node in node_in_findspec_node.ChildNodes)
                                                         {
                                                             if (condition_node.Name == "condition")
                                                             {
@@ -596,11 +601,19 @@ namespace СollisionMatrix
                                                                         }
                                                                     }
                                                                 }
+                                                                selectionset.Findspec.Conditions.Conditions_list.Add(condition);
                                                             }
                                                             
                                                         }
+                                                        
+                                                    }
+                                                    else if (node_in_findspec_node.Name == "locator")
+                                                    {
+                                                        selectionset.Findspec.Locator = new Locator();
+                                                        selectionset.Findspec.Locator.Tag_inner_text = node_in_findspec_node.InnerText;
                                                     }
                                                 }
+                                                
                                             }
                                         }
                                         Selectionsets.Add(selectionset);

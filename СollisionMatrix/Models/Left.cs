@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace СollisionMatrix.Models
 {
-    public class Conditions
+    public class Left
     {
-        public static string NameOfClass = "conditions";
-        public List<Condition> Conditions_list { get; set; }
+        public static string NameOfClass = "left";
+        public Clashselection Clashselection { get; set; }
     }
 }

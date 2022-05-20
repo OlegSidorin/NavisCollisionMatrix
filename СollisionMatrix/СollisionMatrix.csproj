@@ -130,13 +130,19 @@
       <DependentUpon>MatrixSelectionNameUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Clashselection.cs" />
+    <Compile Include="Models\Clashtest.cs" />
     <Compile Include="Models\Condition.cs" />
     <Compile Include="Models\Conditions.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\Findspec.cs" />
+    <Compile Include="Models\Left.cs" />
+    <Compile Include="Models\Linkage.cs" />
     <Compile Include="Models\Locator.cs" />
     <Compile Include="Models\Name.cs" />
     <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\Right.cs" />
+    <Compile Include="Models\Rules.cs" />
     <Compile Include="Models\Selectionset.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="SelectionSet.cs" />

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace СollisionMatrix.Models
 {
-    public class Conditions
+    public class Rules
     {
-        public static string NameOfClass = "conditions";
-        public List<Condition> Conditions_list { get; set; }
+        public static string NameOfClass = "rules";
     }
 }
