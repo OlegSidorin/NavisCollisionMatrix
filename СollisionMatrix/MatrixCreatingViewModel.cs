@@ -18,14 +18,15 @@ namespace СollisionMatrix
     public class MatrixCreatingViewModel : ObservableObject
     {
         public ObservableCollection<MatrixSelectionLineModel> Selections { get; set; }
-        public ObservableCollection<ClashTest> Clashtests { get; set; }
         public ObservableCollection<UserControl> UserControlsInWholeMatrix { get; set; }
         public ObservableCollection<UserControl> UserControlsSelectionNames { get; set; }
         public List<Selectionset> Selectionsets { get; set; }
+        public List<Clashtest> Clashtests { get; set; }
         public MatrixCreatingViewModel()
         {
-            Clashtests = new ObservableCollection<ClashTest>();
+            //ClashTests = new ObservableCollection<ClashTest>();
             Selectionsets = new List<Selectionset>();
+            Clashtests = new List<Clashtest>();
 
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
             var new1 = new MatrixSelectionLineModel()
@@ -355,13 +356,6 @@ namespace СollisionMatrix
 
             bool success = true;
 
-            //ClashTests = new ObservableCollection<ClashTest>();
-            //ClashTestsTotal = new ObservableCollection<ClashTest>();
-            //ThisView.spDataVLine.Children.Clear();
-
-            //string pathtoexe = Assembly.GetExecutingAssembly().Location;
-            //string dllname = Assembly.GetExecutingAssembly().GetName().Name.ToString();
-            //string folderpath = pathtoexe.Replace(dllname + ".exe", "");
             string pathtoxml = "";
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -389,7 +383,6 @@ namespace СollisionMatrix
 
             UserControlsInWholeMatrix.Clear();
             UserControlsSelectionNames.Clear();
-            Clashtests.Clear();
 
             try
             {
@@ -407,126 +400,111 @@ namespace СollisionMatrix
                                 {
                                     if (clashtest_node.Name == "clashtest")
                                     {
-                                        ClashTest clashTest_new = new ClashTest();
-                                        clashTest_new.Name = clashtest_node.Attributes.GetNamedItem("name").InnerText;
-                                        clashTest_new.Tolerance = clashtest_node.Attributes.GetNamedItem("tolerance").InnerText;
-                                        bool result = double.TryParse(clashTest_new.Tolerance.Replace(".", ","), out double dt);
-                                        dt *= 304.8;
-                                        clashTest_new.Tolerance = ((int)dt).ToString();
-
-                                        MatrixSelectionLineUserControl msluc_new = new MatrixSelectionLineUserControl();
-                                        MatrixSelectionLineViewModel mslvm_new = new MatrixSelectionLineViewModel();
-
-                                        mslvm_new.NameOfSelection = clashTest_new.Name;
-                                        
-                                        mslvm_new.ToleranceViews = new ObservableCollection<UserControl>();
-
-                                        MatrixSelectionCellUserControl mscuc_new_t = new MatrixSelectionCellUserControl();
-                                        MatrixSelectionCellVewModel mscvm_new_t = new MatrixSelectionCellVewModel();
-                                        mscvm_new_t.Tolerance = clashTest_new.Tolerance;
-                                        mscuc_new_t.DataContext = mscvm_new_t;
-                                        mslvm_new.ToleranceViews.Add(mscuc_new_t);
+                                        Clashtest clashtest = new Clashtest();
+                                        clashtest.Tag_test_type = clashtest_node.Attributes.GetNamedItem("test_type").InnerText;
+                                        clashtest.Tag_status = clashtest_node.Attributes.GetNamedItem("status").InnerText;
+                                        clashtest.Tag_merge_composites = clashtest_node.Attributes.GetNamedItem("merge_composites").InnerText;
+                                        clashtest.Tag_tolerance = clashtest_node.Attributes.GetNamedItem("tolerance").InnerText;
+                                        bool to_double = double.TryParse(clashtest.Tag_tolerance.Replace(".", ","), out double td);
+                                        td *= 304.8;
+                                        clashtest.Tag_tolerance_in_mm = ((int)td).ToString();
 
                                         foreach (XmlNode node_in_clashtest_node in clashtest_node.ChildNodes)
                                         {
-                                            if (node_in_clashtest_node.Name == "left")
+                                            if (node_in_clashtest_node.Name == "linkage")
                                             {
-                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
-                                                {
-                                                    if (clashselection_node.Name == "clashselection")
-                                                    {
-                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
-                                                        {
-                                                            if (locator_node.Name == "locator")
-                                                            {
-                                                                clashTest_new.SelectionLeftName = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
-
-                                                                MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
-                                                                MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
-
-                                                                var names = clashTest_new.SelectionLeftName.Split('/');
-                                                                clashTest_new.SelectionLeftName = names.LastOrDefault();
-
-                                                                var names2 = clashTest_new.SelectionLeftName.Split('_');
-                                                                if (names2.Count() > 1)
-                                                                {
-                                                                    clashTest_new.DraftLeftName = names2.First();
-
-                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
-                                                                    mscuc_new.DataContext = mscvm_new;
-
-                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
-                                                                }
-                                                                else
-                                                                {
-                                                                    clashTest_new.DraftLeftName = "?";
-
-                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
-                                                                    mscuc_new.DataContext = mscvm_new;
-
-                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-
+                                                clashtest.Linkage = new Linkage();
+                                                clashtest.Linkage.Tag_mode = node_in_clashtest_node.Attributes.GetNamedItem("mode").InnerText;
                                             }
-                                            if (node_in_clashtest_node.Name == "right")
+                                            else if (node_in_clashtest_node.Name == "left")
                                             {
+                                                clashtest.Left = new Left();
                                                 foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
                                                 {
                                                     if (clashselection_node.Name == "clashselection")
                                                     {
+                                                        clashtest.Left.Clashselection = new Clashselection();
+                                                        clashtest.Left.Clashselection.Tag_primtypes = clashselection_node.Attributes.GetNamedItem("primtypes").InnerText;
+                                                        clashtest.Left.Clashselection.Tag_selfintersect = clashselection_node.Attributes.GetNamedItem("selfintersect").InnerText;
+                                                        
                                                         foreach (XmlNode locator_node in clashselection_node.ChildNodes)
                                                         {
                                                             if (locator_node.Name == "locator")
                                                             {
-                                                                clashTest_new.SelectionRightName = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
+                                                                clashtest.Left.Clashselection.Locator = new Locator();
+                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
+                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
 
-                                                                MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
-                                                                MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
-
-                                                                var names = clashTest_new.SelectionRightName.Split('/');
-                                                                clashTest_new.SelectionRightName = names.LastOrDefault();
-
-                                                                var names2 = clashTest_new.SelectionRightName.Split('_');
-                                                                if (names2.Count() > 1)
+                                                                var folders_names = clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name.Split('/');
+                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
+                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
+                                                                foreach (string folder_name in folders_names)
                                                                 {
-                                                                    clashTest_new.DraftLeftName = names2.First();
+                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
+                                                                }
 
-                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
-                                                                    mscuc_new.DataContext = mscvm_new;
-
-                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
+                                                                var draft_names = clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
+                                                                if (draft_names.Count() > 1)
+                                                                {
+                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
                                                                 }
                                                                 else
                                                                 {
-                                                                    clashTest_new.DraftLeftName = "?";
-
-                                                                    mscvm_new.Tolerance = clashTest_new.DraftLeftName;
-                                                                    mscuc_new.DataContext = mscvm_new;
-
-                                                                    mslvm_new.ToleranceViews.Add(mscuc_new);
+                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = "?";
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
+                                            }
+                                            else if (node_in_clashtest_node.Name == "right")
+                                            {
+                                                clashtest.Right = new Right();
+                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
+                                                {
+                                                    if (clashselection_node.Name == "clashselection")
+                                                    {
+                                                        clashtest.Right.Clashselection = new Clashselection();
+                                                        clashtest.Right.Clashselection.Tag_primtypes = clashselection_node.Attributes.GetNamedItem("primtypes").InnerText;
+                                                        clashtest.Right.Clashselection.Tag_selfintersect = clashselection_node.Attributes.GetNamedItem("selfintersect").InnerText;
 
+                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
+                                                        {
+                                                            if (locator_node.Name == "locator")
+                                                            {
+                                                                clashtest.Right.Clashselection.Locator = new Locator();
+                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
+                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
 
+                                                                var folders_names = clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name.Split('/');
+                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
+                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
+                                                                foreach (string folder_name in folders_names)
+                                                                {
+                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
+                                                                }
+
+                                                                var draft_names = clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
+                                                                if (draft_names.Count() > 1)
+                                                                {
+                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
+                                                                }
+                                                                else
+                                                                {
+                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = "?";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (node_in_clashtest_node.Name == "rules")
+                                            {
+                                                clashtest.Rules = new Rules();
                                             }
                                         }
 
-                                        Clashtests.Add(clashTest_new);
-
-                                        msluc_new.DataContext = mslvm_new;
-                                        UserControlsInWholeMatrix.Add(msluc_new);
-
-                                        MatrixSelectionNameUserControl msnuc_new = new MatrixSelectionNameUserControl();
-                                        msnuc_new.DataContext = mslvm_new;
-                                        UserControlsSelectionNames.Add(msnuc_new);
+                                        Clashtests.Add(clashtest);
                                     }
                                 }
                             }
@@ -625,7 +603,6 @@ namespace СollisionMatrix
                     
                 }
                 
-
             }
             catch (Exception ex)
             {
@@ -638,18 +615,12 @@ namespace СollisionMatrix
             UserControlsInWholeMatrix.Clear();
             UserControlsSelectionNames.Clear();
 
-            List<string> selection_names = new List<string>();
-            foreach(ClashTest clashTest in Clashtests)
-            {
-                selection_names.Add(clashTest.SelectionLeftName);
-            }
-            List<string> selection_names_distinct = selection_names.Distinct().ToList<string>();
             int row_num = 0;
-            foreach(string name_of_selection in selection_names_distinct)
+            foreach (Selectionset ss in Selectionsets)
             {
                 MatrixSelectionLineUserControl msluc_new = new MatrixSelectionLineUserControl();
                 MatrixSelectionLineViewModel mslvm_new = new MatrixSelectionLineViewModel();
-                mslvm_new.NameOfSelection = name_of_selection;
+                mslvm_new.NameOfSelection = ss.Tag_name;
                 mslvm_new.RowNum = row_num;
                 mslvm_new.ToleranceViews = new ObservableCollection<UserControl>();
                 msluc_new.DataContext = mslvm_new;
@@ -659,32 +630,32 @@ namespace СollisionMatrix
                 mslvm_new.UserControlsInSelectionNameUserControls = UserControlsSelectionNames;
                 mslvm_new.UserControl_MatrixSelectionLineUserControl = msluc_new;
 
-                List<ClashTest> clashTests_with_left_name_of_selection_is_equal_name_of_selection = new List<ClashTest>();
-                foreach(ClashTest ct in Clashtests)
+                List<Clashtest> clashTests_with_left_name_of_selection_is_equal_name_of_selection = new List<Clashtest>();
+                foreach (Clashtest ct in Clashtests)
                 {
-                    if (ct.SelectionLeftName == name_of_selection)
+                    if (ct.Left.Clashselection.Locator.Tag_inner_text_selection_name == ss.Tag_name)
                     {
                         clashTests_with_left_name_of_selection_is_equal_name_of_selection.Add(ct);
                     }
                 }
 
-                for(int i = 0; i < selection_names_distinct.Count(); i++)
+                for (int i = 0; i < Selectionsets.Count(); i++)
                 {
                     bool view_with_clastest = false;
-                    ClashTest clashTest = null;
-                    foreach (ClashTest ct in clashTests_with_left_name_of_selection_is_equal_name_of_selection)
+                    Clashtest clashtest = null;
+                    foreach (Clashtest ct in clashTests_with_left_name_of_selection_is_equal_name_of_selection)
                     {
-                        if (ct.SelectionRightName == selection_names_distinct.ElementAt(i))
+                        if (ct.Right.Clashselection.Locator.Tag_inner_text_selection_name == Selectionsets.ElementAt(i).Tag_name)
                         {
                             view_with_clastest = true;
-                            clashTest = ct;
+                            clashtest = ct;
                         }
                     }
                     if (view_with_clastest)
                     {
                         MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
                         MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
-                        mscvm_new.Tolerance = clashTest.Tolerance;
+                        mscvm_new.Tolerance = clashtest.Tag_tolerance_in_mm;
                         mscuc_new.DataContext = mscvm_new;
                         mslvm_new.ToleranceViews.Add(mscuc_new);
                     }
@@ -696,7 +667,7 @@ namespace СollisionMatrix
                         mscuc_new.DataContext = mscvm_new;
                         mslvm_new.ToleranceViews.Add(mscuc_new);
                     }
-                    
+
                 }
 
                 UserControlsInWholeMatrix.Add(msluc_new);
@@ -704,12 +675,12 @@ namespace СollisionMatrix
                 row_num += 1;
             }
 
-            string output = "";
-            foreach (Selectionset ss in Selectionsets)
-            {
-                output += ss.Tag_name + "\n";
-            }
-            MessageBox.Show(output);
+            //string output = "";
+            //foreach (Selectionset ss in Selectionsets)
+            //{
+            //    output += ss.Tag_name + "\n";
+            //}
+            //MessageBox.Show(output);
 
         }
         private bool CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute(object p) => true;
