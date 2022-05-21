@@ -12,6 +12,20 @@ namespace СollisionMatrix
 {
     public class MatrixSelectionLineViewModel : ObservableObject
     {
+        private Models.Selectionset _selectionset;
+        public Models.Selectionset Selectionset
+        {
+            get { return _selectionset; }
+            set
+            {
+                if (_selectionset != value)
+                {
+                    _selectionset = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private MatrixSelectionLineModel _matrixSelectionLineModel;
         public MatrixSelectionLineModel MatrixSelectionLineModel
         {
@@ -163,7 +177,6 @@ namespace СollisionMatrix
                 }
             }
         }
-
 
         public MatrixSelectionLineViewModel()
         {

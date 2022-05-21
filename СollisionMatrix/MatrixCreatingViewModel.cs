@@ -24,7 +24,6 @@ namespace СollisionMatrix
         public List<Clashtest> Clashtests { get; set; }
         public MatrixCreatingViewModel()
         {
-            //ClashTests = new ObservableCollection<ClashTest>();
             Selectionsets = new List<Selectionset>();
             Clashtests = new List<Clashtest>();
 
@@ -620,6 +619,7 @@ namespace СollisionMatrix
             {
                 MatrixSelectionLineUserControl msluc_new = new MatrixSelectionLineUserControl();
                 MatrixSelectionLineViewModel mslvm_new = new MatrixSelectionLineViewModel();
+                mslvm_new.Selectionset = ss;
                 mslvm_new.NameOfSelection = ss.Tag_name;
                 mslvm_new.RowNum = row_num;
                 mslvm_new.ToleranceViews = new ObservableCollection<UserControl>();
@@ -655,6 +655,7 @@ namespace СollisionMatrix
                     {
                         MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
                         MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
+                        mscvm_new.Clashtest = clashtest;
                         mscvm_new.Tolerance = clashtest.Tag_tolerance_in_mm;
                         mscuc_new.DataContext = mscvm_new;
                         mslvm_new.ToleranceViews.Add(mscuc_new);

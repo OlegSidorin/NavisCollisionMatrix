@@ -9,6 +9,20 @@ namespace СollisionMatrix
 {
     public class MatrixSelectionCellVewModel : ObservableObject
     {
+        private Models.Clashtest _clashtest;
+        public Models.Clashtest Clashtest
+        {
+            get { return _clashtest; }
+            set
+            {
+                if (_clashtest != value)
+                {
+                    _clashtest = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _tolerance;
         public string Tolerance
         {
