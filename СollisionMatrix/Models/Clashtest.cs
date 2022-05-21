@@ -9,6 +9,7 @@ namespace СollisionMatrix.Models
     public class Clashtest
     {
         public static string NameOfClass = "clashtest";
+        public string Tag_name { get; set; }
         public string Tag_test_type { get; set; }
         public string Tag_status { get; set; }
         public string Tag_tolerance { get; set; }

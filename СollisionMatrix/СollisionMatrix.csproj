@@ -129,6 +129,7 @@
     <Compile Include="MatrixSelectionNameUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionNameUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Batchtest.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Clashselection.cs" />
     <Compile Include="Models\Clashtest.cs" />

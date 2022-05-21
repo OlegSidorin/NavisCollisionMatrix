@@ -22,10 +22,17 @@ namespace СollisionMatrix
         public ObservableCollection<UserControl> UserControlsSelectionNames { get; set; }
         public List<Selectionset> Selectionsets { get; set; }
         public List<Clashtest> Clashtests { get; set; }
+        public Batchtest Batchtest { get; set; }
         public MatrixCreatingViewModel()
         {
             Selectionsets = new List<Selectionset>();
             Clashtests = new List<Clashtest>();
+            Batchtest = new Batchtest()
+            {
+                Tag_name = "Экспорт проверок",
+                Tag_internal_name = "Экспорт проверок",
+                Tag_units = "ft"
+            };
 
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
             var new1 = new MatrixSelectionLineModel()
@@ -149,16 +156,128 @@ namespace СollisionMatrix
 
             XmlNode exchange_node = xDoc.AppendChild(exchange_element);
 
+            // get Selectionsets and Clashtests from view models
+            Selectionsets.Clear();
+            int iForToleranceArray = 0;
+            foreach (UserControl usercontrolline in UserControlsInWholeMatrix)
+            {
+                iForToleranceArray = 0;
+                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)usercontrolline;
+                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
+
+                var draft_name = "?";
+                var category_name = "Стены";
+                var draft_names = mslvm.NameOfSelection.Split('_');
+                if (draft_names.Count() > 1)
+                {
+                    draft_name = draft_names.First();
+                    category_name = draft_names.Last();
+                }
+
+                if (mslvm.Selectionset != null)
+                {
+                    mslvm.Selectionset.Tag_name = mslvm.NameOfSelection;
+                }
+                else
+                {
+                    mslvm.Selectionset = new Selectionset()
+                    {
+                        Tag_name = mslvm.NameOfSelection,
+                        Tag_guid = "",
+                        Findspec = new Findspec()
+                        {
+                            Tag_mode = "all",
+                            Tag_disjoint = "0",
+                            Locator = new Locator()
+                            {
+                                Tag_inner_text = "/"
+                            },
+                            Conditions = new Conditions()
+                            {
+                                Conditions_list = new List<Models.Condition>()
+                            }
+                        }
+                    };
+
+                    Models.Condition mc1 = new Models.Condition()
+                    {
+                        Tag_test = "contains",
+                        Tag_flags = "10",
+                        Property = new Property()
+                        {
+                            Name = new Name()
+                            {
+                                Tag_internal = "LcOaNodeSourceFile",
+                                Tag_inner_text = "Файл источника"
+                            }
+                        },
+                        Value = new Value()
+                        {
+                            Data = new Data()
+                            {
+                                Tag_type = "wstring",
+                                Tag_inner_text = draft_name + "_"
+                            }
+                        }
+                    };
+                    mslvm.Selectionset.Findspec.Conditions.Conditions_list.Add(mc1);
+
+                    Models.Condition mc2 = new Models.Condition()
+                    {
+                        Tag_test = "equals",
+                        Tag_flags = "10",
+                        Category = new Category()
+                        {
+                            Name = new Name()
+                            {
+                                Tag_internal = "LcRevitData_Element",
+                                Tag_inner_text = "Объект"
+                            }
+                        },
+                        Property = new Property()
+                        {
+                            Name = new Name()
+                            {
+                                Tag_internal = "LcRevitPropertyElementCategory",
+                                Tag_inner_text = "Категория"
+                            }
+                        },
+                        Value = new Value()
+                        {
+                            Data = new Data()
+                            {
+                                Tag_type = "wstring",
+                                Tag_inner_text = GetSameCategory(category_name)
+                            }
+                        }
+                    };
+                    mslvm.Selectionset.Findspec.Conditions.Conditions_list.Add(mc2);
+
+                }
+                Selectionsets.Add(mslvm.Selectionset);
+
+                foreach (UserControl usercontrolcell in mslvm.ToleranceViews)
+                {
+                    MatrixSelectionCellUserControl mscuc = (MatrixSelectionCellUserControl)usercontrolcell;
+                    MatrixSelectionCellVewModel mscvm = (MatrixSelectionCellVewModel)mscuc.DataContext;
+
+
+                    if (mscvm.Clashtest != null) Clashtests.Add(mscvm.Clashtest);
+                }
+                    
+            }
+
+            // write xml from Selectionsets and Clashtests
 
             XmlElement batchtest_element = xDoc.CreateElement("batchtest");
-            batchtest_element.SetAttribute("name", "Без имени");
-            batchtest_element.SetAttribute("internal_name", "Без имени");
-            batchtest_element.SetAttribute("units", "ft");
+            batchtest_element.SetAttribute("name", Batchtest.Tag_name);
+            batchtest_element.SetAttribute("internal_name", Batchtest.Tag_internal_name);
+            batchtest_element.SetAttribute("units", Batchtest.Tag_units);
             XmlNode batchtest_node = exchange_node.AppendChild(batchtest_element);
 
             XmlElement clashtests_element = xDoc.CreateElement("clashtests");
             XmlNode clashtests_node = batchtest_node.AppendChild(clashtests_element);
-            int iForToleranceArray = 0;
+            
             foreach(UserControl usercontrolline in UserControlsInWholeMatrix)
             {
                 iForToleranceArray = 0;
@@ -168,7 +287,17 @@ namespace СollisionMatrix
                 {
                     MatrixSelectionCellUserControl mscuc = (MatrixSelectionCellUserControl)usercontrolcell;
                     MatrixSelectionCellVewModel mscvm = (MatrixSelectionCellVewModel)mscuc.DataContext;
-                    if (mscvm.Tolerance != string.Empty)
+                    if (mscvm.Clashtest != null)
+                    {
+                        bool result = double.TryParse(mscvm.Tolerance, out double dt);
+                        if (result)
+                        {
+
+
+                        }
+                            
+                    }
+                    else if (mscvm.Tolerance != string.Empty)
                     {
                         bool result = double.TryParse(mscvm.Tolerance, out double dt);
                         if (result)
@@ -391,6 +520,9 @@ namespace СollisionMatrix
                 {
                     if (batchtest_node.Name == "batchtest")
                     {
+                        Batchtest.Tag_name = batchtest_node.Attributes.GetNamedItem("name").InnerText;
+                        Batchtest.Tag_internal_name = batchtest_node.Attributes.GetNamedItem("internal_name").InnerText;
+                        Batchtest.Tag_units = batchtest_node.Attributes.GetNamedItem("units").InnerText;
                         foreach (XmlNode node_in_batchtest_node in batchtest_node.ChildNodes) // <clashtests>
                         {
                             if (node_in_batchtest_node.Name == "clashtests")
@@ -400,6 +532,7 @@ namespace СollisionMatrix
                                     if (clashtest_node.Name == "clashtest")
                                     {
                                         Clashtest clashtest = new Clashtest();
+                                        clashtest.Tag_name = clashtest_node.Attributes.GetNamedItem("name").InnerText;
                                         clashtest.Tag_test_type = clashtest_node.Attributes.GetNamedItem("test_type").InnerText;
                                         clashtest.Tag_status = clashtest_node.Attributes.GetNamedItem("status").InnerText;
                                         clashtest.Tag_merge_composites = clashtest_node.Attributes.GetNamedItem("merge_composites").InnerText;
