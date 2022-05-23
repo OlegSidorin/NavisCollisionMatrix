@@ -243,7 +243,6 @@ namespace СollisionMatrix
 
                 Selectionsets.Add(mslvm.Selectionset);
 
-                
                 int colNum = 0;
                 foreach (UserControl usercontrolcell in mslvm.ToleranceViews)
                 {
