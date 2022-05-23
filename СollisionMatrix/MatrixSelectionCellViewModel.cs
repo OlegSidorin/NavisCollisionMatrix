@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace СollisionMatrix
 {
-    public class MatrixSelectionCellVewModel : ObservableObject
+    public class MatrixSelectionCellViewModel : ObservableObject
     {
         private Models.Clashtest _clashtest;
         public Models.Clashtest Clashtest

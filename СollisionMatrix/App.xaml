@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:СollisionMatrix"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ButtonRed.xaml" />
+                <ResourceDictionary Source="Themes/ButtonBlue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

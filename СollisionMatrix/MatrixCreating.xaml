@@ -45,7 +45,7 @@
                 <ItemsControl Grid.Row="1" Grid.Column="2"
                               ItemsSource="{Binding UserControlsSelectionNames}"
                               HorizontalAlignment="Center"
-                              Margin="215 0 0 0">
+                              Margin="228 0 0 0">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -68,7 +68,7 @@
                 HorizontalAlignment="Right"
                 ToolTip="Для последущего использования в Navisworks"
                 Margin="0 5 10 0"
-                    Command="{Binding DoIfIClickOnCreateXMLCollisionMatrixButton}"
+                    Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}"
             Content="Сохранить Матрицу коллизий в файл .xml"  />
             </StackPanel>
         </StackPanel>

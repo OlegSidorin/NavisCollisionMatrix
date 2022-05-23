@@ -87,7 +87,7 @@ namespace СollisionMatrix
                 foreach (string tolerance in model.SelectionIntersectionTolerance)
                 {
 
-                    MatrixSelectionCellVewModel cellViewModel = new MatrixSelectionCellVewModel()
+                    MatrixSelectionCellViewModel cellViewModel = new MatrixSelectionCellViewModel()
                     {
                         Tolerance = tolerance
                     };
@@ -115,7 +115,7 @@ namespace СollisionMatrix
                 UserControlsSelectionNames.Add(msnuc);
             }
 
-            DoIfIClickOnCreateXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnCreateXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnCreateXMLCollisionMatrixButtonExecute);
+            DoIfIClickOnSaveXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnSaveXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnSaveXMLCollisionMatrixButtonExecute);
             DoIfIClickOnOpenXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnOpenXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute);
 
             int linecounter = 0;
@@ -128,7 +128,7 @@ namespace СollisionMatrix
                 foreach (UserControl usercontrolcell in mslvm.ToleranceViews)
                 {
                     MatrixSelectionCellUserControl mscuc = (MatrixSelectionCellUserControl)usercontrolcell;
-                    MatrixSelectionCellVewModel mscvm = (MatrixSelectionCellVewModel)mscuc.DataContext;
+                    MatrixSelectionCellViewModel mscvm = (MatrixSelectionCellViewModel)mscuc.DataContext;
 
                     cellcounter += 1;
                 }
@@ -137,27 +137,13 @@ namespace СollisionMatrix
 
         }
 
-        public ICommand DoIfIClickOnCreateXMLCollisionMatrixButton { get; set; }
-        private void OnDoIfIClickOnCreateXMLCollisionMatrixButtonExecuted(object p)
+        public ICommand DoIfIClickOnSaveXMLCollisionMatrixButton { get; set; }
+        private void OnDoIfIClickOnSaveXMLCollisionMatrixButtonExecuted(object p)
         {
-            XmlDocument xDoc = new XmlDocument();
 
-            XmlDeclaration xmlDeclaration = xDoc.CreateXmlDeclaration("1.0", "UTF-8", string.Empty);
-            XmlNode xmlDeclaration_node = xDoc.AppendChild(xmlDeclaration);
-
-
-            XmlElement exchange_element = xDoc.CreateElement("exchange");
-            exchange_element.SetAttribute(@"xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            exchange_element.SetAttribute("noNamespaceSchemaLocation", "http://www.w3.org/2001/XMLSchema-instance", "http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd");
-            //exchange_element.SetAttribute("xsi:noNamespaceSchemaLocation", "http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd"); // not working
-            exchange_element.SetAttribute("units", "ft");
-            exchange_element.SetAttribute("filename", "");
-            exchange_element.SetAttribute("filepath", "");
-
-            XmlNode exchange_node = xDoc.AppendChild(exchange_element);
-
-            // get Selectionsets and Clashtests from view models
+            // refresh Selectionsets and Clashtests from view models
             Selectionsets.Clear();
+            Clashtests.Clear();
             int iForToleranceArray = 0;
             foreach (UserControl usercontrolline in UserControlsInWholeMatrix)
             {
@@ -178,7 +164,7 @@ namespace СollisionMatrix
                 {
                     mslvm.Selectionset.Tag_name = mslvm.NameOfSelection;
                 }
-                else
+                else if (mslvm.Selectionset == null)
                 {
                     mslvm.Selectionset = new Selectionset()
                     {
@@ -254,20 +240,155 @@ namespace СollisionMatrix
                     mslvm.Selectionset.Findspec.Conditions.Conditions_list.Add(mc2);
 
                 }
+
                 Selectionsets.Add(mslvm.Selectionset);
 
+                
+                int colNum = 0;
                 foreach (UserControl usercontrolcell in mslvm.ToleranceViews)
                 {
                     MatrixSelectionCellUserControl mscuc = (MatrixSelectionCellUserControl)usercontrolcell;
-                    MatrixSelectionCellVewModel mscvm = (MatrixSelectionCellVewModel)mscuc.DataContext;
+                    MatrixSelectionCellViewModel mscvm = (MatrixSelectionCellViewModel)mscuc.DataContext;
 
+                    Clashtest ct = null;
+                    if (mscvm.Clashtest != null)
+                    {
+                        bool operation_result_toInt_isOk = int.TryParse(mscvm.Tolerance, out int tolerance_int);
+                        if (operation_result_toInt_isOk)
+                        {
+                            string dl_name = "?";
+                            string[] dl_names = mslvm.NameOfSelection.Split('_');
+                            if (dl_names.Count() > 1) dl_name = dl_names.First();
+                            string dr_name = "?";
+                            MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)UserControlsSelectionNames.ElementAt(colNum).DataContext;
+                            string[] dr_names = vm.NameOfSelection.Split('_');
+                            if (dr_names.Count() > 1) dr_name = dr_names.First();
 
-                    if (mscvm.Clashtest != null) Clashtests.Add(mscvm.Clashtest);
+                            ct = mscvm.Clashtest;
+
+                            ct.Left.Clashselection.Locator.Tag_inner_text_selection_name = mslvm.NameOfSelection;
+                            ct.Left.Clashselection.Locator.Tag_inner_text_draft_name = dl_name;
+                            string folder_path_l = "";
+                            if (ct.Left.Clashselection.Locator.Tag_inner_text_folders.Count() > 1)
+                            {
+                                for (var i = 0; i < ct.Left.Clashselection.Locator.Tag_inner_text_folders.Count() - 1; i++)
+                                {
+                                    folder_path_l += ct.Left.Clashselection.Locator.Tag_inner_text_folders.ElementAt(i) + "/";
+                                }
+                            }
+                            ct.Left.Clashselection.Locator.Tag_inner_text = folder_path_l + mslvm.NameOfSelection;
+
+                            ct.Right.Clashselection.Locator.Tag_inner_text_selection_name = vm.NameOfSelection;
+                            ct.Right.Clashselection.Locator.Tag_inner_text_draft_name = dr_name;
+                            string folder_path_r = "";
+                            if (ct.Right.Clashselection.Locator.Tag_inner_text_folders.Count() > 1)
+                            {
+                                for (var i = 0; i < ct.Right.Clashselection.Locator.Tag_inner_text_folders.Count() - 1; i++)
+                                {
+                                    folder_path_r += ct.Right.Clashselection.Locator.Tag_inner_text_folders.ElementAt(i) + "/";
+                                }
+                            }
+                            ct.Right.Clashselection.Locator.Tag_inner_text = folder_path_r + vm.NameOfSelection;
+                            ct.Tag_name = ct.Left.Clashselection.Locator.Tag_inner_text_selection_name + " - " + ct.Right.Clashselection.Locator.Tag_inner_text_selection_name;
+                            ct.Tag_tolerance = (tolerance_int / 304.78).ToString().Replace(",", ".").Substring(0, 12);
+                            ct.Tag_tolerance_in_mm = tolerance_int.ToString();
+                            
+                        }
+                        
+                    }
+                    else if (mscvm.Clashtest == null)
+                    {
+                        bool operation_result_toInt_isOk = int.TryParse(mscvm.Tolerance, out int tolerance_int);
+                        if (operation_result_toInt_isOk)
+                        {
+                            string dl_name = "?";
+                            string[] dl_names = mslvm.NameOfSelection.Split('_');
+                            if (dl_names.Count() > 1) dl_name = dl_names.First();
+                            string dr_name = "?";
+
+                            MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)UserControlsSelectionNames.ElementAt(colNum).DataContext;
+                            string[] dr_names = vm.NameOfSelection.Split('_');
+                            if (dr_names.Count() > 1) dr_name = dr_names.First();
+
+                            ct = new Clashtest()
+                            {
+                                Tag_name = mslvm.NameOfSelection + " - " + vm.NameOfSelection,
+                                Tag_test_type = "hard",
+                                Tag_status = "new",
+                                Tag_merge_composites = "1",
+                                Tag_tolerance_in_mm = tolerance_int.ToString(),
+                                Tag_tolerance = (tolerance_int / 304.78).ToString().Replace(",", ".").Substring(0, 12),
+                                Left = new Left()
+                                {
+                                    Clashselection = new Clashselection()
+                                    {
+                                        Tag_selfintersect = "0",
+                                        Tag_primtypes = "1",
+                                        Locator = new Locator()
+                                        {
+                                            Tag_inner_text = @"lcop_selection_set_tree/" + mslvm.NameOfSelection,
+                                            Tag_inner_text_draft_name = dl_name,
+                                            Tag_inner_text_folders = new List<string>()
+                                            {
+                                                 "lcop_selection_set_tree"
+                                            },
+                                            Tag_inner_text_selection_name = mslvm.NameOfSelection
+                                        }
+                                    }
+                                },
+                                Right = new Right()
+                                {
+                                    Clashselection = new Clashselection()
+                                    {
+                                        Tag_selfintersect = "0",
+                                        Tag_primtypes = "1",
+                                        Locator = new Locator()
+                                        {
+                                            Tag_inner_text = @"lcop_selection_set_tree/" + vm.NameOfSelection,
+                                            Tag_inner_text_draft_name = dr_name,
+                                            Tag_inner_text_folders = new List<string>()
+                                            {
+                                                "lcop_selection_set_tree"
+                                            },
+                                            Tag_inner_text_selection_name = vm.NameOfSelection
+                                        }
+                                    }
+                                },
+                                Linkage = new Linkage()
+                                {
+                                    Tag_mode = "none"
+                                },
+                                Rules = new Rules()
+                        };
+                        }
+                    }
+
+                    if (ct != null) Clashtests.Add(ct);
+
+                    colNum += 1;
                 }
                     
             }
 
+            string st100 = "";
+
             // write xml from Selectionsets and Clashtests
+
+            XmlDocument xDoc = new XmlDocument();
+
+            XmlDeclaration xmlDeclaration = xDoc.CreateXmlDeclaration("1.0", "UTF-8", string.Empty);
+            XmlNode xmlDeclaration_node = xDoc.AppendChild(xmlDeclaration);
+
+
+            XmlElement exchange_element = xDoc.CreateElement("exchange");
+            exchange_element.SetAttribute(@"xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            exchange_element.SetAttribute("noNamespaceSchemaLocation", "http://www.w3.org/2001/XMLSchema-instance", "http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd");
+            //exchange_element.SetAttribute("xsi:noNamespaceSchemaLocation", "http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd"); // not working
+            exchange_element.SetAttribute("units", "ft");
+            exchange_element.SetAttribute("filename", "");
+            exchange_element.SetAttribute("filepath", "");
+
+            XmlNode exchange_node = xDoc.AppendChild(exchange_element);
 
             XmlElement batchtest_element = xDoc.CreateElement("batchtest");
             batchtest_element.SetAttribute("name", Batchtest.Tag_name);
@@ -278,203 +399,137 @@ namespace СollisionMatrix
             XmlElement clashtests_element = xDoc.CreateElement("clashtests");
             XmlNode clashtests_node = batchtest_node.AppendChild(clashtests_element);
             
-            foreach(UserControl usercontrolline in UserControlsInWholeMatrix)
+            foreach (Clashtest clashtest in Clashtests)
             {
-                iForToleranceArray = 0;
-                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)usercontrolline;
-                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
-                foreach (UserControl usercontrolcell in mslvm.ToleranceViews)
-                {
-                    MatrixSelectionCellUserControl mscuc = (MatrixSelectionCellUserControl)usercontrolcell;
-                    MatrixSelectionCellVewModel mscvm = (MatrixSelectionCellVewModel)mscuc.DataContext;
-                    if (mscvm.Clashtest != null)
-                    {
-                        bool result = double.TryParse(mscvm.Tolerance, out double dt);
-                        if (result)
-                        {
+                XmlElement clashtest_element = xDoc.CreateElement("clashtest");
+                clashtest_element.SetAttribute("name", clashtest.Tag_name);
+                clashtest_element.SetAttribute("test_type", clashtest.Tag_test_type);
+                clashtest_element.SetAttribute("status", clashtest.Tag_status);
+                clashtest_element.SetAttribute("tolerance", clashtest.Tag_tolerance);
+                clashtest_element.SetAttribute("merge_composites", clashtest.Tag_merge_composites);
+                XmlNode clashtest_node = clashtests_node.AppendChild(clashtest_element);
 
+                // <linkage mode="none"/>
+                XmlElement linkage_element = xDoc.CreateElement("linkage");
+                linkage_element.SetAttribute("mode", clashtest.Linkage.Tag_mode);
+                XmlNode linkage_node = clashtest_node.AppendChild(linkage_element);
 
-                        }
-                            
-                    }
-                    else if (mscvm.Tolerance != string.Empty)
-                    {
-                        bool result = double.TryParse(mscvm.Tolerance, out double dt);
-                        if (result)
-                        {
-                            MatrixSelectionLineUserControl uci = (MatrixSelectionLineUserControl)UserControlsInWholeMatrix.ElementAt(iForToleranceArray);
-                            MatrixSelectionLineViewModel vmi = (MatrixSelectionLineViewModel)uci.DataContext;
-                            string nameOfOtherSelection = vmi.NameOfSelection;
-                            XmlElement clashtest_element = xDoc.CreateElement("clashtest");
-                            clashtest_element.SetAttribute("name", mslvm.NameOfSelection + " - " + nameOfOtherSelection);
-                            clashtest_element.SetAttribute("test_type", "hard");
-                            clashtest_element.SetAttribute("status", "new");
-                            clashtest_element.SetAttribute("tolerance", (dt / 304.78).ToString().Replace(",", ".").Substring(0,12));
-                            clashtest_element.SetAttribute("merge_composites", "1");
-                            XmlNode clashtest_node = clashtests_node.AppendChild(clashtest_element);
+                // <left>
+                XmlElement left_element = xDoc.CreateElement("left");
+                XmlNode left_node = clashtest_node.AppendChild(left_element);
 
-                            // <linkage mode="none"/>
-                            XmlElement linkage_element = xDoc.CreateElement("linkage");
-                            linkage_element.SetAttribute("mode", "none");
-                            XmlNode linkage_node = clashtest_node.AppendChild(linkage_element);
+                // <clashselection selfintersect="0" primtypes="1">
+                XmlElement clashselection_element = xDoc.CreateElement("clashselection");
+                clashselection_element.SetAttribute("selfintersect", clashtest.Left.Clashselection.Tag_selfintersect);
+                clashselection_element.SetAttribute("primtypes", clashtest.Left.Clashselection.Tag_primtypes);
+                XmlNode clashselection_node = left_node.AppendChild(clashselection_element);
 
-                            // <left>
-                            XmlElement left_element = xDoc.CreateElement("left");
-                            XmlNode left_node = clashtest_node.AppendChild(left_element);
+                // <locator>lcop_selection_set_tree/АР_Стены</locator>
+                XmlElement locator_element = xDoc.CreateElement("locator");
+                locator_element.InnerText = clashtest.Left.Clashselection.Locator.Tag_inner_text;
+                XmlNode locator_node = clashselection_node.AppendChild(locator_element);
 
-                            // <clashselection selfintersect="0" primtypes="1">
-                            XmlElement clashselection_element = xDoc.CreateElement("clashselection");
-                            clashselection_element.SetAttribute("selfintersect", "0");
-                            clashselection_element.SetAttribute("primtypes", "1");
-                            XmlNode clashselection_node = left_node.AppendChild(clashselection_element);
+                // <right>
+                XmlElement right_element = xDoc.CreateElement("right");
+                XmlNode right_node = clashtest_node.AppendChild(right_element);
 
-                            // <locator>lcop_selection_set_tree/АР_Стены</locator>
-                            XmlElement locator_element = xDoc.CreateElement("locator");
-                            locator_element.InnerText = @"lcop_selection_set_tree/" + mslvm.NameOfSelection;
-                            XmlNode locator_node = clashselection_node.AppendChild(locator_element);
+                // <clashselection selfintersect="0" primtypes="1">
+                XmlElement clashselectionR_element = xDoc.CreateElement("clashselection");
+                clashselectionR_element.SetAttribute("selfintersect", clashtest.Right.Clashselection.Tag_selfintersect);
+                clashselectionR_element.SetAttribute("primtypes", clashtest.Right.Clashselection.Tag_primtypes);
+                XmlNode clashselectionR_node = right_node.AppendChild(clashselectionR_element);
 
-                            // <right>
-                            XmlElement right_element = xDoc.CreateElement("right");
-                            XmlNode right_node = clashtest_node.AppendChild(right_element);
+                // <locator>lcop_selection_set_tree/АР_Стены</locator>
+                XmlElement locatorR_element = xDoc.CreateElement("locator");
+                locatorR_element.InnerText = clashtest.Right.Clashselection.Locator.Tag_inner_text; ;
+                XmlNode locatorR_node = clashselectionR_node.AppendChild(locatorR_element);
 
-                            // <clashselection selfintersect="0" primtypes="1">
-                            XmlElement clashselectionR_element = xDoc.CreateElement("clashselection");
-                            clashselectionR_element.SetAttribute("selfintersect", "0");
-                            clashselectionR_element.SetAttribute("primtypes", "1");
-                            XmlNode clashselectionR_node = right_node.AppendChild(clashselectionR_element);
-
-                            // <locator>lcop_selection_set_tree/АР_Стены</locator>
-                            XmlElement locatorR_element = xDoc.CreateElement("locator");
-                            locatorR_element.InnerText = @"lcop_selection_set_tree/" + nameOfOtherSelection;
-                            XmlNode locatorR_node = clashselectionR_node.AppendChild(locatorR_element);
-
-                            // <rules/>
-                            XmlElement rules_element = xDoc.CreateElement("rules");
-                            XmlNode rules_node = clashtest_node.AppendChild(rules_element);
-                        }
-                    }
-                    iForToleranceArray += 1;
-                }
-
-                
+                // <rules/>
+                XmlElement rules_element = xDoc.CreateElement("rules");
+                XmlNode rules_node = clashtest_node.AppendChild(rules_element);
             }
 
             XmlElement selectionsets_element = xDoc.CreateElement("selectionsets");
             XmlNode selectionsets_node = batchtest_node.AppendChild(selectionsets_element);
 
-            foreach (UserControl usercontrolline in UserControlsInWholeMatrix)
+            foreach (Selectionset selectionset in Selectionsets)
             {
-                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)usercontrolline;
-                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
                 XmlElement selectionset_element = xDoc.CreateElement("selectionset");
-                selectionset_element.SetAttribute("name", mslvm.NameOfSelection);
-                selectionset_element.SetAttribute("guid", "");
+                selectionset_element.SetAttribute("name", selectionset.Tag_name);
+                selectionset_element.SetAttribute("guid", selectionset.Tag_guid);
                 XmlNode selectionset_node = selectionsets_node.AppendChild(selectionset_element);
 
                 // <findspec mode="all" disjoint="0">
                 XmlElement findspec_element = xDoc.CreateElement("findspec");
-                findspec_element.SetAttribute("mode", "all");
-                findspec_element.SetAttribute("disjoint", "0");
+                findspec_element.SetAttribute("mode", selectionset.Findspec.Tag_mode);
+                findspec_element.SetAttribute("disjoint", selectionset.Findspec.Tag_disjoint);
                 XmlNode findspec_node = selectionset_node.AppendChild(findspec_element);
 
                 // <conditions>
                 XmlElement conditions_element = xDoc.CreateElement("conditions");
                 XmlNode conditions_node = findspec_node.AppendChild(conditions_element);
 
-                var names = mslvm.NameOfSelection.Split('_');
-                string source_file_mask = string.Empty;
-                string category_mask = string.Empty;
-                if (names.Count() > 1)
+                foreach (var condition in selectionset.Findspec.Conditions.Conditions_list)
                 {
-                    source_file_mask = names.First();
-                    category_mask = names.LastOrDefault();
+                    // <condition test="contains" flags="10">
+                    XmlElement condition_element = xDoc.CreateElement("condition");
+                    condition_element.SetAttribute("test", condition.Tag_test);
+                    condition_element.SetAttribute("flags", condition.Tag_flags);
+                    XmlNode condition_node = conditions_node.AppendChild(condition_element);
+
+                    // <category>
+                    if (condition.Category != null)
+                    {
+                        XmlElement category_element = xDoc.CreateElement("category");
+                        XmlNode category_node = condition_node.AppendChild(category_element);
+                        // <name internal="LcRevitData_Element">Объект</name>
+                        XmlElement name_element = xDoc.CreateElement("name");
+                        name_element.SetAttribute("internal", condition.Category.Name.Tag_internal);
+                        name_element.InnerText = condition.Category.Name.Tag_inner_text;
+                        XmlNode name_node = category_node.AppendChild(name_element);
+                    }
+                    
+
+                    // <property>
+                    if (condition.Property != null)
+                    {
+                        XmlElement property_element = xDoc.CreateElement("property");
+                        XmlNode property_node = condition_node.AppendChild(property_element);
+                        // <name internal="LcRevitPropertyElementCategory">Категория</name>
+                        XmlElement name_element_p = xDoc.CreateElement("name");
+                        name_element_p.SetAttribute("internal", condition.Property.Name.Tag_internal);
+                        name_element_p.InnerText = condition.Property.Name.Tag_inner_text;
+                        XmlNode name_node_p = property_node.AppendChild(name_element_p);
+                    }
+                   
+
+                    // <value>
+                    if (condition.Value != null)
+                    {
+                        XmlElement value_element = xDoc.CreateElement("value");
+                        XmlNode value_node = condition_node.AppendChild(value_element);
+                        // <data type="wstring">Стены</data>
+                        XmlElement data_element = xDoc.CreateElement("data");
+                        data_element.SetAttribute("type", condition.Value.Data.Tag_type);
+                        data_element.InnerText = condition.Value.Data.Tag_inner_text;
+                        XmlNode data_node = value_node.AppendChild(data_element);
+                    }
+
                 }
-                else
-                {
-                    source_file_mask = "AR";
-                    category_mask = "Walls";
-                }
-
-                //---------------------------------------- condition SourceFile --------------
-
-                // <condition test="contains" flags="10">
-                XmlElement condition_SF_element = xDoc.CreateElement("condition");
-                condition_SF_element.SetAttribute("test", "contains");
-                condition_SF_element.SetAttribute("flags", "10");
-                XmlNode condition_SF_node = conditions_node.AppendChild(condition_SF_element);
-
-                // <property>
-                XmlElement property_SF_element = xDoc.CreateElement("property");
-                XmlNode property_SF_node = condition_SF_node.AppendChild(property_SF_element);
-                // <name internal="LcOaNodeSourceFile">Файл источника</name>
-                XmlElement name_SF__element_p = xDoc.CreateElement("name");
-                name_SF__element_p.SetAttribute("internal", "LcOaNodeSourceFile");
-                name_SF__element_p.InnerText = "Файл источника";
-                XmlNode name_SF_node_p = property_SF_node.AppendChild(name_SF__element_p);
-
-                // <value>
-                XmlElement value_SF_element = xDoc.CreateElement("value");
-                XmlNode value_SF_node = condition_SF_node.AppendChild(value_SF_element);
-                // <data type="wstring">_АР</data>
-                XmlElement data_SF_element = xDoc.CreateElement("data");
-                data_SF_element.SetAttribute("type", "wstring");
-                data_SF_element.InnerText = source_file_mask + "_";
-                XmlNode data_SF_node = value_SF_node.AppendChild(data_SF_element);
-
-
-                //---------------------------------------- condition ElementCategory ----------
-
-                // <condition test="equals" flags="10">
-                XmlElement condition_element = xDoc.CreateElement("condition");
-                condition_element.SetAttribute("test", "equals");
-                condition_element.SetAttribute("flags", "10");
-                XmlNode condition_node = conditions_node.AppendChild(condition_element);
-
-                // <category>
-                XmlElement category_element = xDoc.CreateElement("category");
-                XmlNode category_node = condition_node.AppendChild(category_element);
-                // <name internal="LcRevitData_Element">Объект</name>
-                XmlElement name_element = xDoc.CreateElement("name");
-                name_element.SetAttribute("internal", "LcRevitData_Element");
-                name_element.InnerText = "Объект";
-                XmlNode name_node = category_node.AppendChild(name_element);
-
-                // <property>
-                XmlElement property_element = xDoc.CreateElement("property");
-                XmlNode property_node = condition_node.AppendChild(property_element);
-                // <name internal="LcRevitPropertyElementCategory">Категория</name>
-                XmlElement name_element_p = xDoc.CreateElement("name");
-                name_element_p.SetAttribute("internal", "LcRevitPropertyElementCategory");
-                name_element_p.InnerText = "Категория";
-                XmlNode name_node_p = property_node.AppendChild(name_element_p);
-
-                // <value>
-                XmlElement value_element = xDoc.CreateElement("value");
-                XmlNode value_node = condition_node.AppendChild(value_element);
-                // <data type="wstring">Стены</data>
-                XmlElement data_element = xDoc.CreateElement("data");
-                data_element.SetAttribute("type", "wstring");
-                data_element.InnerText = GetSameCategory(category_mask);
-                XmlNode data_node = value_node.AppendChild(data_element);
-
-
 
                 // <locator>/</locator>
                 XmlElement locator_element = xDoc.CreateElement("locator");
-                locator_element.InnerText = "/";
+                locator_element.InnerText = selectionset.Findspec.Locator.Tag_inner_text;
                 XmlNode locator_node = findspec_node.AppendChild(locator_element);
             }
 
-            string pathtoxml = "";
-
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            var dialog_result = openFileDialog.ShowDialog();
-            pathtoxml = openFileDialog.FileName;
-
+            System.Windows.Forms.DialogResult dialog_result = openFileDialog.ShowDialog();
+            string pathtoxml = openFileDialog.FileName;
             if (dialog_result == System.Windows.Forms.DialogResult.OK) xDoc.Save(pathtoxml);
 
         }
-        private bool CanDoIfIClickOnCreateXMLCollisionMatrixButtonExecute(object p) => true;
+        private bool CanDoIfIClickOnSaveXMLCollisionMatrixButtonExecute(object p) => true;
 
 
         public ICommand DoIfIClickOnOpenXMLCollisionMatrixButton { get; set; }
@@ -511,6 +566,9 @@ namespace СollisionMatrix
 
             UserControlsInWholeMatrix.Clear();
             UserControlsSelectionNames.Clear();
+
+            Selectionsets.Clear();
+            Clashtests.Clear();
 
             try
             {
@@ -565,9 +623,9 @@ namespace СollisionMatrix
                                                             {
                                                                 clashtest.Left.Clashselection.Locator = new Locator();
                                                                 clashtest.Left.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
-                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
+                                                                //clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
 
-                                                                var folders_names = clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name.Split('/');
+                                                                var folders_names = locator_node.InnerText.Split('/');
                                                                 clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
                                                                 clashtest.Left.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
                                                                 foreach (string folder_name in folders_names)
@@ -606,9 +664,9 @@ namespace СollisionMatrix
                                                             {
                                                                 clashtest.Right.Clashselection.Locator = new Locator();
                                                                 clashtest.Right.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
-                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
+                                                                //clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
 
-                                                                var folders_names = clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name.Split('/');
+                                                                var folders_names = locator_node.InnerText.Split('/');
                                                                 clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
                                                                 clashtest.Right.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
                                                                 foreach (string folder_name in folders_names)
@@ -787,7 +845,7 @@ namespace СollisionMatrix
                     if (view_with_clastest)
                     {
                         MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
-                        MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
+                        MatrixSelectionCellViewModel mscvm_new = new MatrixSelectionCellViewModel();
                         mscvm_new.Clashtest = clashtest;
                         mscvm_new.Tolerance = clashtest.Tag_tolerance_in_mm;
                         mscuc_new.DataContext = mscvm_new;
@@ -796,7 +854,7 @@ namespace СollisionMatrix
                     else
                     {
                         MatrixSelectionCellUserControl mscuc_new = new MatrixSelectionCellUserControl();
-                        MatrixSelectionCellVewModel mscvm_new = new MatrixSelectionCellVewModel();
+                        MatrixSelectionCellViewModel mscvm_new = new MatrixSelectionCellViewModel();
                         mscvm_new.Tolerance = "";
                         mscuc_new.DataContext = mscvm_new;
                         mslvm_new.ToleranceViews.Add(mscuc_new);

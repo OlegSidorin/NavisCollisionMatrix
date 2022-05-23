@@ -120,7 +120,7 @@
     <Compile Include="MatrixSelectionCellUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionCellUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MatrixSelectionCellVewModel.cs" />
+    <Compile Include="MatrixSelectionCellViewModel.cs" />
     <Compile Include="MatrixSelectionLineModel.cs" />
     <Compile Include="MatrixSelectionLineUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionLineUserControl.xaml</DependentUpon>
@@ -229,6 +229,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Subviews\SubNodeVView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ButtonBlue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ButtonRed.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

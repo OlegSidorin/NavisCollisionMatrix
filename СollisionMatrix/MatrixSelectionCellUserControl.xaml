@@ -7,7 +7,7 @@
              mc:Ignorable="d" Width="26"
              d:DesignHeight="26" d:DesignWidth="26">
     <UserControl.DataContext>
-        <local:MatrixSelectionCellVewModel />
+        <local:MatrixSelectionCellViewModel />
     </UserControl.DataContext>
     <Grid>
         <TextBox Text="{Binding Tolerance}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  

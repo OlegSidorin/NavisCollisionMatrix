@@ -110,7 +110,7 @@ namespace СollisionMatrix
             lineViewModel_new.ToleranceViews = new ObservableCollection<UserControl>();
             for (int i = 0; i < UserControlsInAllMatrixWithLineUserControls.Count(); i++)
             {
-                MatrixSelectionCellVewModel cell_vm = new MatrixSelectionCellVewModel();
+                MatrixSelectionCellViewModel cell_vm = new MatrixSelectionCellViewModel();
                 cell_vm.Tolerance = string.Empty;
                 MatrixSelectionCellUserControl cell_uc = new MatrixSelectionCellUserControl();
                 cell_uc.DataContext = cell_vm;
@@ -138,7 +138,7 @@ namespace СollisionMatrix
 
                 mslvm.RowNum = iterator;
 
-                MatrixSelectionCellVewModel cellViewModel_new = new MatrixSelectionCellVewModel();
+                MatrixSelectionCellViewModel cellViewModel_new = new MatrixSelectionCellViewModel();
                 cellViewModel_new.Tolerance = string.Empty;
                 MatrixSelectionCellUserControl cellUserControl_new = new MatrixSelectionCellUserControl();
                 cellUserControl_new.DataContext = cellViewModel_new;
@@ -148,7 +148,7 @@ namespace СollisionMatrix
                 foreach (UserControl usercontrolcell in mslvm.ToleranceViews)
                 {
                     MatrixSelectionCellUserControl mscuc = (MatrixSelectionCellUserControl)usercontrolcell;
-                    MatrixSelectionCellVewModel mscvm = (MatrixSelectionCellVewModel)mscuc.DataContext; // cell
+                    MatrixSelectionCellViewModel mscvm = (MatrixSelectionCellViewModel)mscuc.DataContext; // cell
                 }
                 iterator += 1;
             }
