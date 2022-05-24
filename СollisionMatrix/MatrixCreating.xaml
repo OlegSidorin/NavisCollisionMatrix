@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:СollisionMatrix"
         xmlns:subviews="clr-namespace:СollisionMatrix.Subviews"
         mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
-        Title="MatrixCreating" Height="600" Width="800">
+        Title="Matrix Creating" Height="600" Width="800">
     <Window.DataContext>
         <local:MatrixCreatingViewModel />
     </Window.DataContext>
@@ -15,37 +15,37 @@
             <TextBlock Text="{Binding}" HorizontalAlignment="Stretch" />
         </DataTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Background="#f5f9f6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="2" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="2" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5" />
+            <RowDefinition Height="2" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="5" />
+            <RowDefinition Height="2" />
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="1" Grid.Column="1" 
-                      HorizontalScrollBarVisibility="Visible" Margin="5,5,5,5">
-            <Grid>
+                      HorizontalScrollBarVisibility="Visible" >
+            <Grid Background="White">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="2" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5" />
+                    <RowDefinition Height="2" />
                     <RowDefinition Height="200" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="5" />
+                    <RowDefinition Height="2" />
                 </Grid.RowDefinitions>
                 <ItemsControl Grid.Row="1" Grid.Column="2"
                               ItemsSource="{Binding UserControlsSelectionNames}"
                               HorizontalAlignment="Center"
-                              Margin="195 0 0 0">
+                              Margin="195 0 0 5">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -63,21 +63,21 @@
                 </ItemsControl>
             </Grid>
         </ScrollViewer>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,0,0,0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="3">
-                <Button Width="250" Height="40"
-                HorizontalAlignment="Right"
-                Margin="0 5 10 0"
+        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="0 0 4 2">
+            <Button  Style="{StaticResource ButtonWrapTextTheme}" Margin="0 0 0 20"
                     Command="{Binding DoIfIClickOnOpenXMLCollisionMatrixButton}"
             Content="Открыть файл .xml c Матрицей коллизий"  />
-                <Button Width="250" Height="40"
-                HorizontalAlignment="Right"
+            <Button  Style="{StaticResource ButtonWrapTextTheme}"
                 ToolTip="Для последущего использования в Navisworks"
-                Margin="0 5 10 0"
+                Margin="0 0 0 0"
                     Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}"
             Content="Сохранить Матрицу коллизий в файл .xml"  />
-            </StackPanel>
         </StackPanel>
+        <Label Grid.Row="1" Grid.Column="2" 
+                   FontSize="8"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Bottom" 
+                   Content="© M1 Проект" />
 
     </Grid>
 

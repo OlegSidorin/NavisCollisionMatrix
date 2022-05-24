@@ -5,114 +5,103 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:СollisionMatrix"
         xmlns:subv="clr-namespace:СollisionMatrix.Subviews"
-        mc:Ignorable="d"
-        Title="Collision Matrix Excel Exporter" Height="1150" Width="1350">
+        mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+        Title="Collision Matrix Excel Exporter" Height="750" Width="800">
     <Window.DataContext>
         <local:MainWindowModel />
     </Window.DataContext>
-    <Grid>
+    <Grid Background="#f5f9f6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="2" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="1" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5" />
+            <RowDefinition Height="2" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="5" />
+            <RowDefinition Height="2" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <ScrollViewer Grid.Row="1" Grid.Column="1" 
+                          HorizontalScrollBarVisibility="Visible">
+            <Grid Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                <ItemsControl ItemsSource="{Binding UserControlsInWholeMatrix}" 
+                              HorizontalAlignment="Center" Margin="0 0 30 0"
+                      Grid.Row="2" Grid.Column="1" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+        <Grid Grid.Row="1" Grid.Column="2" >
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="{Binding MatrixWidth}" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="{Binding MatrixHeight}" />
-                <RowDefinition />
+                <RowDefinition Height="0" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="0" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" BorderThickness="1" BorderBrush="Snow" />
-            <Grid Grid.Row="1" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="150" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Border x:Name="borderUpLeft" Visibility="Hidden"/>
-                <StackPanel x:Name="spSelectionSetsH" 
-                            Orientation="Horizontal" 
-                            Grid.Row="0" Grid.Column="1" />
-                <StackPanel x:Name="spSelectionSetsV" 
-                            Orientation="Vertical" 
-                            Grid.Row="1" Grid.Column="0" />
-                <StackPanel x:Name="spDataVLine" Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="5" />
-                </Grid.RowDefinitions>
-                <Button Grid.Column="1" Grid.Row="2" ToolTip="Создать матрицу по поисковым запросам из Navisworks в формате .xml"
+            <Button Grid.Column="1" Style="{StaticResource ButtonWrapTextTheme}" 
+                    Content="Создать матрицу коллизий"
+                    Grid.Row="2" ToolTip="Создать или редактировать матрицу коллизий для Navisworks в формате .xml"
                         Command="{Binding MatrixCreatingCommand}" Margin="5" >
-                    <StackPanel Orientation="Horizontal" >
-                        <!--<subv:IconTable Width="42" Height="42" />-->
-                        <TextBlock Text="Создать матрицу" />
-                    </StackPanel>
-                </Button>
-                <Button Grid.Column="1" Grid.Row="3" ToolTip="Создать матрицу по поисковым запросам из Navisworks в формате .xml"
-                        Command="{Binding ImportXMLSelectionSets}" Margin="5" >
-                    <StackPanel Orientation="Horizontal" >
-                        <!--<subv:IconTable Width="42" Height="42" />-->
-                        <TextBlock Text="Создать матрицу" />
-                    </StackPanel>
-                </Button>
-                <Button Grid.Column="1" Grid.Row="4" ToolTip="Открыть отчет проверок из Navisworks в формате .xml"
-                        Content="Открыть отчет" Command="{Binding ImportXMLClashTests}" Margin="5" />
-                <Button Grid.Column="1" Grid.Row="5" 
+            </Button>
+            <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonWrapTextTheme}" 
+                    ToolTip="Открыть отчет проверок из Navisworks в формате .xml"
+                        Content="Открыть отчет проверки" Command="{Binding ImportXMLClashtests}" Margin="5" />
+            <Button Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonWrapTextTheme}" 
                         Content="Сохранить в .xls" Command="{Binding ExcelExport}" Margin="5" />
-                <StackPanel x:Name="notes"
+            <StackPanel x:Name="notes"
                             Orientation="Vertical"  
-                            Visibility="Hidden"
-                            Grid.Column="1" Grid.Row="5"
+                            Visibility="Visible"
+                            Grid.Column="1" Grid.Row="6"
                             HorizontalAlignment="Center" 
-                            Margin="0 50 0 0">
-                    <TextBlock Text="Допуск:" FontSize="14" FontWeight="DemiBold" Margin="5 0 0 5" />
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color15}" />
-                        <TextBlock Width="100" Height="20" Text=" - до 0,015м;" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color30}" />
-                        <TextBlock Width="100" Height="20" Text=" - до 0,030м;" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color50}" />
-                        <TextBlock Width="100" Height="20" Text=" - до 0,050м;" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Width="20" Height="20" Text="" Background="{Binding Color80}" />
-                        <TextBlock Width="100" Height="20" Text=" - до 0,080м;" />
-                    </StackPanel>
+                            Margin="0 50 0 20">
+                <TextBlock Text="Допуск:" FontSize="14" FontWeight="DemiBold" Margin="5 0 0 5" />
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Width="20" Height="20" Text="" Background="{Binding Color15}" />
+                    <TextBlock Width="100" Height="20" Text=" - до 0,015м;" />
                 </StackPanel>
-            </Grid>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Width="20" Height="20" Text="" Background="{Binding Color30}" />
+                    <TextBlock Width="100" Height="20" Text=" - до 0,030м;" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Width="20" Height="20" Text="" Background="{Binding Color50}" />
+                    <TextBlock Width="100" Height="20" Text=" - до 0,050м;" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Width="20" Height="20" Text="" Background="{Binding Color80}" />
+                    <TextBlock Width="100" Height="20" Text=" - до 0,080м;" />
+                </StackPanel>
+            </StackPanel>
+            <Label Grid.Row="6" Grid.Column="1" 
+                   FontSize="8"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Bottom" 
+                   Content="© M1 Проект" />
         </Grid>
     </Grid>
 </Window>

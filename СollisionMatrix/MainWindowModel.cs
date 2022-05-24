@@ -14,6 +14,8 @@ using System.Reflection;
 using Forms = System.Windows.Forms;
 using OfficeOpenXml;
 using System.IO;
+using СollisionMatrix.Models;
+using System.Windows.Controls;
 
 namespace СollisionMatrix
 {
@@ -28,90 +30,6 @@ namespace СollisionMatrix
                 if (_thisView != value)
                 {
                     _thisView = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private double _matrixWidth;
-        public double MatrixWidth
-        {
-            get { return _matrixWidth; }
-            set
-            {
-                if (_matrixWidth != value)
-                {
-                    _matrixWidth = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private double _matrixHeight;
-        public double MatrixHeight
-        {
-            get { return _matrixHeight; }
-            set
-            {
-                if (_matrixHeight != value)
-                {
-                    _matrixHeight = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private double _matrixHeaderHeight;
-        public double MatrixHeaderHeight
-        {
-            get { return _matrixHeaderHeight; }
-            set
-            {
-                if (_matrixHeaderHeight != value)
-                {
-                    _matrixHeaderHeight = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private double _matrixHeaderWidth;
-        public double MatrixHeaderWidth
-        {
-            get { return _matrixHeaderWidth; }
-            set
-            {
-                if (_matrixHeaderWidth != value)
-                {
-                    _matrixHeaderWidth = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private double _matrixCellHorizontalDimension;
-        public double MatrixCellHorizontalDimension
-        {
-            get { return _matrixCellHorizontalDimension; }
-            set
-            {
-                if (_matrixCellHorizontalDimension != value)
-                {
-                    _matrixCellHorizontalDimension = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private double _matrixCellVerticalDimension;
-        public double MatrixCellVerticalDimension
-        {
-            get { return _matrixCellVerticalDimension; }
-            set
-            {
-                if (_matrixCellVerticalDimension != value)
-                {
-                    _matrixCellVerticalDimension = value;
                     OnPropertyChanged();
                 }
             }
@@ -201,6 +119,12 @@ namespace СollisionMatrix
             }
         }
 
+        List<string> SelectionsetNames { get; set; }
+        public List<Selectionset> Selectionsets { get; set; }
+        public List<Clashtest> Clashtests { get; set; }
+        public Batchtest Batchtest { get; set; }
+        public ObservableCollection<UserControl> LineUserControls { get; set; }
+
         public System.Windows.Media.SolidColorBrush Color15 { get; set; } = new System.Windows.Media.SolidColorBrush()
         {
             Color = System.Windows.Media.Color.FromArgb(255, 255, 199, 199)
@@ -218,22 +142,22 @@ namespace СollisionMatrix
             Color = System.Windows.Media.Color.FromArgb(204, 204, 255, 220)
         };
 
-        public ObservableCollection<SelectionSet> SelectionSets { get; set; }
-        public ObservableCollection<SelectionSetNode> SelectionSetNodes { get; set; }
-        public ObservableCollection<ClashTest> ClashTests { get; set; }
-        public ObservableCollection<ClashTest> ClashTestsTotal { get; set; }
         public ObservableCollection<string> Drafts { get; set; }
 
         public DataCellViewModel[,] DataCellViewModels { get; set; }
 
         public MainWindowModel()
         {
-            MatrixHeight = 800;
-            MatrixWidth = 800;
-            MatrixHeaderHeight = 150;
-            MatrixHeaderWidth = 150;
-            MatrixCellHorizontalDimension = 36;
-            MatrixCellVerticalDimension = 24;
+            LineUserControls = new ObservableCollection<UserControl>();
+
+            Batchtest = new Batchtest()
+            {
+                Tag_name = "Report",
+                Tag_internal_name = "Report",
+                Tag_units = "m"
+            };
+
+            SelectionsetNames = new List<string>();
 
             TotalTotalCollisions = 0;
             TotalNovyCollisions = 0;
@@ -242,17 +166,12 @@ namespace СollisionMatrix
             TotalApprovedCollisions = 0;
             TotalResolvedCollisions = 0;
 
-            SelectionSets = new ObservableCollection<SelectionSet>();
-            SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
-            ClashTests = new ObservableCollection<ClashTest>();
-            ClashTestsTotal = new ObservableCollection<ClashTest>();
             Drafts = new ObservableCollection<string>();
 
             Commanda = new RelayCommand(OnCommandaExecuted, CanCommandaExecute); // example
             MatrixCreatingCommand = new RelayCommand(OnMatrixCreatingCommandExecuted, CanMatrixCreatingCommandExecute);
-            ImportXMLSelectionSets = new RelayCommand(OnImportXMLSelectionSetsExecuted, CanImportXMLSelectionSetsExecute);
-            ImportXMLClashTests = new RelayCommand(OnImportXMLClashTestsExecuted, CanImportXMLClashTestsExecute);
-            ExcelExport = new RelayCommand(OnExcelExportExecuted, CanExcelExportExecute);
+            ImportXMLClashtests = new RelayCommand(OnImportXMLClashtestsExecuted, CanImportXMLClashtestsExecute);
+            //ExcelExport = new RelayCommand(OnExcelExportExecuted, CanExcelExportExecute);
 
         }
 
@@ -286,324 +205,15 @@ namespace СollisionMatrix
         }
         private bool CanMatrixCreatingCommandExecute(object p) => true;
 
-        public ICommand ImportXMLSelectionSets { get; set; }
-        private void OnImportXMLSelectionSetsExecuted(object p)
+        public ICommand ImportXMLClashtests { get; set; }
+        private void OnImportXMLClashtestsExecuted(object p)
         {
             bool success = true;
 
-            int selectionsNumber = 0;
-
-            SelectionSets = new ObservableCollection<SelectionSet>();
-            SelectionSetNodes = new ObservableCollection<SelectionSetNode>();
-            Drafts = new ObservableCollection<string>();
-            ThisView.spSelectionSetsH.Children.Clear();
-            ThisView.spSelectionSetsV.Children.Clear();
-            ThisView.spDataVLine.Children.Clear();
-            ThisView.borderUpLeft.Visibility = Visibility.Hidden;
-            MatrixHeight = 800;
-            MatrixWidth = 800;
-
-            #region reading xml file
-            string pathtoexe = Assembly.GetExecutingAssembly().Location;
-            string dllname = Assembly.GetExecutingAssembly().GetName().Name.ToString();
-            string folderpath = pathtoexe.Replace(dllname + ".exe", "");
-            string pathtoxml = folderpath + "selectionsets.xml";
-
-            Forms.OpenFileDialog openFileDialog = new Forms.OpenFileDialog();
-            openFileDialog.ShowDialog();
-            pathtoxml = openFileDialog.FileName;
-
-            //Xceed.Wpf.Toolkit.MessageBox.Show(pathtoxml, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-            XmlDocument xDoc = new XmlDocument();
-            try
-            {
-                xDoc.Load(pathtoxml);
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            #endregion
-
-            #region creating array SelectionSet from xml file
-
-            try
-            {
-                XmlElement _exchange_ = xDoc.DocumentElement;
-                foreach (XmlNode _selectionsets_ in _exchange_)
-                {
-                    foreach (XmlNode _child_ in _selectionsets_.ChildNodes)
-                    {
-                        if (_child_.Name.Equals("selectionset"))
-                        {
-                            SelectionSet selectionSet = new SelectionSet();
-                            selectionSet.Name = _child_.Attributes.GetNamedItem("name").InnerText;
-
-                            char lastchar = selectionSet.Name.Last();
-                            do
-                            {
-                                if (lastchar.Equals(' ')) selectionSet.Name = selectionSet.Name.Remove(selectionSet.Name.Length - 1);
-                                lastchar = selectionSet.Name.Last();
-                            }
-                            while (lastchar.Equals(' '));
-
-                            var names = selectionSet.Name.Split('_');
-                            if (names.Count() > 1)
-                            {
-                                selectionSet.DraftName = names.First();
-                            }
-                            else
-                            {
-                                selectionSet.DraftName = "?";
-                            }
-
-                            //int divUnderscore = 0;
-                            //divUnderscore = selectionSet.Name.IndexOf("_");
-                            //if (divUnderscore > 0)
-                            //{
-                            //    selectionSet.DraftName = selectionSet.Name.Substring(0, divUnderscore);
-                            //}
-                            //else
-                            //{
-                            //    selectionSet.DraftName = "?";
-                            //}
-                            SelectionSets.Add(selectionSet);
-                        }
-                        if (_child_.Name.Equals("viewfolder"))
-                        {
-                            foreach (XmlNode _child2_ in _child_.ChildNodes)
-                            {
-                                if (_child2_.Name.Equals("selectionset"))
-                                {
-                                    SelectionSet selectionSet = new SelectionSet();
-                                    selectionSet.Name = _child2_.Attributes.GetNamedItem("name").InnerText;
-
-                                    char lastchar = selectionSet.Name.Last();
-                                    do
-                                    {
-                                        if (lastchar.Equals(' ')) selectionSet.Name = selectionSet.Name.Remove(selectionSet.Name.Length - 1);
-                                        lastchar = selectionSet.Name.Last();
-                                    }
-                                    while (lastchar.Equals(' '));
-
-                                    var names = selectionSet.Name.Split('_');
-                                    if (names.Count() > 1)
-                                    {
-                                        selectionSet.DraftName = names.First();
-                                    }
-                                    else
-                                    {
-                                        selectionSet.DraftName = "?";
-                                    }
-
-                                    //int divUnderscore = 0;
-                                    //divUnderscore = selectionSet.Name.IndexOf("_");
-                                    //if (divUnderscore > 0)
-                                    //{
-                                    //    selectionSet.DraftName = selectionSet.Name.Substring(0, divUnderscore);
-                                    //}
-                                    //else
-                                    //{
-                                    //    selectionSet.DraftName = "?";
-                                    //}
-                                    SelectionSets.Add(selectionSet);
-                                }  
-                            }  
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, файл не содержит поисковых наборов ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            /*
-            string output = string.Empty;
-            foreach (SelectionSet en in SelectionSets)
-            {
-                output += en.Name + "(" + en.DraftName + ")" + "\n";
-            }
-
-            Xceed.Wpf.Toolkit.MessageBox.Show("SelectionSets\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-            */
-
-            if (!success) return;
-
-            List<string> drafts = new List<string>();
-            foreach (SelectionSet ss in SelectionSets)
-            {
-                bool included = false;
-                foreach (string draft in drafts)
-                {
-                    if (ss.DraftName == draft) included = true;
-                }
-                if (!included) drafts.Add(ss.DraftName);
-            }
-
-            List<string> sortedDrafts = drafts.OrderBy(o => o).ToList();
-
-            List<string> reversedDrafts = new List<string>();
-            foreach (string draft in sortedDrafts)
-            {
-                reversedDrafts.Add(draft);
-            }
-
-            Stack<string> stackDrafts = new Stack<string>();
-
-            bool IncludedInList(string input, List<string> inputlist)
-            {
-                string draft = input.ToLower();
-                foreach (string d in inputlist)
-                {
-                    if (d.ToLower().Contains(draft)) return true;
-                }
-                return false;
-            }
-
-            string GetDraftWith(string input, List<string> inputlist)
-            {
-                foreach (string d in inputlist)
-                {
-                    if (IncludedInList(input, inputlist)) return d;
-                }
-                return "";
-            }
-
-            //sortedDrafts = stackDrafts.ToList();
-
-
-            //List<string> sortedDrafts = drafts;
-            /*
-            string output = string.Empty;
-            foreach (string en in sortedDrafts)
-            {
-                output += en + "\n";
-            }
-
-            Xceed.Wpf.Toolkit.MessageBox.Show("Drafts\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-            */
-
-            foreach (string draft in sortedDrafts)
-            {
-                Drafts.Add(draft);
-            };
-
-            List<SelectionSetNode> selectionSetNodes = new List<SelectionSetNode>();
-            foreach (string draft in Drafts)
-            {
-                SelectionSetNode selectionSetNode = new SelectionSetNode();
-                selectionSetNode.DraftName = draft;
-                selectionSetNode.SelectionSets = new List<SelectionSet>();
-                foreach (SelectionSet selectionSet in SelectionSets)
-                {
-                    if (selectionSet.DraftName == draft) selectionSetNode.SelectionSets.Add(selectionSet);
-                }
-                selectionSetNodes.Add(selectionSetNode);
-            }
-
-            foreach (SelectionSetNode ssn in selectionSetNodes)
-            {
-                SelectionSetNode newSSN = new SelectionSetNode();
-                newSSN.DraftName = ssn.DraftName;
-                newSSN.SelectionSets = ssn.SelectionSets.OrderBy(o => o.Name).ToList();
-                SelectionSetNodes.Add(newSSN);
-            }
-
-            /*
-            string output = string.Empty;
-            foreach (SelectionSetNode ssn in SelectionSetNodes)
-            {
-                output += ssn.DraftName + "\n";
-                foreach (SelectionSet ss in ssn.SelectionSets)
-                {
-                    output += "   " + ss.Name + "\n";
-                }
-            }
-
-            Xceed.Wpf.Toolkit.MessageBox.Show("SelectionSets\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-            */
-
-
-            #endregion
-
-            selectionsNumber = SelectionSets.Count;
-            MatrixHeight = selectionsNumber * MatrixCellVerticalDimension + MatrixHeaderHeight;
-            MatrixWidth = selectionsNumber * MatrixCellHorizontalDimension + MatrixHeaderWidth;
-
-            #region see SelectionSet
-            /*
-            string output = string.Empty;
-            foreach (SelectionSet en in SelectionSets)
-            {
-                output += en.Name + "\n";
-                foreach(var ej in en.Selections)
-                {
-                    output += ej + "\n";
-                }
-            }
-
-            Xceed.Wpf.Toolkit.MessageBox.Show("Вот такая матрица\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            */
-            #endregion
-
-            #region creating matrix headers horizontal
-            foreach (SelectionSetNode selSetNode in SelectionSetNodes)
-            {
-                NodeHView nodeHView = new NodeHView();
-                NodeHViewModel nodeHViewModel = (NodeHViewModel)nodeHView.DataContext;
-                nodeHViewModel.Header = selSetNode.DraftName;
-                foreach (SelectionSet selSet in selSetNode.SelectionSets)
-                {
-                    SubNodeVView subView = new SubNodeVView();
-                    subView.Width = MatrixCellHorizontalDimension;
-                    SubNodeVViewModel subViewModel = (SubNodeVViewModel)subView.DataContext;
-                    subViewModel.Header = selSet.Name;
-
-                    nodeHView.spSelectionNames.Children.Add(subView);
-                }
-                ThisView.spSelectionSetsH.Children.Add(nodeHView);
-            }
-            #endregion
-
-            #region creating matrix headers vertical left
-            foreach (SelectionSetNode selSetNode in SelectionSetNodes)
-            {
-                NodeVView nodeVView = new NodeVView();
-                NodeVViewModel nodeVViewModel = (NodeVViewModel)nodeVView.DataContext;
-                nodeVViewModel.Header = selSetNode.DraftName;
-                foreach (SelectionSet selSet in selSetNode.SelectionSets)
-                {
-                    SubNodeHView subView = new SubNodeHView();
-                    subView.Height = MatrixCellVerticalDimension;
-                    SubNodeHViewModel subViewModel = (SubNodeHViewModel)subView.DataContext;
-                    subViewModel.Header = selSet.Name;
-
-                    nodeVView.spSelectionNames.Children.Add(subView);
-                }
-                ThisView.spSelectionSetsV.Children.Add(nodeVView);
-            }
-            #endregion
-
-            ThisView.borderUpLeft.BorderThickness = new Thickness(0, 0, 1, 1);
-            ThisView.borderUpLeft.BorderBrush = System.Windows.Media.Brushes.DarkRed;
-            ThisView.borderUpLeft.Visibility = Visibility.Visible;
-
-        }
-        private bool CanImportXMLSelectionSetsExecute(object p) => true;
-
-        public ICommand ImportXMLClashTests { get; set; }
-        private void OnImportXMLClashTestsExecuted(object p)
-        {
-            bool success = true;
-
-            ClashTests = new ObservableCollection<ClashTest>();
-            ClashTestsTotal = new ObservableCollection<ClashTest>();
-            ThisView.spDataVLine.Children.Clear();
-
+            LineUserControls.Clear();
+            SelectionsetNames.Clear();
+            Selectionsets = new List<Selectionset>();
+            Clashtests = new List<Clashtest>();
 
             #region reading xml file
 
@@ -634,111 +244,178 @@ namespace СollisionMatrix
 
             #endregion
 
-            #region creating array ClashTests from xml file
+            #region creating array Clashtests from xml file
             
             try
             {
-                XmlElement _exchange_ = xDoc.DocumentElement; // <exchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" units="m" filename="" filepath="">
+                XmlElement exchange_element = xDoc.DocumentElement; // <exchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd" units="ft" filename="" filepath="">
 
-                foreach (XmlNode _batchtest_ in _exchange_) // <batchtest name="Report" internal_name="Report" units="m">
+                foreach (XmlNode batchtest_node in exchange_element) // <batchtest name="Без имени" internal_name="Без имени" units="ft">
                 {
-                    foreach (XmlNode _clashtests_ in _batchtest_.ChildNodes) // <clashtests>
+                    if (batchtest_node.Name == "batchtest")
                     {
-                        foreach (XmlNode _clashtest_ in _clashtests_.ChildNodes) // <clashtest name="АР_Вертикальные конструкции - АР_Вертикальные конструкции" test_type="duplicate" status="ok" tolerance="0.000" merge_composites="0">
+                        Batchtest.Tag_name = batchtest_node.Attributes.GetNamedItem("name").InnerText;
+                        Batchtest.Tag_internal_name = batchtest_node.Attributes.GetNamedItem("internal_name").InnerText;
+                        Batchtest.Tag_units = batchtest_node.Attributes.GetNamedItem("units").InnerText;
+                        foreach (XmlNode node_in_batchtest_node in batchtest_node.ChildNodes) // <clashtests>
                         {
-                            ClashTest clashTest = new ClashTest();
-                            clashTest.Name = _clashtest_.Attributes.GetNamedItem("name").InnerText;
-                            clashTest.Tolerance = _clashtest_.Attributes.GetNamedItem("tolerance").InnerText;
-                            foreach (XmlNode _elementInClashTest_ in _clashtest_.ChildNodes)
+                            if (node_in_batchtest_node.Name == "clashtests")
                             {
-                                // <left><clashselection selfintersect="0" primtypes="1"><locator>lcop_selection_set_tree/АР_Вертикальные конструкции</locator></clashselection></left>
-                                if (_elementInClashTest_.Name == "left")
+                                foreach (XmlNode clashtest_node in node_in_batchtest_node.ChildNodes) // <clashtest name="АР_Вертикальные конструкции - АР_Вертикальные конструкции" test_type="duplicate" status="ok" tolerance="0.000" merge_composites="0">
                                 {
-                                    foreach (XmlNode _left_ in _elementInClashTest_.ChildNodes)
+                                    if (clashtest_node.Name == "clashtest")
                                     {
-                                        foreach (XmlNode _clashselection_ in _left_.ChildNodes)
+                                        Clashtest clashtest = new Clashtest();
+                                        clashtest.Tag_name = clashtest_node.Attributes.GetNamedItem("name").InnerText;
+                                        clashtest.Tag_test_type = clashtest_node.Attributes.GetNamedItem("test_type").InnerText;
+                                        clashtest.Tag_status = clashtest_node.Attributes.GetNamedItem("status").InnerText;
+                                        clashtest.Tag_merge_composites = clashtest_node.Attributes.GetNamedItem("merge_composites").InnerText;
+                                        clashtest.Tag_tolerance = clashtest_node.Attributes.GetNamedItem("tolerance").InnerText;
+                                        bool to_double = double.TryParse(clashtest.Tag_tolerance.Replace(".", ","), out double td);
+                                        if (Batchtest.Tag_units == "ft")
                                         {
-                                            foreach (XmlNode _locator_ in _clashselection_.ChildNodes)
+                                            td *= 304.8;
+                                            clashtest.Tag_tolerance_in_mm = ((int)td).ToString();
+                                        } 
+                                        else if (Batchtest.Tag_units == "m")
+                                        {
+                                            td *= 1000;
+                                            clashtest.Tag_tolerance_in_mm = ((int)td).ToString();
+                                        }
+                                        foreach (XmlNode node_in_clashtest_node in clashtest_node.ChildNodes)
+                                        {
+                                            if (node_in_clashtest_node.Name == "linkage")
                                             {
-                                                clashTest.SelectionLeftName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
-
-                                                var names = clashTest.SelectionLeftName.Split('/');
-                                                clashTest.SelectionLeftName = names.LastOrDefault();
-
-                                                var names2 = clashTest.SelectionLeftName.Split('_');
-                                                if (names2.Count() > 1)
+                                                clashtest.Linkage = new Linkage();
+                                                clashtest.Linkage.Tag_mode = node_in_clashtest_node.Attributes.GetNamedItem("mode").InnerText;
+                                            }
+                                            else if (node_in_clashtest_node.Name == "left")
+                                            {
+                                                clashtest.Left = new Left();
+                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
                                                 {
-                                                    clashTest.DraftLeftName = names2.First();
-                                                }
-                                                else
-                                                {
-                                                    clashTest.DraftLeftName = "?";
-                                                }
+                                                    if (clashselection_node.Name == "clashselection")
+                                                    {
+                                                        clashtest.Left.Clashselection = new Clashselection();
+                                                        clashtest.Left.Clashselection.Tag_primtypes = clashselection_node.Attributes.GetNamedItem("primtypes").InnerText;
+                                                        clashtest.Left.Clashselection.Tag_selfintersect = clashselection_node.Attributes.GetNamedItem("selfintersect").InnerText;
 
-                                                //int divUnderscore = 0;
-                                                //divUnderscore = clashTest.SelectionLeftName.IndexOf("_");
-                                                //if (divUnderscore != 0 && divUnderscore > 0)
-                                                //{
-                                                //    clashTest.DraftLeftName = clashTest.SelectionLeftName.Substring(0, divUnderscore);
-                                                //}
-                                                //else
-                                                //{
-                                                //    clashTest.DraftLeftName = "?";
-                                                //}
+                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
+                                                        {
+                                                            if (locator_node.Name == "locator")
+                                                            {
+                                                                clashtest.Left.Clashselection.Locator = new Locator();
+                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
+                                                                //clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
+
+                                                                var folders_names = locator_node.InnerText.Split('/');
+                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
+                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
+                                                                foreach (string folder_name in folders_names)
+                                                                {
+                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
+                                                                }
+
+                                                                var draft_names = clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
+                                                                if (draft_names.Count() > 1)
+                                                                {
+                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
+                                                                }
+                                                                else
+                                                                {
+                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = "?";
+                                                                }
+                                                                SelectionsetNames.Add(clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (node_in_clashtest_node.Name == "right")
+                                            {
+                                                clashtest.Right = new Right();
+                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
+                                                {
+                                                    if (clashselection_node.Name == "clashselection")
+                                                    {
+                                                        clashtest.Right.Clashselection = new Clashselection();
+                                                        clashtest.Right.Clashselection.Tag_primtypes = clashselection_node.Attributes.GetNamedItem("primtypes").InnerText;
+                                                        clashtest.Right.Clashselection.Tag_selfintersect = clashselection_node.Attributes.GetNamedItem("selfintersect").InnerText;
+
+                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
+                                                        {
+                                                            if (locator_node.Name == "locator")
+                                                            {
+                                                                clashtest.Right.Clashselection.Locator = new Locator();
+                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
+                                                                //clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
+
+                                                                var folders_names = locator_node.InnerText.Split('/');
+                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
+                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
+                                                                foreach (string folder_name in folders_names)
+                                                                {
+                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
+                                                                }
+
+                                                                var draft_names = clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
+                                                                if (draft_names.Count() > 1)
+                                                                {
+                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
+                                                                }
+                                                                else
+                                                                {
+                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = "?";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (node_in_clashtest_node.Name == "rules")
+                                            {
+                                                clashtest.Rules = new Rules();
+                                            }
+                                            else if (node_in_clashtest_node.Name == "summary")
+                                            {
+                                                clashtest.Summary = new Summary()
+                                                {
+                                                    Tag_total = node_in_clashtest_node.Attributes.GetNamedItem("total").InnerText,
+                                                    Tag_new = node_in_clashtest_node.Attributes.GetNamedItem("new").InnerText,
+                                                    Tag_active = node_in_clashtest_node.Attributes.GetNamedItem("active").InnerText,
+                                                    Tag_reviewed = node_in_clashtest_node.Attributes.GetNamedItem("reviewed").InnerText,
+                                                    Tag_approved = node_in_clashtest_node.Attributes.GetNamedItem("approved").InnerText,
+                                                    Tag_resolved = node_in_clashtest_node.Attributes.GetNamedItem("resolved").InnerText,
+                                                    Testtype = new Testtype(),
+                                                    Teststatus = new Teststatus()
+                                                };
+                                                foreach (XmlNode node_in_summary_node in node_in_clashtest_node.ChildNodes)
+                                                {
+                                                    if (node_in_summary_node.Name == "testtype")
+                                                    {
+                                                        clashtest.Summary.Testtype.Tag_inner_text = node_in_summary_node.InnerText;
+                                                    }
+                                                    else if (node_in_summary_node.Name == "teststatus")
+                                                    {
+                                                        clashtest.Summary.Teststatus.Tag_inner_text = node_in_summary_node.InnerText;
+                                                    }
+                                                }
+                                                if (int.TryParse(clashtest.Summary.Tag_total, out int int_total)) clashtest.Summary.Tag_total_int = int_total;
+                                                if (int.TryParse(clashtest.Summary.Tag_new, out int int_new)) clashtest.Summary.Tag_total_int = int_new;
+                                                if (int.TryParse(clashtest.Summary.Tag_active, out int int_active)) clashtest.Summary.Tag_total_int = int_active;
+                                                if (int.TryParse(clashtest.Summary.Tag_reviewed, out int int_reviewed)) clashtest.Summary.Tag_total_int = int_reviewed;
+                                                if (int.TryParse(clashtest.Summary.Tag_approved, out int int_approved)) clashtest.Summary.Tag_total_int = int_approved;
+                                                if (int.TryParse(clashtest.Summary.Tag_resolved, out int int_resolved)) clashtest.Summary.Tag_total_int = int_resolved;
                                             }
                                         }
+
+                                        Clashtests.Add(clashtest);
                                     }
-                                }
-                                if (_elementInClashTest_.Name == "right")
-                                {
-                                    foreach (XmlNode _right_ in _elementInClashTest_.ChildNodes)
-                                    {
-                                        foreach (XmlNode _clashselection_ in _right_.ChildNodes)
-                                        {
-                                            foreach (XmlNode _locator_ in _clashselection_.ChildNodes)
-                                            {
-                                                clashTest.SelectionRightName = _locator_.InnerText.Replace("lcop_selection_set_tree/", "");
-
-                                                var names = clashTest.SelectionRightName.Split('/');
-                                                clashTest.SelectionRightName = names.LastOrDefault();
-
-                                                var names2 = clashTest.SelectionRightName.Split('_');
-                                                if (names2.Count() > 1)
-                                                {
-                                                    clashTest.DraftRightName = names2.First();
-                                                }
-                                                else
-                                                {
-                                                    clashTest.DraftRightName = "?";
-                                                }
-
-                                                //int divUnderscore = 0;
-                                                //divUnderscore = clashTest.SelectionRightName.IndexOf("_");
-                                                //if (divUnderscore > 0)
-                                                //{
-                                                //    clashTest.DraftRightName = clashTest.SelectionRightName.Substring(0, divUnderscore);
-                                                //}
-                                                //else
-                                                //{
-                                                //    clashTest.DraftRightName = "?";
-                                                //}
-                                            }
-                                        }
-                                    }
-                                }
-                                if (_elementInClashTest_.Name == "summary")
-                                {
-                                    clashTest.SummaryTotal = _elementInClashTest_.Attributes.GetNamedItem("total").InnerText;
-                                    clashTest.SummaryNovy = _elementInClashTest_.Attributes.GetNamedItem("new").InnerText;
-                                    clashTest.SummaryActive = _elementInClashTest_.Attributes.GetNamedItem("active").InnerText;
-                                    clashTest.SummaryReviewed = _elementInClashTest_.Attributes.GetNamedItem("reviewed").InnerText;
-                                    clashTest.SummaryResolved = _elementInClashTest_.Attributes.GetNamedItem("resolved").InnerText;
-                                    clashTest.SummaryApproved = _elementInClashTest_.Attributes.GetNamedItem("approved").InnerText;
                                 }
                             }
-                            ClashTests.Add(clashTest);
                         }
                     }
+
                 }
                 ThisView.notes.Visibility = Visibility.Visible;
             } 
@@ -748,210 +425,29 @@ namespace СollisionMatrix
                 Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, файл не содержит результатов проверки... \n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            List<string> SelectionsetsNamesDistinct = SelectionsetNames.ToArray().Distinct().ToList();
+
             if (!success) return;
 
             #endregion
 
-            #region see ClashTests
-            /*
-            string output = string.Empty;
-            foreach (ClashTest ct in ClashTests)
-            {
-                output += ct.Name + "\n" + "  (" + ct.SelectionLeftName + " / " + ct.SelectionRightName + ")" + "\n" + " -> " + ct.SummaryTotal + "\n";
-            }
 
-            Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-            */
-            #endregion
+            #region creating array 
 
-            #region creating array ClashTestsTotal from ClashTests
-
-            foreach (ClashTest ct in ClashTests)
-            {
-                bool resTotal = int.TryParse(ct.SummaryTotal, out int ct_total);
-                bool resResolved = int.TryParse(ct.SummaryResolved, out int ct_resolved);
-                bool resApproved = int.TryParse(ct.SummaryApproved, out int ct_approved);
-                bool resReviewed = int.TryParse(ct.SummaryReviewed, out int ct_reviewed);
-                bool resActive = int.TryParse(ct.SummaryActive, out int ct_active);
-                bool resNovy = int.TryParse(ct.SummaryNovy, out int ct_novy);
-
-                TotalTotalCollisions += ct_total;
-                TotalResolvedCollisions += ct_resolved;
-                TotalApprovedCollisions += ct_approved;
-                TotalReviewedCollisions += ct_reviewed;
-                TotalActiveCollisions += ct_active;
-                TotalNovyCollisions += ct_novy;
-
-
-                foreach (string draftV in Drafts)
-                {
-                    foreach (string draftH in Drafts)
-                    {
-                        int totalTotal = 0;
-                        int totalResolved = 0;
-                        int totalApproved = 0;
-                        int totalReviewed = 0;
-                        int totalActive = 0;
-                        int totalNovy = 0;
-
-                        int clashTestsNumber = 0;
-
-                        foreach (ClashTest clashTest in ClashTests)
-                        {
-                            if (clashTest.DraftLeftName == draftV && clashTest.DraftRightName == draftH)
-                            {
-                                bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
-                                bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
-                                bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
-                                bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
-                                bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
-                                bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
-
-                                totalTotal += total;
-                                totalResolved += resolved;
-                                totalApproved += approved;
-                                totalReviewed += reviewed;
-                                totalActive += active;
-                                totalNovy += novy;
-
-                                clashTestsNumber++;
-                            }
-                        }
-
-                        if (clashTestsNumber > 0)
-                        {
-                            ClashTest clashTestOnDrafts = new ClashTest()
-                            {
-                                Name = $"{draftV} / {draftH}",
-                                DraftLeftName = draftV,
-                                DraftRightName = draftH,
-                                SummaryNovy = totalNovy.ToString(),
-                                SummaryTotal = totalTotal.ToString(),
-                                SummaryActive = totalActive.ToString(),
-                                SummaryApproved = totalApproved.ToString(),
-                                SummaryResolved = totalResolved.ToString(),
-                                SummaryReviewed = totalReviewed.ToString()
-                            };
-                            ClashTestsTotal.Add(clashTestOnDrafts);
-                        }
-                    }
-                }
-            }
+            
 
             #endregion
 
-            #region see ClashTestsTotal
-            /*
-            string output = string.Empty;
-            foreach (ClashTest ct in ClashTestsTotal)
-            {
-                output += ct.Name + "(" + ct.DraftLeftName + " : " + ct.DraftRightName + ")" + " -> " + ct.SummaryTotal + "\n";
-            }
-
-            Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты tottal\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-            */
-            #endregion
-
-            //string filename = @"C:\Users\" + Environment.UserName + @"\Downloads\reportcollisions.txt";
 
             int row_models = 0;
             int col_models = 0;
-            DataCellViewModels = new DataCellViewModel[SelectionSets.Count, SelectionSets.Count];
-
-            foreach (SelectionSetNode selectionSetNodeVerticalSet in SelectionSetNodes)
-            {
-                foreach (SelectionSet selectionSetVName in selectionSetNodeVerticalSet.SelectionSets)
-                {
-                    DataLineView dataLineView = new DataLineView();
-
-                    foreach (SelectionSetNode selectionSetNodeHorizontalSet in SelectionSetNodes)
-                    {
-                        foreach (SelectionSet selectionSetHName in selectionSetNodeHorizontalSet.SelectionSets)
-                        {
-                            DataCellView dataCellView = new DataCellView();
-                            dataCellView.Width = MatrixCellHorizontalDimension;
-                            dataCellView.Height = MatrixCellVerticalDimension;
-                            DataCellViewModel dataCellViewModel = (DataCellViewModel)dataCellView.DataContext;
-                            dataCellViewModel.SelectionLeftName = selectionSetVName.Name;
-                            dataCellViewModel.SelectionRightName = selectionSetHName.Name;
-                            dataCellViewModel.CollisionsTotalNumber = "";
-                            dataCellViewModel.CollisionsActiveNumber = "";
-                            dataCellViewModel.CollisionsResolvedNumber = "";
-                            dataCellViewModel.CollisionsReviewedNumber = "";
-                            
-                            foreach (ClashTest clashTest in ClashTests)
-                            {
-                                //bool result1 = dataCellViewModel.SelectionLeftName.Equals(clashTest.SelectionLeftName);
-                                //bool result2 = dataCellViewModel.SelectionRightName.Equals(clashTest.SelectionRightName);
-
-                                //WriteToFile(filename, "dataCellView.SelectionLeftName: " + dataCellViewModel.SelectionLeftName + ", clashTest.SelectionLeftName: " + clashTest.SelectionLeftName + result1);
-                                //WriteToFile(filename, "dataCellView.SelectionRightName: " + dataCellViewModel.SelectionRightName + ", clashTest.SelectionRightName: " + clashTest.SelectionRightName + result2);
-
-                                if (dataCellViewModel.SelectionLeftName.Equals(clashTest.SelectionLeftName) && dataCellViewModel.SelectionRightName.Equals(clashTest.SelectionRightName))
-                                {
-                                    bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
-                                    bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
-                                    bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
-                                    bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
-                                    bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
-                                    bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
-
-                                    int summary = novy + active + reviewed; // + approved;
-
-                                    dataCellViewModel.CollisionsSumma = summary.ToString();
-                                    dataCellViewModel.CollisionsTotalNumber = clashTest.SummaryTotal;
-                                    dataCellViewModel.CollisionsActiveNumber = clashTest.SummaryActive;
-                                    dataCellViewModel.CollisionsReviewedNumber = clashTest.SummaryReviewed;
-                                    dataCellViewModel.CollisionsResolvedNumber = clashTest.SummaryResolved;
-
-                                    dataCellViewModel.ClashTest = clashTest;
-
-                                    bool result = double.TryParse(clashTest.Tolerance.Replace(".", ","), out double tolerance);
-
-                                    if (result)
-                                    {
-                                        if (tolerance <= 0.08) dataCellView.border.Background = Color80;
-                                        if (tolerance <= 0.05) dataCellView.border.Background = Color50;
-                                        if (tolerance <= 0.03) dataCellView.border.Background = Color30;
-                                        if (tolerance <= 0.015) dataCellView.border.Background = Color15;
-
-                                        dataCellView.tbLeftBracket.Visibility = Visibility.Visible;
-                                        dataCellView.tbRightBracket.Visibility = Visibility.Visible;
-                                        dataCellView.divider.Visibility = Visibility.Visible;
-
-                                        dataCellView.ToolTip = $"{selectionSetVName.Name} / {selectionSetHName.Name}\nАктивно: {clashTest.SummaryActive}\nИсправлено: {clashTest.SummaryResolved}\nВсего: {clashTest.SummaryTotal}";
-                                    }
-                                }
-                            }
-                            
-                            dataLineView.spLine.Children.Add(dataCellView);
-                            DataCellViewModels[row_models, col_models] = (DataCellViewModel)dataCellView.DataContext;
-                            col_models += 1;
-                        }
-                        
-                    }
-                    ThisView.spDataVLine.Children.Add(dataLineView);
-                    col_models = 0;
-                    row_models += 1;
-                }
-            }
-
-            /*
-            string output = string.Empty;
-            for (int r = 0; r < SelectionSets.Count; r++)
-            {
-                for (int c = 0; c < SelectionSets.Count; c++)
-                {
-                    output += DataCellViewModels[r, c].CollisionsTotalNumber + ",";
-                }
-                output += "\n";
-            }
             
-            Xceed.Wpf.Toolkit.MessageBox.Show("Вот такие тесты\n" + output, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-            */
-        }
-        private bool CanImportXMLClashTestsExecute(object p) => true;
 
+          
+        }
+        private bool CanImportXMLClashtestsExecute(object p) => true;
+
+        /*
         public ICommand ExcelExport { get; set; }
         private void OnExcelExportExecuted(object p)
         {
@@ -976,7 +472,7 @@ namespace СollisionMatrix
 
             if (File.Exists(pathtoxls))
             {
-                
+
                 try
                 {
                     File.Delete(pathtoxls);
@@ -1032,9 +528,9 @@ namespace СollisionMatrix
                     // горизонтальные заголовки сверху
                     rowCount = 1;
                     colCount = 3;
-                    foreach(SelectionSetNode ssn in SelectionSetNodes)
+                    foreach (SelectionSetNode ssn in SelectionSetNodes)
                     {
-                        foreach(SelectionSet ss in ssn.SelectionSets)
+                        foreach (SelectionSet ss in ssn.SelectionSets)
                         {
                             foreach (ExcelWorksheet worksheet in worksheets)
                             {
@@ -1052,11 +548,11 @@ namespace СollisionMatrix
                                 worksheet.Cells[rowCount + 1, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                                 worksheet.Cells[rowCount + 1, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                             }
-                                
+
 
                             colCount += 1;
                         }
-                        
+
                     }
 
                     // объединение ячеек разделов проекта
@@ -1066,14 +562,14 @@ namespace СollisionMatrix
                     int row = 0;
                     foreach (SelectionSetNode ssn in SelectionSetNodes) // worksheet.Cells[FromRow, FromColumn, ToRow, ToColumn].Merge = true;
                     {
-                        foreach(ExcelWorksheet worksheet in worksheets)
+                        foreach (ExcelWorksheet worksheet in worksheets)
                         {
                             worksheet.Cells[1, startcolumn + column, 1, startcolumn + column + ssn.SelectionSets.Count - 1].Merge = true;
                             worksheet.Cells[1, startcolumn + column, 1, startcolumn + column + ssn.SelectionSets.Count - 1].Style.Font.Bold = true;
                             worksheet.Cells[startrow + row, 1, startrow + row + ssn.SelectionSets.Count - 1, 1].Merge = true;
                             worksheet.Cells[startrow + row, 1, startrow + row + ssn.SelectionSets.Count - 1, 1].Style.Font.Bold = true;
 
-                            
+
                         }
                         for (int i2 = 0; i2 < ssn.SelectionSets.Count; i2++)
                         {
@@ -1081,7 +577,7 @@ namespace СollisionMatrix
                             {
                                 worksheet.Row(startrow + row + i2).CustomHeight = true;
                             }
-                                
+
                         }
 
                         for (int i2 = 0; i2 < ssn.SelectionSets.Count; i2++)
@@ -1103,7 +599,7 @@ namespace СollisionMatrix
                         worksheet.Cells[1, 1, 2, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                         worksheet.Cells[1, 1, 2, 2].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
                     }
-                       
+
 
                     #endregion
 
@@ -1180,91 +676,7 @@ namespace СollisionMatrix
                     }
 
                     #region other way
-                    /*
-                    rowCount = 3;
-                    colCount = 3;
-                    foreach (SelectionSetNode ssnV in SelectionSetNodes)
-                    {
-                        foreach (SelectionSet selSetV in ssnV.SelectionSets)
-                        {
-                            foreach(SelectionSetNode ssnH in SelectionSetNodes)
-                            {
-                                foreach (SelectionSet selSetH in ssnH.SelectionSets)
-                                {
-                                    foreach (ClashTest clashTest in ClashTests)
-                                    {
-                                        if (clashTest.SelectionLeftName != null && clashTest.SelectionRightName != null &&
-                                            clashTest.SelectionLeftName.Equals(selSetV.Name) && clashTest.SelectionRightName.Equals(selSetH.Name))
-                                        {
-                                            //worksheet.Cells[rowCount, colCount].Value = clashTest.Name;
-
-                                            bool resultTotal = int.TryParse(clashTest.SummaryTotal, out int total);
-                                            bool resultResolved = int.TryParse(clashTest.SummaryResolved, out int resolved);
-                                            bool resultApproved = int.TryParse(clashTest.SummaryApproved, out int approved);
-                                            bool resultReviewed = int.TryParse(clashTest.SummaryReviewed, out int reviewed);
-                                            bool resultActive = int.TryParse(clashTest.SummaryActive, out int active);
-                                            bool resultNovy = int.TryParse(clashTest.SummaryNovy, out int novy);
-
-                                            int summary = novy + active + reviewed + approved;
-
-                                            foreach (ExcelWorksheet worksheet in worksheets)
-                                            {
-                                                if (worksheet.Name.Equals("Matrix"))
-                                                    worksheet.Cells[rowCount, colCount].Value = summary + "(" + clashTest.SummaryResolved + ")" + "\n" + clashTest.SummaryTotal;
-                                                    //worksheet.Cells[rowCount, colCount].Value = clashTest.SelectionLeftName + "\n" + clashTest.SelectionRightName;
-                                                else if (worksheet.Name.Equals("Matrix-New"))
-                                                    worksheet.Cells[rowCount, colCount].Value = novy;
-                                                else if (worksheet.Name.Equals("Matrix-Active"))
-                                                    worksheet.Cells[rowCount, colCount].Value = active;
-                                                else if (worksheet.Name.Equals("Matrix-Reviewed"))
-                                                    worksheet.Cells[rowCount, colCount].Value = reviewed;
-                                                else if (worksheet.Name.Equals("Matrix-Approved"))
-                                                    worksheet.Cells[rowCount, colCount].Value = approved;
-                                                else if (worksheet.Name.Equals("Matrix-Resolved"))
-                                                    worksheet.Cells[rowCount, colCount].Value = resolved;
-                                                else if (worksheet.Name.Equals("Matrix-Total"))
-                                                    worksheet.Cells[rowCount, colCount].Value = total;
-
-                                                if (total == 0)
-                                                {
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
-                                                }
-                                                else if (resolved == total)
-                                                {
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
-                                                }
-                                                else if (resolved == 0)
-                                                {
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
-                                                }
-                                                else
-                                                {
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                                    worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(191, 233, 255));
-                                                };
-                                            }
-
-                                        }
-                                        foreach (ExcelWorksheet worksheet in worksheets)
-                                        {
-                                            worksheet.Cells[rowCount, colCount].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                                            worksheet.Cells[rowCount, colCount].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                                            worksheet.Cells[rowCount, colCount].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                                            worksheet.Cells[rowCount, colCount].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                                        }
-                                    }
-                                    colCount++;
-                                }
-                            }
-                            rowCount++;
-                            colCount = 3;
-                        }
-
-                    }
-                    */
+                    
                     #endregion
 
                     // выравнивание содержимого ячеек результатов проверок
@@ -1275,7 +687,7 @@ namespace СollisionMatrix
                             worksheet.Row(i).Style.WrapText = true;
                             worksheet.Row(i).Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                             worksheet.Row(i).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        }   
+                        }
                     }
 
                     // выравнивание наименований поисковых запросов в заголовках
@@ -1768,7 +1180,7 @@ namespace СollisionMatrix
                             worksheet.Row(rowCount).Height = 35;
                         }
                     }
-                        
+
 
                     #endregion
 
@@ -1798,7 +1210,7 @@ namespace СollisionMatrix
                     colCount = 1;
                     foreach (SelectionSetNode ssn in SelectionSetNodes)
                     {
-                        foreach (ExcelWorksheet worksheetDraft in worksheetsDraft) 
+                        foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
                         {
                             worksheetDraft.Cells[rowCount, colCount].Value = ssn.DraftName;
 
@@ -1834,11 +1246,11 @@ namespace СollisionMatrix
 
                     rowCount = 2;
                     colCount = 2;
-                    foreach(string draftV in Drafts)
+                    foreach (string draftV in Drafts)
                     {
-                        foreach(string draftH in Drafts)
+                        foreach (string draftH in Drafts)
                         {
-                            foreach(ClashTest clashTest in ClashTestsTotal)
+                            foreach (ClashTest clashTest in ClashTestsTotal)
                             {
                                 if (clashTest.DraftLeftName.Equals(draftV) && clashTest.DraftRightName.Equals(draftH))
                                 {
@@ -1868,7 +1280,7 @@ namespace СollisionMatrix
                                             worksheetDraft.Cells[rowCount, colCount].Value = resolved;
                                         else if (worksheetDraft.Name.Equals("DraftMatrix-Total"))
                                             worksheetDraft.Cells[rowCount, colCount].Value = total;
-                                        
+
                                         if (total == 0)
                                         {
                                             worksheetDraft.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -1931,19 +1343,19 @@ namespace СollisionMatrix
                         worksheetDraft.Row(1).Height = 25;
                         worksheetDraft.Column(1).Style.Font.Bold = true;
                     }
-                        
+
 
                     // пояснение 
-                    
+
                     foreach (ExcelWorksheet worksheetDraft in worksheetsDraft)
                     {
-                        
+
                         int rowstart = Drafts.Count + 4;
                         int rowdelta = 2;
                         int colmerge = 3;
 
                         colCount = 2;
-                        
+
                         if (worksheetDraft.Name.Equals("DraftMatrix"))
                         {
                             rowCount = rowstart;
@@ -2645,7 +2057,7 @@ namespace СollisionMatrix
         }
         private bool CanExcelExportExecute(object p) => true;
 
-
+        */
         private static void WriteToFile(string fileName, string txt)
         {
             Encoding u16LE = Encoding.Unicode; // UTF-16 little endian

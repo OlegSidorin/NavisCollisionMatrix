@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:СollisionMatrix" Background="White"
-             xmlns:subviews="clr-namespace:СollisionMatrix.Subviews" 
+             xmlns:local="clr-namespace:СollisionMatrix" 
+             xmlns:subviews="clr-namespace:СollisionMatrix.Subviews" Style="{StaticResource UserLineTheme}"
              mc:Ignorable="d" MouseMove="UserControl_MouseMove" MouseLeave="UserControl_MouseLeave"
              d:DesignHeight="28" d:DesignWidth="500">
     <UserControl.DataContext>
@@ -15,7 +15,7 @@
             <ColumnDefinition Width="2" />
             <ColumnDefinition Width="16" />
             <ColumnDefinition Width="16" />
-            <ColumnDefinition Width="22" />
+            <ColumnDefinition Width="24" />
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="16" />
@@ -42,8 +42,7 @@
             </Button>
         </StackPanel>
         <Label Grid.Row="1" Grid.Column="3" Content="{Binding RowNum}" 
-                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                 />
+                 HorizontalAlignment="Right" VerticalAlignment="Center" />
         <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding NameOfSelection}" Height="24"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1"
                  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>

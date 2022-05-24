@@ -112,6 +112,17 @@
     <Compile Include="DataLineView.xaml.cs">
       <DependentUpon>DataLineView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mainviews\MainCellUserConrol.xaml.cs">
+      <DependentUpon>MainCellUserConrol.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mainviews\MainCellViewModel.cs" />
+    <Compile Include="Mainviews\MainLineUserControl.xaml.cs">
+      <DependentUpon>MainLineUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mainviews\MainLineViewModel.cs" />
+    <Compile Include="Mainviews\MainSelectionNameUserControl.xaml.cs">
+      <DependentUpon>MainSelectionNameUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowModel.cs" />
     <Compile Include="MatrixCreating.xaml.cs">
       <DependentUpon>MatrixCreating.xaml</DependentUpon>
@@ -131,6 +142,7 @@
     </Compile>
     <Compile Include="Models\Batchtest.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Clashresult.cs" />
     <Compile Include="Models\Clashselection.cs" />
     <Compile Include="Models\Clashtest.cs" />
     <Compile Include="Models\Condition.cs" />
@@ -145,6 +157,9 @@
     <Compile Include="Models\Right.cs" />
     <Compile Include="Models\Rules.cs" />
     <Compile Include="Models\Selectionset.cs" />
+    <Compile Include="Models\Summary.cs" />
+    <Compile Include="Models\Teststatus.cs" />
+    <Compile Include="Models\Testtype.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="SelectionSet.cs" />
     <Compile Include="ObservableObject.cs" />
@@ -177,6 +192,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Mainviews\MainCellUserConrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Mainviews\MainLineUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Mainviews\MainSelectionNameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,6 +264,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\ButtonRed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ButtonTextWrapTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\UserLineTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,5 +19,6 @@ namespace СollisionMatrix.Models
         public Left Left { get; set; }
         public Right Right { get; set; }
         public Rules Rules { get; set; }
+        public Summary Summary { get; set; }
     }
 }
