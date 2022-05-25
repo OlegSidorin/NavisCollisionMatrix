@@ -40,5 +40,6 @@ namespace СollisionMatrix.Mainviews
         }
 
         public ObservableCollection<UserControl> CellViews { get; set; }
+        public List<Models.Clashtest> Clashtests { get; set; }
     }
 }

@@ -8,15 +8,15 @@ namespace СollisionMatrix.Mainviews
 {
     public class MainCellViewModel : ObservableObject
     {
-        private Models.Summary _summary;
-        public Models.Summary Summary
+        private Models.Clashtest _clashtest;
+        public Models.Clashtest Clashtest
         {
-            get { return _summary; }
+            get { return _clashtest; }
             set
             {
-                if (_summary != value)
+                if (_clashtest != value)
                 {
-                    _summary = value;
+                    _clashtest = value;
                     OnPropertyChanged();
                 }
             }

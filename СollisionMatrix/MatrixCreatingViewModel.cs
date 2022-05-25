@@ -522,10 +522,18 @@ namespace СollisionMatrix
                 XmlNode locator_node = findspec_node.AppendChild(locator_element);
             }
 
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            System.Windows.Forms.SaveFileDialog openFileDialog = new System.Windows.Forms.SaveFileDialog();
             System.Windows.Forms.DialogResult dialog_result = openFileDialog.ShowDialog();
             string pathtoxml = openFileDialog.FileName;
-            if (dialog_result == System.Windows.Forms.DialogResult.OK) xDoc.Save(pathtoxml);
+
+            if (dialog_result == System.Windows.Forms.DialogResult.OK)
+            {
+                if (!pathtoxml.Contains(".xml"))
+                {
+                    pathtoxml += ".xml";
+                }
+                xDoc.Save(pathtoxml);
+            }
 
         }
         private bool CanDoIfIClickOnSaveXMLCollisionMatrixButtonExecute(object p) => true;

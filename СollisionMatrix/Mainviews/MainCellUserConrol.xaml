@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:СollisionMatrix.Mainviews"
-             mc:Ignorable="d" Width="26"
+             mc:Ignorable="d" Width="26" Margin="0 0 4 0"
              d:DesignHeight="26" d:DesignWidth="26">
     <UserControl.DataContext>
         <local:MainCellViewModel />
     </UserControl.DataContext>
     <Grid>
         <TextBlock Text="{Binding Presenter}" 
-                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                   Margin="1" Height="24" />
+                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                   Margin="1" />
     </Grid>
 </UserControl>

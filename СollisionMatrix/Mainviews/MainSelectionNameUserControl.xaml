@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:СollisionMatrix.Mainviews"
-             mc:Ignorable="d" Width="26"
+             mc:Ignorable="d" Width="30"
              d:DesignHeight="120" d:DesignWidth="26">
     <UserControl.DataContext>
         <local:MainLineViewModel />
     </UserControl.DataContext>
     <Grid>
-        <TextBlock Text="{Binding Selectionset.Tag_name}" RenderTransformOrigin="0.5,0.5" >
+        <TextBlock Text="{Binding NameOfSelection}" RenderTransformOrigin="0.5,0.5" FontWeight="DemiBold">
             <TextBlock.LayoutTransform>
                 <TransformGroup>
                     <ScaleTransform/>

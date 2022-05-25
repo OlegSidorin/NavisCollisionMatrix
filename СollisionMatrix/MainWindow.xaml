@@ -22,31 +22,48 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="2" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" 
-                          HorizontalScrollBarVisibility="Visible">
-            <Grid Background="White">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="200" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="5"/>
-                </Grid.RowDefinitions>
-                <ItemsControl ItemsSource="{Binding UserControlsInWholeMatrix}" 
-                              HorizontalAlignment="Center" Margin="0 0 30 0"
-                      Grid.Row="2" Grid.Column="1" >
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </Grid>
-        </ScrollViewer>
+        <Grid Grid.Row="1" Grid.Column="1" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" BorderThickness="1">
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="210" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding LineUserControls_Names}" HorizontalAlignment="Center"
+                              Margin="215 0 0 10">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ItemsControl Grid.Row="2" Grid.Column="1"
+                              ItemsSource="{Binding LineUserControls}" 
+                              HorizontalAlignment="Center" Margin="0 0 30 0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        
         <Grid Grid.Row="1" Grid.Column="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5" />
@@ -82,19 +99,19 @@
                 <TextBlock Text="Допуск:" FontSize="14" FontWeight="DemiBold" Margin="5 0 0 5" />
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color15}" />
-                    <TextBlock Width="100" Height="20" Text=" - до 0,015м;" />
+                    <TextBlock Width="100" Height="20" Text=" - до 15 мм;" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color30}" />
-                    <TextBlock Width="100" Height="20" Text=" - до 0,030м;" />
+                    <TextBlock Width="100" Height="20" Text=" - до 30 мм;" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color50}" />
-                    <TextBlock Width="100" Height="20" Text=" - до 0,050м;" />
+                    <TextBlock Width="100" Height="20" Text=" - до 50 мм;" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color80}" />
-                    <TextBlock Width="100" Height="20" Text=" - до 0,080м;" />
+                    <TextBlock Width="100" Height="20" Text=" - более 50 мм;" />
                 </StackPanel>
             </StackPanel>
             <Label Grid.Row="6" Grid.Column="1" 

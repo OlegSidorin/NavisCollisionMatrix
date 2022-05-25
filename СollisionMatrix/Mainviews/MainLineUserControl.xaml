@@ -12,8 +12,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2" />
-            <ColumnDefinition Width="24" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="28" />
+            <ColumnDefinition Width="210" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2" />
         </Grid.ColumnDefinitions>
@@ -22,11 +22,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding RowNum}" 
-                 HorizontalAlignment="Right" VerticalAlignment="Center" />
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding NameOfSelection}" Height="24"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1"
-                 />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding RowNum}" Foreground="SlateGray"
+                 HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" />
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding NameOfSelection}" FontWeight="DemiBold"
+                 HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" />
+
         <ItemsControl ItemsSource="{Binding CellViews}" 
                       HorizontalAlignment="Left" 
                       Grid.Row="1" Grid.Column="3" >
