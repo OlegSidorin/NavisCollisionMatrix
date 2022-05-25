@@ -314,6 +314,8 @@
     <Resource Include="Examples\matrix_example.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Examples\отчет 13-04.xml" />
+    <Resource Include="Examples\отчет 21-04.xml" />
     <Content Include="selectionsets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
