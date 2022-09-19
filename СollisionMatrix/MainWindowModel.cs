@@ -670,7 +670,8 @@ namespace СollisionMatrix
                 }
                 rowCount++;
             }
-            
+
+            if (Clashtests == null) return;
 
             // выравнивание содержимого ячеек результатов проверок
             for (int i = 1; i <= Clashtests.Count + 2; i++)

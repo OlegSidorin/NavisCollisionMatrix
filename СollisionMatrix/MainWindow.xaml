@@ -73,22 +73,23 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="0" />
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="60" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="00" />
+                <RowDefinition Height="70" />
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="0" />
             </Grid.RowDefinitions>
-            <Button Grid.Column="1" Style="{StaticResource ButtonWrapTextTheme}" 
-                    Content="Создать матрицу коллизий"
+            
+            <Button Grid.Column="1" Style="{StaticResource ButtonCreateMatrix}" 
                     Grid.Row="2" ToolTip="Создать или редактировать матрицу коллизий для Navisworks в формате .xml"
-                        Command="{Binding MatrixCreatingCommand}" Margin="5" >
-            </Button>
-            <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonWrapTextTheme}" 
+                        Command="{Binding MatrixCreatingCommand}" Margin="5" />
+
+            <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonOpenReport}" 
                     ToolTip="Открыть отчет проверок из Navisworks в формате .xml"
                         Content="Открыть отчет проверки" Command="{Binding ImportXMLClashtests}" Margin="5" />
-            <Button Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonWrapTextTheme}" 
+            
+            <Button Grid.Column="1" Grid.Row="5" Style="{StaticResource ButtonSaveExcel}" 
                         Content="Сохранить в .xls" Command="{Binding ExcelExport}" Margin="5" />
             <StackPanel x:Name="notes"
                             Orientation="Vertical"  
@@ -96,29 +97,30 @@
                             Grid.Column="1" Grid.Row="6"
                             HorizontalAlignment="Center" 
                             Margin="0 50 0 20">
-                <TextBlock Text="Допуск:" FontSize="14" FontWeight="DemiBold" Margin="5 0 0 5" />
+                <TextBlock Text="Допуск:" TextDecorations="Underline" FontSize="13" FontWeight="SemiBold" Margin="5 0 0 5" Foreground="{DynamicResource ColorStrokeIcons}"/>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color15}" />
-                    <TextBlock Width="100" Height="20" Text=" - до 15 мм;" />
+                    <TextBlock Width="100" Height="20" Text=" - до 15 мм;" Foreground="{DynamicResource ColorStrokeIcons}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color30}" />
-                    <TextBlock Width="100" Height="20" Text=" - до 30 мм;" />
+                    <TextBlock Width="100" Height="20" Text=" - до 30 мм;" Foreground="{DynamicResource ColorStrokeIcons}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color50}" />
-                    <TextBlock Width="100" Height="20" Text=" - до 50 мм;" />
+                    <TextBlock Width="100" Height="20" Text=" - до 50 мм;" Foreground="{DynamicResource ColorStrokeIcons}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Width="20" Height="20" Text="" Background="{Binding Color80}" />
-                    <TextBlock Width="100" Height="20" Text=" - более 50 мм;" />
+                    <TextBlock Width="100" Height="20" Text=" - более 50 мм;" Foreground="{DynamicResource ColorStrokeIcons}"/>
                 </StackPanel>
             </StackPanel>
             <Label Grid.Row="6" Grid.Column="1" 
-                   FontSize="8"
+                   FontSize="8" Foreground="{DynamicResource ColorStrokeIcons}"
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Bottom" 
-                   Content="© M1 Проект" />
+                   FontWeight="SemiBold"
+                   Content="© КТБ Проект" />
         </Grid>
     </Grid>
 </Window>

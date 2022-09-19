@@ -19,7 +19,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="180" />
             <ColumnDefinition Width="2" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -38,20 +38,31 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2" />
-                    <RowDefinition Height="200" />
+                    <RowDefinition MinHeight="40" MaxHeight="350" Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="2" />
                 </Grid.RowDefinitions>
                 <ItemsControl Grid.Row="1" Grid.Column="2"
                               ItemsSource="{Binding UserControlsSelectionNames}"
                               HorizontalAlignment="Center"
-                              Margin="195 0 0 5">
+                              Margin="225 0 0 5">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
+                <GridSplitter Grid.Row="1" Grid.Column="2"
+                              Height="3" Width="15" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
+                    <GridSplitter.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Path Stroke="{DynamicResource ColorFillIcons}" Data="M72.5 150C72.5 137.5736 62.4264 127.5 50 127.5C37.5736 127.5 27.5 137.5736 27.5 150C27.5 162.4264 37.5736 172.5 50 172.5C62.4264 172.5 72.5 162.4264 72.5 150zM172.5 150C172.5 137.5736 162.4264 127.5 150 127.5C137.5736 127.5 127.5 137.5736 127.5 150C127.5 162.4264 137.5736 172.5 150 172.5C162.4264 172.5 172.5 162.4264 172.5 150zM250 127.5C262.426 127.5 272.5 137.5736 272.5 150C272.5 162.4264 262.426 172.5 250 172.5C237.574 172.5 227.5 162.4264 227.5 150C227.5 137.5736 237.574 127.5 250 127.5z"
+                                      Opacity="0.6" Fill="{DynamicResource ColorFillIcons}" Stretch="Fill"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </GridSplitter.Template>
+                </GridSplitter>
                 <ItemsControl ItemsSource="{Binding UserControlsInWholeMatrix}" 
                               HorizontalAlignment="Center" Margin="0 0 30 0"
                       Grid.Row="2" Grid.Column="2" >
@@ -64,20 +75,21 @@
             </Grid>
         </ScrollViewer>
         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="0 0 4 2">
-            <Button  Style="{StaticResource ButtonWrapTextTheme}" Margin="0 0 0 20"
-                    Command="{Binding DoIfIClickOnOpenXMLCollisionMatrixButton}"
-            Content="Открыть файл .xml c Матрицей коллизий"  />
-            <Button  Style="{StaticResource ButtonWrapTextTheme}"
+            <Button  Style="{StaticResource ButtonOpenCollisionMatrix}" 
+                     Margin="5 0 10 0" Height="70"
+                    Command="{Binding DoIfIClickOnOpenXMLCollisionMatrixButton}"/>
+            <Button  Style="{StaticResource ButtonSaveCollisionMatrix}"
                 ToolTip="Для последущего использования в Navisworks"
-                Margin="0 0 0 0"
+                Margin="5 0 10 0" Height="70"
                     Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}"
             Content="Сохранить Матрицу коллизий в файл .xml"  />
         </StackPanel>
         <Label Grid.Row="1" Grid.Column="2" 
-                   FontSize="8"
+                   FontSize="8" Foreground="{DynamicResource ColorStrokeIcons}"
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Bottom" 
-                   Content="© M1 Проект" />
+                   FontWeight="SemiBold"
+                   Content="© КТБ Проект" />
 
     </Grid>
 

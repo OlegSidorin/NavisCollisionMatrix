@@ -37,7 +37,7 @@ namespace СollisionMatrix
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
             var new1 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR_Walls",
+                NameOfSelection = "AR | Walls",
                 SelectionIntersectionTolerance = new List<string>() 
                 {
                     "15", "", "", ""
@@ -45,7 +45,7 @@ namespace СollisionMatrix
             };
             var new2 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR_Floors",
+                NameOfSelection = "AR | Floors",
                 SelectionIntersectionTolerance = new List<string>()
                 {
                     "", "30", "", ""
@@ -53,7 +53,7 @@ namespace СollisionMatrix
             };
             var new3 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR_Doors",
+                NameOfSelection = "AR | Doors",
                 SelectionIntersectionTolerance = new List<string>()
                 {
                     "", "", "80", ""
@@ -61,7 +61,7 @@ namespace СollisionMatrix
             };
             var new4 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR_Windows",
+                NameOfSelection = "AR | Windows",
                 SelectionIntersectionTolerance = new List<string>()
                 {
                     "", "", "", "50"
@@ -153,11 +153,11 @@ namespace СollisionMatrix
 
                 var draft_name = "?";
                 var category_name = "Стены";
-                var draft_names = mslvm.NameOfSelection.Split('_');
+                var draft_names = mslvm.NameOfSelection.Split('|');
                 if (draft_names.Count() > 1)
                 {
-                    draft_name = draft_names.First();
-                    category_name = draft_names.Last();
+                    draft_name = draft_names.First().TrimStart(' ').TrimEnd(' ');
+                    category_name = draft_names.Last().TrimStart(' ').TrimEnd(' ');
                 }
 
                 if (mslvm.Selectionset != null)
@@ -202,7 +202,7 @@ namespace СollisionMatrix
                             Data = new Data()
                             {
                                 Tag_type = "wstring",
-                                Tag_inner_text = draft_name + "_"
+                                Tag_inner_text = draft_name
                             }
                         }
                     };
@@ -256,12 +256,12 @@ namespace СollisionMatrix
                         if (operation_result_toInt_isOk)
                         {
                             string dl_name = "?";
-                            string[] dl_names = mslvm.NameOfSelection.Split('_');
-                            if (dl_names.Count() > 1) dl_name = dl_names.First();
+                            string[] dl_names = mslvm.NameOfSelection.Split('|');
+                            if (dl_names.Count() > 1) dl_name = dl_names.First().TrimStart(' ').TrimEnd(' ');
                             string dr_name = "?";
                             MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)UserControlsSelectionNames.ElementAt(colNum).DataContext;
-                            string[] dr_names = vm.NameOfSelection.Split('_');
-                            if (dr_names.Count() > 1) dr_name = dr_names.First();
+                            string[] dr_names = vm.NameOfSelection.Split('|');
+                            if (dr_names.Count() > 1) dr_name = dr_names.First().TrimStart(' ').TrimEnd(' ');
 
                             ct = mscvm.Clashtest;
 
@@ -301,13 +301,13 @@ namespace СollisionMatrix
                         if (operation_result_toInt_isOk)
                         {
                             string dl_name = "?";
-                            string[] dl_names = mslvm.NameOfSelection.Split('_');
-                            if (dl_names.Count() > 1) dl_name = dl_names.First();
+                            string[] dl_names = mslvm.NameOfSelection.Split('|');
+                            if (dl_names.Count() > 1) dl_name = dl_names.First().TrimStart(' ').TrimEnd(' ');
                             string dr_name = "?";
 
                             MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)UserControlsSelectionNames.ElementAt(colNum).DataContext;
-                            string[] dr_names = vm.NameOfSelection.Split('_');
-                            if (dr_names.Count() > 1) dr_name = dr_names.First();
+                            string[] dr_names = vm.NameOfSelection.Split('|');
+                            if (dr_names.Count() > 1) dr_name = dr_names.First().TrimStart(' ').TrimEnd(' ');
 
                             ct = new Clashtest()
                             {
@@ -640,10 +640,10 @@ namespace СollisionMatrix
                                                                     clashtest.Left.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
                                                                 }
 
-                                                                var draft_names = clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
+                                                                var draft_names = clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name.Split('|');
                                                                 if (draft_names.Count() > 1)
                                                                 {
-                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
+                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First().TrimStart(' ').TrimEnd(' ');
                                                                 }
                                                                 else
                                                                 {
@@ -681,10 +681,10 @@ namespace СollisionMatrix
                                                                     clashtest.Right.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
                                                                 }
 
-                                                                var draft_names = clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
+                                                                var draft_names = clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name.Split('|');
                                                                 if (draft_names.Count() > 1)
                                                                 {
-                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
+                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First().TrimStart(' ').TrimEnd(' ');
                                                                 }
                                                                 else
                                                                 {
