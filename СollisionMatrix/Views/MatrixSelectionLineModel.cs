@@ -10,6 +10,7 @@ namespace СollisionMatrix
     {
         public string NameOfSelection { get; set; }
         public List<string> SelectionIntersectionTolerance { get; set; }
+        
 
         public MatrixSelectionLineModel()
         {

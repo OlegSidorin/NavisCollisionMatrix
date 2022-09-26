@@ -19,12 +19,21 @@ namespace СollisionMatrix
     {
         public ObservableCollection<MatrixSelectionLineModel> Selections { get; set; }
         public ObservableCollection<UserControl> UserControlsInWholeMatrix { get; set; }
+        public ObservableCollection<UserControl> UserControlsInWholeMatrixHeaders { get; set; }
         public ObservableCollection<UserControl> UserControlsSelectionNames { get; set; }
         public List<Selectionset> Selectionsets { get; set; }
         public List<Clashtest> Clashtests { get; set; }
         public Batchtest Batchtest { get; set; }
+
+        public double widthColumn;
+        public double WidthColumn
+        {
+            get { return widthColumn; }
+            set { widthColumn = value; OnPropertyChanged(); }
+        }
         public MatrixCreatingViewModel()
         {
+            WidthColumn = 183;
             Selectionsets = new List<Selectionset>();
             Clashtests = new List<Clashtest>();
             Batchtest = new Batchtest()
@@ -74,6 +83,7 @@ namespace СollisionMatrix
             Selections.Add(new4);
 
             UserControlsInWholeMatrix = new ObservableCollection<UserControl>();
+            UserControlsInWholeMatrixHeaders = new ObservableCollection<UserControl>();
             UserControlsSelectionNames = new ObservableCollection<UserControl>();
             foreach (MatrixSelectionLineModel model in Selections)
             {
@@ -98,11 +108,14 @@ namespace СollisionMatrix
                 }
 
                 MatrixSelectionLineUserControl userControl = new MatrixSelectionLineUserControl();
+                MatrixSelectionLineHeaderUserControl userControlHeaders = new MatrixSelectionLineHeaderUserControl();
                 userControlvm.UserControl_MatrixSelectionLineUserControl = userControl;
                 userControlvm.UserControlsInAllMatrixWithLineUserControls = UserControlsInWholeMatrix;
                 userControlvm.UserControlsInSelectionNameUserControls = UserControlsSelectionNames;
                 userControl.DataContext = userControlvm;
+                userControlHeaders.DataContext = userControlvm;
                 UserControlsInWholeMatrix.Add(userControl);
+                UserControlsInWholeMatrixHeaders.Add(userControlHeaders);
             };
 
             foreach (UserControl usercontrolline in UserControlsInWholeMatrix)

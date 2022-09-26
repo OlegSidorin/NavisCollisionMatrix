@@ -38,40 +38,113 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2" />
-                    <RowDefinition MinHeight="40" MaxHeight="350" Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="40" MaxHeight="350" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ItemsControl Grid.Row="1" Grid.Column="2"
-                              ItemsSource="{Binding UserControlsSelectionNames}"
-                              HorizontalAlignment="Center"
-                              Margin="225 0 0 5">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-                <GridSplitter Grid.Row="1" Grid.Column="2"
-                              Height="3" Width="15" 
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
+                
+                <!--<GridSplitter Grid.Row="1" Grid.Column="1"
+                              VerticalAlignment="Stretch" HorizontalAlignment="Right" >
                     <GridSplitter.Template>
                         <ControlTemplate>
                             <Grid>
-                                <Path Stroke="{DynamicResource ColorFillIcons}" Data="M72.5 150C72.5 137.5736 62.4264 127.5 50 127.5C37.5736 127.5 27.5 137.5736 27.5 150C27.5 162.4264 37.5736 172.5 50 172.5C62.4264 172.5 72.5 162.4264 72.5 150zM172.5 150C172.5 137.5736 162.4264 127.5 150 127.5C137.5736 127.5 127.5 137.5736 127.5 150C127.5 162.4264 137.5736 172.5 150 172.5C162.4264 172.5 172.5 162.4264 172.5 150zM250 127.5C262.426 127.5 272.5 137.5736 272.5 150C272.5 162.4264 262.426 172.5 250 172.5C237.574 172.5 227.5 162.4264 227.5 150C227.5 137.5736 237.574 127.5 250 127.5z"
-                                      Opacity="0.6" Fill="{DynamicResource ColorFillIcons}" Stretch="Fill"/>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="12" />
+                                </Grid.RowDefinitions>
+                                <Path Grid.Row="1" Stroke="{DynamicResource ColorFillIcons}" Data="M172.5 250C172.5 237.5736 162.4264 227.5 150 227.5C137.5736 227.5 127.5 237.5736 127.5 250C127.5 262.4264 137.5736 272.5 150 272.5C162.4264 272.5 172.5 262.4264 172.5 250zM172.5 150C172.5 137.5736 162.4264 127.5 150 127.5C137.5736 127.5 127.5 137.5736 127.5 150C127.5 162.4264 137.5736 172.5 150 172.5C162.4264 172.5 172.5 162.4264 172.5 150zM150 27.5C162.4264 27.5 172.5 37.574 172.5 50C172.5 62.426 162.4264 72.5 150 72.5C137.5736 72.5 127.5 62.426 127.5 50C127.5 37.574 137.5736 27.5 150 27.5z"
+                                      Opacity="0.6" Fill="{DynamicResource ColorFillIcons}" Stretch="UniformToFill" Width="3"
+                                      VerticalAlignment="Bottom"/>
                             </Grid>
                         </ControlTemplate>
                     </GridSplitter.Template>
-                </GridSplitter>
-                <ItemsControl ItemsSource="{Binding UserControlsInWholeMatrix}" 
-                              HorizontalAlignment="Center" Margin="0 0 30 0"
-                      Grid.Row="2" Grid.Column="2" >
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                </GridSplitter>-->
+                
+                
+                <!--<ItemsControl Grid.Row="2" Grid.Column="1"
+                              ItemsSource="{Binding UserControlsInWholeMatrixHeaders}" >
+                    
+                </ItemsControl>-->
+                <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        
+                    </Grid.ColumnDefinitions>
+                    
+                    
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" >
+                    <Grid.Resources>
+                        <local:WidthConverter x:Key="WidthConverter" />
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" MaxHeight="300" MinHeight="35"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Panel.ZIndex="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding WidthColumn, Mode=TwoWay, Converter={StaticResource WidthConverter}}" MinWidth="125" MaxWidth="430" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <!--  -->
+                        <GridSplitter Margin="0 0 0 0" DragCompleted="GridSplitter1_DragCompleted" 
+                              VerticalAlignment="Stretch" HorizontalAlignment="Right" 
+                                      Background="{DynamicResource ColorFillIcons}" >
+                            <GridSplitter.Template>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="25" />
+                                            <RowDefinition Height="15" />
+                                        </Grid.RowDefinitions>
+                                        <Path Grid.Row="1" Stroke="Transparent" Data="M234.375 18.75A9.375 9.375 0 0 0 225 28.125V271.875A9.375 9.375 0 0 0 243.75 271.875V28.125A9.375 9.375 0 0 0 234.375 18.75zM187.5 150A9.375 9.375 0 0 0 178.125 140.625H69.50625L109.7625 100.3875A9.375 9.375 0 0 0 96.4875 87.1125L40.2375 143.3625A9.375 9.375 0 0 0 40.2375 156.6375L96.4875 212.8875A9.375 9.375 0 1 0 109.7625 199.6125L69.50625 159.375H178.125A9.375 9.375 0 0 0 187.5 150z"
+                                      Opacity="0.3" Fill="{DynamicResource ColorFillIcons}" Stretch="UniformToFill" Width="14" Height="16"
+                                      VerticalAlignment="Bottom"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </GridSplitter.Template>
+                        </GridSplitter>
+                        <ItemsControl Grid.Column="1"
+                              ItemsSource="{Binding UserControlsSelectionNames}"
+                              HorizontalAlignment="Left"
+                              Margin="0 0 0 5">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                    <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+                              Height="20" Margin="0 0 0 0"
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
+                        <GridSplitter.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="65" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Path Grid.Column="1" Stroke="Transparent" Data="M18.75 234.375A9.375 9.375 0 0 0 28.125 243.75H271.875A9.375 9.375 0 0 0 271.875 225H28.125A9.375 9.375 0 0 0 18.75 234.375zM150 187.5A9.375 9.375 0 0 0 159.375 178.125V69.50625L199.6125 109.7625A9.375 9.375 0 0 0 212.8875 96.4875L156.6375 40.2375A9.375 9.375 0 0 0 143.3625 40.2375L87.1125 96.4875A9.375 9.375 0 0 0 100.3875 109.7625L140.625 69.50625V178.125A9.375 9.375 0 0 0 150 187.5z"
+                                      Opacity="0.3" Fill="{DynamicResource ColorFillIcons}" Stretch="UniformToFill" Height="14"  Width="16"
+                                      />
+                                </Grid>
+                            </ControlTemplate>
+                        </GridSplitter.Template>
+                    </GridSplitter>
+                    <ItemsControl x:Name="ItemsLines" Grid.Row="1"
+                              ItemsSource="{Binding UserControlsInWholeMatrix}" 
+                              Margin="0 0 30 0" HorizontalAlignment="Left">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+                
             </Grid>
         </ScrollViewer>
         <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="0 0 4 2">

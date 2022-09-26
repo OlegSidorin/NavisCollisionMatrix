@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,23 @@ namespace СollisionMatrix
         public MatrixCreating()
         {
             InitializeComponent();
+        }
+
+        private void GridSplitter1_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            string str = "";
+            MatrixCreatingViewModel VM = (MatrixCreatingViewModel)this.DataContext;
+            
+            var c = new ObservableCollection<MatrixSelectionLineUserControl>();
+            foreach (UserControl uc in VM.UserControlsInWholeMatrix)
+            {
+                MatrixSelectionLineUserControl uc1 = (MatrixSelectionLineUserControl)uc;
+                MatrixSelectionLineViewModel vm1 = (MatrixSelectionLineViewModel)uc1.DataContext;
+                str += vm1.HeaderWidth + ", ";
+                vm1.HeaderWidth = VM.WidthColumn - 65;
+            }
+
+            //MessageBox.Show($"{VM.WidthColumn}" + "\n" + str);
         }
     }
 }

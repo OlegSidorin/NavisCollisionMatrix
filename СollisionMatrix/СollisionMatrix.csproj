@@ -105,11 +105,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClashTest.cs" />
-    <Compile Include="DataCellView.xaml.cs">
+    <Compile Include="Views\DataCellView.xaml.cs">
       <DependentUpon>DataCellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataCellViewModel.cs" />
-    <Compile Include="DataLineView.xaml.cs">
+    <Compile Include="Views\DataCellViewModel.cs" />
+    <Compile Include="Views\DataLineView.xaml.cs">
       <DependentUpon>DataLineView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mainviews\MainCellUserConrol.xaml.cs">
@@ -128,16 +128,19 @@
       <DependentUpon>MatrixCreating.xaml</DependentUpon>
     </Compile>
     <Compile Include="MatrixCreatingViewModel.cs" />
-    <Compile Include="MatrixSelectionCellUserControl.xaml.cs">
+    <Compile Include="Views\MatrixSelectionCellUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionCellUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MatrixSelectionCellViewModel.cs" />
-    <Compile Include="MatrixSelectionLineModel.cs" />
-    <Compile Include="MatrixSelectionLineUserControl.xaml.cs">
+    <Compile Include="Views\MatrixSelectionCellViewModel.cs" />
+    <Compile Include="Views\MatrixSelectionLineHeaderUserControl.xaml.cs">
+      <DependentUpon>MatrixSelectionLineHeaderUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MatrixSelectionLineModel.cs" />
+    <Compile Include="Views\MatrixSelectionLineUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionLineUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MatrixSelectionLineViewModel.cs" />
-    <Compile Include="MatrixSelectionNameUserControl.xaml.cs">
+    <Compile Include="Views\MatrixSelectionLineViewModel.cs" />
+    <Compile Include="Views\MatrixSelectionNameUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionNameUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Batchtest.cs" />
@@ -162,8 +165,8 @@
     <Compile Include="Models\Testtype.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="SelectionSet.cs" />
-    <Compile Include="ObservableObject.cs" />
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Models\ObservableObject.cs" />
+    <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="SelectionSetNode.cs" />
     <Compile Include="Subviews\IconTable.xaml.cs">
       <DependentUpon>IconTable.xaml</DependentUpon>
@@ -187,11 +190,12 @@
       <DependentUpon>SubNodeVView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Subviews\SubNodeVViewModel.cs" />
-    <Page Include="DataCellView.xaml">
+    <Compile Include="WidthConverter.cs" />
+    <Page Include="Views\DataCellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DataLineView.xaml">
+    <Page Include="Views\DataLineView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,15 +227,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MatrixSelectionCellUserControl.xaml">
+    <Page Include="Views\MatrixSelectionCellUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MatrixSelectionLineUserControl.xaml">
+    <Page Include="Views\MatrixSelectionLineHeaderUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MatrixSelectionNameUserControl.xaml">
+    <Page Include="Views\MatrixSelectionLineUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MatrixSelectionNameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

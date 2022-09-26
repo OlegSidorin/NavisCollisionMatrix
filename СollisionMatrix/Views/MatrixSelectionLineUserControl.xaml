@@ -11,12 +11,15 @@
         <local:MatrixSelectionLineViewModel />
     </UserControl.DataContext>
     <Grid>
+        <Grid.Resources>
+            <local:WidthConverter x:Key="WidthConverter" />
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2" />
             <ColumnDefinition Width="16" />
             <ColumnDefinition Width="16" />
             <ColumnDefinition Width="24" />
-            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="{Binding HeaderWidth, Mode=TwoWay, Converter={StaticResource WidthConverter}}" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="16" />
             <ColumnDefinition Width="16" />

@@ -12,6 +12,13 @@ namespace СollisionMatrix
 {
     public class MatrixSelectionLineViewModel : ObservableObject
     {
+        public double headerWidth;
+        public double HeaderWidth
+        {
+            get { return headerWidth; }
+            set { headerWidth = value; OnPropertyChanged(); }
+        }
+
         private Models.Selectionset _selectionset;
         public Models.Selectionset Selectionset
         {
@@ -180,6 +187,7 @@ namespace СollisionMatrix
 
         public MatrixSelectionLineViewModel()
         {
+            HeaderWidth = 120;
             MatrixSelectionLineModel = new MatrixSelectionLineModel()
             {
                 NameOfSelection = "Example",
@@ -191,7 +199,9 @@ namespace СollisionMatrix
             ButtonsVisibility = Visibility.Hidden;
 
             DoIfIClickDeleteButton = new RelayCommand(OnDoIfIClickDeleteButtonExecuted, CanDoIfIClickDeleteButtonExecute);
-            DoIfIClickBottomAddButton = new RelayCommand(OnDoIfIClickBottomAddButtonExecuted, CanDoIfIClickBottomAddButtonExecute); 
+            DoIfIClickBottomAddButton = new RelayCommand(OnDoIfIClickBottomAddButtonExecuted, CanDoIfIClickBottomAddButtonExecute);
+
+
         }
     }
 }
