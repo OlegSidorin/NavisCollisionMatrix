@@ -25,7 +25,7 @@ namespace СollisionMatrix
             InitializeComponent();
         }
 
-        private void GridSplitter1_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        private void GridSplitter2_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
             string str = "";
             MatrixCreatingViewModel VM = (MatrixCreatingViewModel)this.DataContext;
@@ -40,6 +40,18 @@ namespace СollisionMatrix
             }
 
             //MessageBox.Show($"{VM.WidthColumn}" + "\n" + str);
+        }
+
+        private void Grid1_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridSplitter1.Visibility = Visibility.Visible;
+            GridSplitter2.Visibility = Visibility.Visible;
+        }
+
+        private void Grid1_MouseLeave(object sender, MouseEventArgs e)
+        {
+            GridSplitter1.Visibility = Visibility.Collapsed;
+            GridSplitter2.Visibility = Visibility.Collapsed;
         }
     }
 }

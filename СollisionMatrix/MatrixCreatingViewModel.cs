@@ -830,6 +830,7 @@ namespace СollisionMatrix
             {
                 MatrixSelectionLineUserControl msluc_new = new MatrixSelectionLineUserControl();
                 MatrixSelectionLineViewModel mslvm_new = new MatrixSelectionLineViewModel();
+                mslvm_new.HeaderWidth = WidthColumn - 65;
                 mslvm_new.Selectionset = ss;
                 mslvm_new.NameOfSelection = ss.Tag_name;
                 mslvm_new.RowNum = row_num;

@@ -18,7 +18,7 @@
                         <Path x:Name="PathButtonCreateMatrix" 
                             Data="M64 96L144 96 144 176 64 176 64 96ZM184 96L264 96 264 176 184 176 184 96ZM304 96L384 96 384 176 304 176 304 96ZM64 216L144 216 144 296 64 296 64 216ZM184 216L264 216 264 296 184 296 184 216ZM304 216L384 216 384 296 304 296 304 216ZM64 336L144 336 144 416 64 416 64 336ZM184 336L264 336 264 416 184 416 184 336ZM304 336L384 336 384 416 304 416 304 336Z"
                               Stroke="{DynamicResource ColorStrokeIcons}" 
-                              StrokeThickness="1" Fill="{DynamicResource ColorFillIcons}" 
+                              StrokeThickness="0" Fill="{DynamicResource ColorFillIcons}" 
                               Stretch="UniformToFill" Width="22"  Height="22"/>
                         <TextBlock x:Name="TextButtonCreateMatrix"
                             Grid.Column="1" Text="Создать матрицу коллизий" 
@@ -51,7 +51,7 @@
                         </Grid.ColumnDefinitions>
                         <Path x:Name="PathButtonOpenReport" 
                             Stroke="{DynamicResource ColorStrokeIcons}" 
-                              StrokeThickness="1" Fill="{DynamicResource ColorStrokeIcons}" 
+                              StrokeThickness="0" Fill="{DynamicResource ColorStrokeIcons}" 
                               Stretch="UniformToFill" Height="22">
                             <Path.Data>
                                 <GeometryGroup>
@@ -93,7 +93,7 @@
                         </Grid.ColumnDefinitions>
                         <Path x:Name="PathButtonSaveExcel"
                             Stroke="{DynamicResource ColorStrokeIcons}" 
-                              StrokeThickness="1" Fill="{DynamicResource ColorStrokeIcons}" 
+                              StrokeThickness="0" Fill="{DynamicResource ColorStrokeIcons}" 
                               Stretch="UniformToFill" Height="23">
                             <Path.Data>
                                 <GeometryGroup>
@@ -133,7 +133,7 @@
                         </Grid.ColumnDefinitions>
                         <Path x:Name="PathButtonOpenCollisionMatrix"
                             Stroke="{DynamicResource ColorStrokeIcons}" 
-                              StrokeThickness="1" Fill="{DynamicResource ColorStrokeIcons}" 
+                              StrokeThickness="0" Fill="{DynamicResource ColorStrokeIcons}" 
                               Stretch="UniformToFill" Height="24" Width="24">
                             <Path.Data>
                                 <GeometryGroup>
@@ -173,7 +173,7 @@
                         </Grid.ColumnDefinitions>
                         <Path x:Name="PathButtonSaveCollisionMatrix"
                             Stroke="{DynamicResource ColorStrokeIcons}" 
-                              StrokeThickness="1" Fill="{DynamicResource ColorStrokeIcons}" 
+                              StrokeThickness="0" Fill="{DynamicResource ColorStrokeIcons}" 
                               Stretch="UniformToFill" Height="24" Width="24">
                             <Path.Data>
                                 <GeometryGroup>

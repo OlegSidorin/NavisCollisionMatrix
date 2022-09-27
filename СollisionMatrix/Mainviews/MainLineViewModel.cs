@@ -39,6 +39,13 @@ namespace СollisionMatrix.Mainviews
             }
         }
 
+        public double headerWidth;
+        public double HeaderWidth
+        {
+            get { return headerWidth; }
+            set { headerWidth = value; OnPropertyChanged(); }
+        }
+
         public ObservableCollection<UserControl> CellViews { get; set; }
         public List<Models.Clashtest> Clashtests { get; set; }
     }

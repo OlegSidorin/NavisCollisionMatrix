@@ -35,6 +35,13 @@ namespace СollisionMatrix
             }
         }
 
+        public double widthColumn;
+        public double WidthColumn
+        {
+            get { return widthColumn; }
+            set { widthColumn = value; OnPropertyChanged(); }
+        }
+
         private int _totalTotalCollisions;
         public int TotalTotalCollisions
         {
@@ -174,6 +181,8 @@ namespace СollisionMatrix
             MatrixCreatingCommand = new RelayCommand(OnMatrixCreatingCommandExecuted, CanMatrixCreatingCommandExecute);
             ImportXMLClashtests = new RelayCommand(OnImportXMLClashtestsExecuted, CanImportXMLClashtestsExecute);
             ExcelExport = new RelayCommand(OnExcelExportExecuted, CanExcelExportExecute);
+
+            WidthColumn = 210;
 
         }
 
@@ -443,6 +452,7 @@ namespace СollisionMatrix
             {
                 Mainviews.MainLineUserControl mluc = new Mainviews.MainLineUserControl();
                 Mainviews.MainLineViewModel mlvm = new Mainviews.MainLineViewModel();
+                mlvm.HeaderWidth = WidthColumn - 35;
                 mlvm.NameOfSelection = sel_name;
                 mlvm.RowNum = rn.ToString();
                 mlvm.CellViews = new ObservableCollection<UserControl>();

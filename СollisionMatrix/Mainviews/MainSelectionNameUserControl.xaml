@@ -10,7 +10,7 @@
         <local:MainLineViewModel />
     </UserControl.DataContext>
     <Grid>
-        <TextBlock Text="{Binding NameOfSelection}" RenderTransformOrigin="0.5,0.5" FontWeight="DemiBold">
+        <TextBlock Text="{Binding NameOfSelection}" RenderTransformOrigin="0.5,0.5" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <TextBlock.LayoutTransform>
                 <TransformGroup>
                     <ScaleTransform/>

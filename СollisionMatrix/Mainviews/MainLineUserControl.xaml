@@ -4,16 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:СollisionMatrix.Mainviews"
+             xmlns:local1="clr-namespace:СollisionMatrix"
              mc:Ignorable="d" 
              d:DesignHeight="28" d:DesignWidth="500">
     <UserControl.DataContext>
         <local:MainLineViewModel />
     </UserControl.DataContext>
     <Grid>
+        <Grid.Resources>
+            <local1:WidthConverter x:Key="WidthConverter" />
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2" />
             <ColumnDefinition Width="28" />
-            <ColumnDefinition Width="210" />
+            <ColumnDefinition Width="{Binding HeaderWidth, Mode=TwoWay, Converter={StaticResource WidthConverter}}" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2" />
         </Grid.ColumnDefinitions>
@@ -25,7 +30,7 @@
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding RowNum}" Foreground="SlateGray"
                  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" />
         <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding NameOfSelection}" FontWeight="DemiBold"
-                 HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 5 0" />
+                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 5 0" />
 
         <ItemsControl ItemsSource="{Binding CellViews}" 
                       HorizontalAlignment="Left" 

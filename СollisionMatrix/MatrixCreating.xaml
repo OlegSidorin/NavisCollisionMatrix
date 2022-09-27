@@ -6,16 +6,50 @@
         xmlns:local="clr-namespace:СollisionMatrix"
         xmlns:subviews="clr-namespace:СollisionMatrix.Subviews"
         mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
-        Title="Matrix Creating" Height="600" Width="800">
+        Title="Редактирование Матрицы коллизий" Height="600" Width="800">
+
     <Window.DataContext>
         <local:MatrixCreatingViewModel />
     </Window.DataContext>
+
     <Window.Resources>
+
         <DataTemplate x:Key="TemplateForSelection">
             <TextBlock Text="{Binding}" HorizontalAlignment="Stretch" />
         </DataTemplate>
+
+        <ControlTemplate x:Key="GridSplitter1Template">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Path Grid.Column="1" Data="M937.5 687.5L500 250L62.5 687.5Z" 
+                      Fill="{DynamicResource ColorFillIcons}" 
+                      Height="10" Opacity="0.3" Stroke="Transparent" 
+                      Stretch="UniformToFill" />
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="GridSplitter2Template">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="15"/>
+                </Grid.RowDefinitions>
+                <Path Data="M687.5 62.5L250 500L687.5 937.5Z" 
+                      Fill="{DynamicResource ColorFillIcons}" 
+                      Width="11" Opacity="0.3" Grid.Row="1" 
+                      Stroke="Transparent" Stretch="UniformToFill" 
+                      VerticalAlignment="Bottom" />
+            </Grid>
+        </ControlTemplate>
+
     </Window.Resources>
-    <Grid Background="#f5f9f6">
+
+    <Grid Background="#EEFFF5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2" />
             <ColumnDefinition Width="*" />
@@ -27,9 +61,144 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="2" />
         </Grid.RowDefinitions>
+        <Grid Grid.Column="2" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0 15 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+                        <Canvas Name="svg8" Width="22.225" Height="23.283333">
+                            <Canvas.RenderTransform>
+                                <TranslateTransform X="0" Y="0"/>
+                            </Canvas.RenderTransform>
+                            <Canvas.Resources/>
+                            <!--Unknown tag: sodipodi:namedview-->
+                            <!--Unknown tag: metadata-->
+                            <Canvas Name="layer1">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="-103.03631" Y="-107.79881"/>
+                                </Canvas.RenderTransform>
+                                <Canvas Name="Group10">
+                                    <Canvas.RenderTransform>
+                                        <MatrixTransform Matrix="0.26458333 0 0 0.26458333 103.30089 108.06339"/>
+                                    </Canvas.RenderTransform>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Rectangle6" Fill="#00000000" StrokeThickness="2" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 4.999 0 h 72.002 q 0.1227 0 0.2453 0.00602151 0.1226 0.00602149 0.2447 0.01804999 0.1221 0.0120286 0.2435 0.0300351 0.1214 0.0180066 0.2417 0.0419478 0.1204 0.0239416 0.2394 0.0537596 0.1191 0.029818 0.2365 0.065441 0.1174 0.035624 0.233 0.076966 0.1155 0.041343 0.2289 0.088305 0.1134 0.046963 0.2243 0.099431 0.111 0.052469 0.2192 0.110319 0.1082 0.057849 0.2135 0.120939 0.1052 0.06309 0.2073 0.131268 0.102 0.068179 0.2006 0.141282 0.0986 0.073105 0.1934 0.150955 0.0949 0.07785 0.1858 0.16027 0.0909 0.08241 0.1777 0.16918 0.0868 0.08678 0.1692 0.17771 0.0824 0.09093 0.1603 0.18579 0.0778 0.09486 0.1509 0.19343 0.0731 0.09857 0.1413 0.2006 0.0682 0.10204 0.1313 0.2073 0.0631 0.10526 0.1209 0.21349 0.0579 0.10823 0.1103 0.21916 0.0525 0.11094 0.0995 0.22432 0.0469 0.11337 0.0883 0.22892 0.0413 0.11554 0.0769 0.23298 0.0357 0.11743 0.0655 0.23647 0.0298 0.11904 0.0537 0.2394 0.024 0.12036 0.042 0.24175 0.018 0.12139 0.03 0.24352 0.0121 0.12213 0.0181 0.2447 Q 82 4.87628 82 4.999 v 76.002 q 0 0.1227 -0.006 0.2453 -0.006 0.1226 -0.0181 0.2447 -0.012 0.1221 -0.03 0.2435 -0.018 0.1214 -0.042 0.2418 -0.0239 0.1203 -0.0537 0.2394 -0.0298 0.119 -0.0655 0.2364 -0.0356 0.1175 -0.0769 0.233 -0.0414 0.1156 -0.0883 0.2289 -0.047 0.1134 -0.0995 0.2244 -0.0524 0.1109 -0.1103 0.2191 -0.0578 0.1082 -0.1209 0.2135 -0.0631 0.1052 -0.1313 0.2073 -0.0682 0.102 -0.1413 0.2006 -0.0731 0.0986 -0.1509 0.1934 -0.0779 0.0949 -0.1603 0.1858 -0.0824 0.091 -0.1692 0.1777 -0.0867 0.0868 -0.1777 0.1692 -0.0909 0.0824 -0.1858 0.1603 -0.0948 0.0778 -0.1934 0.1509 -0.0986 0.0731 -0.2006 0.1413 -0.1021 0.0682 -0.2073 0.1313 -0.1053 0.0631 -0.2135 0.1209 -0.1082 0.0579 -0.2192 0.1103 -0.1109 0.0525 -0.2243 0.0995 -0.1134 0.0469 -0.2289 0.0883 -0.1155 0.0413 -0.233 0.0769 -0.1174 0.0357 -0.2364 0.0655 -0.1191 0.0298 -0.2395 0.0537 -0.1203 0.024 -0.2417 0.042 -0.1214 0.018 -0.2435 0.03 Q 77.3689 85.988 77.2463 85.994 77.1237 86 77.001 86 H 4.999 Q 4.87628 86 4.75371 85.994 4.63114 85.988 4.50901 85.9759 4.38688 85.9639 4.26549 85.9459 4.1441 85.9279 4.02374 85.9039 3.90338 85.88 3.78434 85.8502 3.6653 85.8204 3.54787 85.7847 3.43043 85.7491 3.31489 85.7078 3.19934 85.6664 3.08597 85.6195 2.97259 85.5725 2.86165 85.52 2.75072 85.4676 2.64249 85.4097 2.53426 85.3519 2.429 85.2888 2.32374 85.2257 2.2217 85.1575 2.11967 85.0893 2.0211 85.0162 1.92253 84.9431 1.82767 84.8653 1.73281 84.7874 1.64188 84.705 1.55095 84.6226 1.46417 84.5358 1.3774 84.4491 1.29499 84.3581 1.21257 84.2672 1.13472 84.1723 1.05687 84.0775 0.983765 83.9789 0.910662 83.8803 0.842483 83.7783 0.774305 83.6762 0.711215 83.571 0.648125 83.4657 0.590276 83.3575 0.532426 83.2493 0.479957 83.1384 0.427489 83.0274 0.380526 82.914 0.333564 82.8007 0.292221 82.6851 0.250879 82.5696 0.215255 82.4521 0.179632 82.3347 0.149814 82.2157 0.119996 82.0966 0.0960544 81.9763 0.0721132 81.8559 0.0541066 81.7345 0.0361001 81.6131 0.0240715 81.491 0.012043 81.3689 0.00602151 81.2463 0 81.1237 0 81.001 V 4.999 Q 0 4.87628 0.00602151 4.75371 0.012043 4.63114 0.0240715 4.50901 0.0361001 4.38688 0.0541066 4.26549 0.0721132 4.1441 0.0960544 4.02374 0.119996 3.90338 0.149814 3.78434 0.179632 3.6653 0.215255 3.54787 0.250879 3.43043 0.292221 3.31489 0.333564 3.19934 0.380526 3.08597 0.427489 2.97259 0.479957 2.86165 0.532426 2.75072 0.590276 2.64249 0.648125 2.53426 0.711215 2.429 0.774305 2.32374 0.842483 2.2217 0.910662 2.11967 0.983765 2.0211 1.05687 1.92253 1.13472 1.82767 1.21257 1.73281 1.29499 1.64188 1.3774 1.55095 1.46417 1.46417 1.55095 1.3774 1.64188 1.29499 1.73281 1.21257 1.82767 1.13472 1.92253 1.05687 2.0211 0.983765 2.11967 0.910662 2.2217 0.842483 2.32374 0.774305 2.429 0.711215 2.53426 0.648125 2.64249 0.590276 2.75072 0.532426 2.86165 0.479957 2.97259 0.427489 3.08597 0.380526 3.19934 0.333564 3.31489 0.292221 3.43043 0.250879 3.54787 0.215255 3.6653 0.179632 3.78434 0.149814 3.90338 0.119996 4.02374 0.0960544 4.1441 0.0721132 4.26549 0.0541066 4.38688 0.0361001 4.50901 0.0240715 4.63114 0.012043 4.75371 0.00602151 4.87628 0 4.999 0 Z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Newshape5" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 4 72.9996 V 5.99246 5.02172 L 4.5 4.5 5.01793 3.99954 H 6.0081 l 70.0081 1.2e-4 h 0.9833 L 78 5.0069 V 6.01613 53.9996 C 78 53.9996 65.375 31.875 57 20.0001 53.2082 14.6237 48.412 6.53369 44.979 6.50012 40.9201 6.46043 34.5408 16.9023 29 26.0001 18.875 42.625 4 72.9996 4 72.9996 Z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Newshape6" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 4.5 79.5 23.4999 46.0174 C 31.9636 32.8818 41.7254 20.9603 43.9999 21 46.3307 21.0406 54.7691 30.2791 61.5 40 l 13.9999 23.5 -40.5 -14 V 70 L 73.5 81.5 H 7 C 7 81.5 5.375 81.375 5 81 4.625 80.625 4.5 79.5 4.5 79.5 Z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Ellipse" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 41.9664 63.1153 c -0.4316 -2.4475 0.7617 -4.7037 2.6654 -5.0394 1.9036 -0.3356 3.7966 1.3764 4.2282 3.8239 0.4316 2.4475 -0.7618 4.7038 -2.6654 5.0394 -1.9036 0.3357 -3.7967 -1.3763 -4.2282 -3.8239 z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Ellipse2" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 57.8682 68.0759 c -0.3836 -2.1756 0.6282 -4.1724 2.2599 -4.4602 1.6317 -0.2877 3.2654 1.2428 3.649 3.4183 0.3836 2.1756 -0.6282 4.1725 -2.2598 4.4602 -1.6317 0.2877 -3.2654 -1.2427 -3.6491 -3.4183 z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Ellipse3" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 71.4682 72.3795 c -0.3356 -1.9036 0.4946 -3.6412 1.8543 -3.881 1.3597 -0.2397 2.7341 1.1091 3.0698 3.0127 0.3356 1.9037 -0.4945 3.6412 -1.8543 3.881 -1.3597 0.2398 -2.7341 -1.1091 -3.0698 -3.0127 z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Canvas>
+                        </Canvas>
+                    </Viewbox>
+                    <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" Margin="3 1 1 1">
+                        <Canvas Name="svg38" Width="94.721054" Height="59.711987">
+                            <Canvas.RenderTransform>
+                                <TranslateTransform X="0" Y="0"/>
+                            </Canvas.RenderTransform>
+                            <Canvas.Resources/>
+                            <!--Unknown tag: sodipodi:namedview-->
+                            <!--Unknown tag: metadata-->
+                            <Canvas Name="layer15">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="-28.234712" Y="-104.70353"/>
+                                </Canvas.RenderTransform>
+                                <Canvas Name="g59">
+                                    <Canvas.RenderTransform>
+                                        <MatrixTransform Matrix="0.26458333 0 0 0.26458333 28.234712 104.70353"/>
+                                    </Canvas.RenderTransform>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Vector65" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 0.5 0.5 v 140 h 34 v -60 h 4 l 39 60 h 42.165 L 68.5 68.5 116.373 0.5 H 77.5 l -39 60 h -4 v -60 z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Vector66" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 155 34.5 v 106 h 34 v -106 h 43.076 l 23.5 -34 H 126.5 l -23.5 34 z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Vector67Subtract" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 242.501 34.5 v 106 H 331 c 0 0 26.327 -7.541 26.5 -36 0.173 -28.4589 -26.5 -35 -26.5 -35 0 0 -0.194 -3.7994 0 -4 0.013 -0.0127 0.105 -0.0505 0.268 -0.1168 C 333.677 64.403 351.417 57.1839 351 32.5 350.555 6.14697 319.5 0.5 319.5 0.5 h -52.999 z m 31.5 23.5 V 28 H 308.1 c 0 0 11.225 2.2894 11.4 14.4821 C 319.675 54.6748 308.727 58 308.727 58 Z M 274 119.5 v -36 h 36.241 c 0 0 17.259 0.9505 17.259 17.419 0 16.469 -17.259 18.581 -17.259 18.581 z" FillRule="EvenOdd"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Canvas Name="BETONGROUP">
+                                        <Canvas.RenderTransform>
+                                            <TranslateTransform X="0.5" Y="157.5"/>
+                                        </Canvas.RenderTransform>
+                                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path43" Fill="{DynamicResource ColorFillIcons}" StrokeThickness="1" Stroke="{DynamicResource ColorFillIcons}">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m 127.633 56.0977 q 0.371 -3.271 0.371 -11.1343 v -8.9268 q 0 -8.0566 -0.387 -11.2793 -0.387 -3.2226 -2.417 -5.9619 -2.03 -2.7392 -5.366 -4.1089 -3.335 -1.3696 -7.524 -1.3696 -4.415 0 -7.735 1.4502 -3.319 1.4502 -5.2688 4.1572 -1.9498 2.707 -2.3204 5.978 -0.3706 3.271 -0.3706 11.1343 v 8.9268 q 0 8.0566 0.3868 11.2793 0.3867 3.2226 2.4169 5.9619 2.0301 2.7392 5.3661 4.1089 3.335 1.3696 7.525 1.3696 4.415 0 7.734 -1.4502 3.319 -1.4502 5.269 -4.1572 1.95 -2.707 2.32 -5.978 z M 198 33.6196 h 13.567 v -2.2558 q 0 -6.4131 -1.192 -9.7808 -1.192 -3.3677 -5.124 -5.8169 -3.932 -2.4492 -9.894 -2.4492 -6.058 0 -9.877 2.8198 -3.819 2.8198 -4.625 6.2036 -0.805 3.3838 -0.805 10.8604 v 15.501 q 0 5.3818 0.387 8.0727 0.387 2.6909 1.935 5.1402 1.548 2.4492 4.531 4.1088 2.983 1.6597 6.402 1.6597 2.87 0 4.983 -1.2085 2.112 -1.2085 3.499 -3.6255 l 1.254 3.7383 h 8.526 V 38.5825 H 195.68 v 7.9278 h 2.739 v 6.1875 q 0 3.6416 -0.532 4.8984 -0.532 1.2568 -2.014 1.2568 -1.353 0 -1.805 -1.1118 -0.451 -1.1118 -0.451 -4.6245 v -25.04 q 0 -3.9961 0.451 -4.9629 0.452 -0.9668 1.708 -0.9668 1.451 0 1.837 1.1279 0.387 1.1279 0.387 5.6074 z m 84.998 22.4781 q 0.37 -3.271 0.37 -11.1343 v -8.9268 q 0 -8.0566 -0.387 -11.2793 -0.386 -3.2226 -2.417 -5.9619 -2.03 -2.7392 -5.365 -4.1089 -3.336 -1.3696 -7.525 -1.3696 -4.415 0 -7.735 1.4502 -3.319 1.4502 -5.269 4.1572 -1.949 2.707 -2.32 5.978 -0.371 3.271 -0.371 11.1343 v 8.9268 q 0 8.0566 0.387 11.2793 0.387 3.2226 2.417 5.9619 2.03 2.7392 5.366 4.1089 3.335 1.3696 7.525 1.3696 4.415 0 7.734 -1.4502 3.32 -1.4502 5.269 -4.1572 1.95 -2.707 2.321 -5.978 z M 16.2422 14.4126 H 2.70703 V 66.5874 H 18.4014 q 8.1855 0 10.8281 -0.9351 2.6426 -0.935 3.8511 -3.4825 1.2085 -2.5474 1.2085 -7.8355 v -4.8365 q 0 -5.0949 -1.6758 -7.5617 -1.6758 -2.4668 -6.3809 -3.5308 4.2217 -0.9663 5.6558 -2.7697 1.4341 -1.8035 1.4341 -6.3766 0 -6.7631 -2.0303 -9.8065 -2.0303 -3.0434 -5.3335 -4.0416 -3.3032 -0.9983 -9.7163 -0.9983 z m 45.5361 0 H 39.1553 V 66.5874 H 62.6807 V 56.146 h -9.958 V 44.6733 h 8.4755 V 34.7476 H 52.7227 V 24.854 h 9.0556 z m 32.1299 0 V 24.854 H 85.8516 V 66.5874 H 72.2842 V 24.854 H 64.2598 V 14.4126 Z m 69.4478 0 V 66.5874 H 151.465 L 144.407 42.8687 V 66.5874 H 133.063 V 14.4126 h 11.344 l 7.606 23.4932 V 14.4126 Z m 53.464 0 h 9.604 q 9.603 0 13.003 0.7412 3.4 0.7412 5.543 3.7866 2.143 3.0454 2.143 9.7163 0 6.0909 -1.514 8.1856 -1.515 2.0947 -5.962 2.5137 4.028 0.999 5.414 2.6748 1.386 1.6757 1.724 3.0776 0.338 1.4019 0.338 7.7183 v 13.7607 h -12.6 V 49.2495 q 0 -4.1894 -0.661 -5.1885 -0.661 -0.999 -3.464 -0.999 V 66.5874 H 216.82 Z m 102.449 0 v 34.8691 q 0 5.9297 -0.387 8.3306 -0.387 2.4009 -2.288 4.9307 -1.902 2.5298 -5.011 3.8349 -3.11 1.3052 -7.332 1.3052 -4.673 0 -8.25 -1.5469 -3.577 -1.5468 -5.35 -4.0283 -1.772 -2.4814 -2.094 -5.2368 -0.323 -2.7554 -0.323 -11.5855 v -30.873 h 13.568 v 39.123 q 0 3.4161 0.37 4.3667 0.371 0.9507 1.499 0.9507 1.289 0 1.66 -1.0473 0.37 -1.0474 0.37 -4.9468 V 14.4126 Z m 18.917 0 h -13.665 v 52.1748 h 13.568 V 45.5757 h 3.641 q 4.448 0 7.203 -1.2246 2.755 -1.2246 3.787 -3.5127 1.031 -2.2881 1.031 -7.2832 v -4.544 q 0 -4.8984 -0.532 -7.2348 -0.531 -2.3365 -2.03 -3.98 -1.499 -1.6436 -4.48 -2.5137 -2.98 -0.8701 -8.523 -0.8701 z m -224.152 8.7495 q 0.403 1.0151 0.403 4.6567 v 23.9766 q 0 4.6084 -0.387 5.833 -0.387 1.2246 -1.773 1.2246 -1.353 0 -1.724 -1.0634 -0.37 -1.0635 -0.37 -5.6075 V 27.8188 q 0 -4.0283 0.564 -4.85 0.564 -0.8218 1.627 -0.8218 1.257 0 1.66 1.0151 z m 155.364 0 q 0.403 1.0151 0.403 4.6567 v 23.9766 q 0 4.6084 -0.387 5.833 -0.387 1.2246 -1.772 1.2246 -1.354 0 -1.725 -1.0634 -0.37 -1.0635 -0.37 -5.6075 V 27.8188 q 0 -4.0283 0.564 -4.85 0.564 -0.8218 1.627 -0.8218 1.257 0 1.66 1.0151 z M 16.2744 34.9409 V 23.3394 q 2.0947 0.0322 2.8198 0.29 0.7251 0.2578 1.1763 1.2407 0.4512 0.9829 0.4512 3.4321 0 4.6407 -0.5479 5.6236 -0.5478 0.9829 -2.5459 0.9829 -0.4834 0 -1.3535 0.0322 z M 230.388 23.3394 v 11.6015 q 2.288 0 3.206 -0.6284 0.919 -0.6284 0.919 -4.0767 v -2.8681 q 0 -2.4815 -0.887 -3.2549 -0.886 -0.7734 -3.238 -0.7734 z M 338.089 36.6167 V 23.3394 q 2.642 0 3.48 0.8056 0.838 0.8057 0.838 3.4805 v 4.2861 q 0 2.9004 -0.725 3.8189 -0.725 0.9184 -2.594 0.9184 -0.419 0 -0.999 -0.0322 z M 16.2744 57.6606 V 43.062 q 3.0293 0.0967 3.7383 0.8057 0.709 0.709 0.709 4.0605 v 4.8662 q 0 3.1582 -0.7896 3.9639 -0.7895 0.8057 -3.6577 0.9023 z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                    </Canvas>
+                                </Canvas>
+                            </Canvas>
+                        </Canvas>
+                    </Viewbox>
+
+                </StackPanel>
+
+            </Grid>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" Margin="0 0 4 100">
+                <Button  Style="{StaticResource ButtonOpenCollisionMatrix}" 
+                     Margin="5 0 10 0" Height="70"
+                    Command="{Binding DoIfIClickOnOpenXMLCollisionMatrixButton}"/>
+                <Button  Style="{StaticResource ButtonSaveCollisionMatrix}"
+                ToolTip="Для последущего использования в Navisworks"
+                Margin="5 0 10 0" Height="70"
+                    Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}"
+            Content="Сохранить Матрицу коллизий в файл .xml"  />
+                <ComboBox x:Name="ComboBoxCategory" Grid.Row="1" Margin="0 25 0 0">
+
+                </ComboBox>
+            </StackPanel>
+
+            <Label Grid.Row="1"  
+                   FontSize="8" Foreground="{DynamicResource ColorStrokeIcons}"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Bottom" 
+                   FontWeight="SemiBold"
+                   Content="© КТБ Проект" />
+        </Grid>
         <ScrollViewer Grid.Row="1" Grid.Column="1" 
                       HorizontalScrollBarVisibility="Visible" >
-            <Grid Background="White">
+            <Grid Background="White" x:Name="Grid1"  
+                  MouseMove="Grid1_MouseMove" MouseLeave="Grid1_MouseLeave">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="2" />
@@ -37,42 +206,10 @@
                     <ColumnDefinition Width="2" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2" />
-                    <RowDefinition Height="Auto" MinHeight="40" MaxHeight="350" />
+                    <RowDefinition Height="25" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
-                <!--<GridSplitter Grid.Row="1" Grid.Column="1"
-                              VerticalAlignment="Stretch" HorizontalAlignment="Right" >
-                    <GridSplitter.Template>
-                        <ControlTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="12" />
-                                </Grid.RowDefinitions>
-                                <Path Grid.Row="1" Stroke="{DynamicResource ColorFillIcons}" Data="M172.5 250C172.5 237.5736 162.4264 227.5 150 227.5C137.5736 227.5 127.5 237.5736 127.5 250C127.5 262.4264 137.5736 272.5 150 272.5C162.4264 272.5 172.5 262.4264 172.5 250zM172.5 150C172.5 137.5736 162.4264 127.5 150 127.5C137.5736 127.5 127.5 137.5736 127.5 150C127.5 162.4264 137.5736 172.5 150 172.5C162.4264 172.5 172.5 162.4264 172.5 150zM150 27.5C162.4264 27.5 172.5 37.574 172.5 50C172.5 62.426 162.4264 72.5 150 72.5C137.5736 72.5 127.5 62.426 127.5 50C127.5 37.574 137.5736 27.5 150 27.5z"
-                                      Opacity="0.6" Fill="{DynamicResource ColorFillIcons}" Stretch="UniformToFill" Width="3"
-                                      VerticalAlignment="Bottom"/>
-                            </Grid>
-                        </ControlTemplate>
-                    </GridSplitter.Template>
-                </GridSplitter>-->
-                
-                
-                <!--<ItemsControl Grid.Row="2" Grid.Column="1"
-                              ItemsSource="{Binding UserControlsInWholeMatrixHeaders}" >
-                    
-                </ItemsControl>-->
-                <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
-                    
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" />
-                        
-                    </Grid.ColumnDefinitions>
-                    
-                    
-                </Grid>
+
                 <Grid Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" >
                     <Grid.Resources>
                         <local:WidthConverter x:Key="WidthConverter" />
@@ -83,28 +220,20 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Panel.ZIndex="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding WidthColumn, Mode=TwoWay, Converter={StaticResource WidthConverter}}" MinWidth="125" MaxWidth="430" />
+                            <ColumnDefinition Width="{Binding WidthColumn, Mode=TwoWay, Converter={StaticResource WidthConverter}}" MinWidth="125" MaxWidth="480" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+
                         <!--  -->
-                        <GridSplitter Margin="0 0 0 0" DragCompleted="GridSplitter1_DragCompleted" 
-                              VerticalAlignment="Stretch" HorizontalAlignment="Right" 
+
+                        <GridSplitter x:Name="GridSplitter2" 
+                                      Template="{DynamicResource GridSplitter2Template}" 
+                                      Margin="0 0 3 0" DragCompleted="GridSplitter2_DragCompleted" 
+                              VerticalAlignment="Stretch" 
+                                      HorizontalAlignment="Right" Visibility="Collapsed"
                                       Background="{DynamicResource ColorFillIcons}" >
-                            <GridSplitter.Template>
-                                <ControlTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="25" />
-                                            <RowDefinition Height="15" />
-                                        </Grid.RowDefinitions>
-                                        <Path Grid.Row="1" Stroke="Transparent" Data="M234.375 18.75A9.375 9.375 0 0 0 225 28.125V271.875A9.375 9.375 0 0 0 243.75 271.875V28.125A9.375 9.375 0 0 0 234.375 18.75zM187.5 150A9.375 9.375 0 0 0 178.125 140.625H69.50625L109.7625 100.3875A9.375 9.375 0 0 0 96.4875 87.1125L40.2375 143.3625A9.375 9.375 0 0 0 40.2375 156.6375L96.4875 212.8875A9.375 9.375 0 1 0 109.7625 199.6125L69.50625 159.375H178.125A9.375 9.375 0 0 0 187.5 150z"
-                                      Opacity="0.3" Fill="{DynamicResource ColorFillIcons}" Stretch="UniformToFill" Width="14" Height="16"
-                                      VerticalAlignment="Bottom"/>
-                                    </Grid>
-                                </ControlTemplate>
-                            </GridSplitter.Template>
                         </GridSplitter>
+
                         <ItemsControl Grid.Column="1"
                               ItemsSource="{Binding UserControlsSelectionNames}"
                               HorizontalAlignment="Left"
@@ -116,24 +245,12 @@
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
                     </Grid>
-                    <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
-                              Height="20" Margin="0 0 0 0"
+
+                    <GridSplitter x:Name="GridSplitter1" Template="{DynamicResource GridSplitter1Template}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+                              Height="20" Margin="0 0 0 -3" Visibility="Collapsed"
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
-                        <GridSplitter.Template>
-                            <ControlTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="65" />
-                                        <ColumnDefinition Width="25" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Path Grid.Column="1" Stroke="Transparent" Data="M18.75 234.375A9.375 9.375 0 0 0 28.125 243.75H271.875A9.375 9.375 0 0 0 271.875 225H28.125A9.375 9.375 0 0 0 18.75 234.375zM150 187.5A9.375 9.375 0 0 0 159.375 178.125V69.50625L199.6125 109.7625A9.375 9.375 0 0 0 212.8875 96.4875L156.6375 40.2375A9.375 9.375 0 0 0 143.3625 40.2375L87.1125 96.4875A9.375 9.375 0 0 0 100.3875 109.7625L140.625 69.50625V178.125A9.375 9.375 0 0 0 150 187.5z"
-                                      Opacity="0.3" Fill="{DynamicResource ColorFillIcons}" Stretch="UniformToFill" Height="14"  Width="16"
-                                      />
-                                </Grid>
-                            </ControlTemplate>
-                        </GridSplitter.Template>
                     </GridSplitter>
+
                     <ItemsControl x:Name="ItemsLines" Grid.Row="1"
                               ItemsSource="{Binding UserControlsInWholeMatrix}" 
                               Margin="0 0 30 0" HorizontalAlignment="Left">
@@ -144,25 +261,11 @@
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
                 </Grid>
-                
+
             </Grid>
         </ScrollViewer>
-        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="0 0 4 2">
-            <Button  Style="{StaticResource ButtonOpenCollisionMatrix}" 
-                     Margin="5 0 10 0" Height="70"
-                    Command="{Binding DoIfIClickOnOpenXMLCollisionMatrixButton}"/>
-            <Button  Style="{StaticResource ButtonSaveCollisionMatrix}"
-                ToolTip="Для последущего использования в Navisworks"
-                Margin="5 0 10 0" Height="70"
-                    Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}"
-            Content="Сохранить Матрицу коллизий в файл .xml"  />
-        </StackPanel>
-        <Label Grid.Row="1" Grid.Column="2" 
-                   FontSize="8" Foreground="{DynamicResource ColorStrokeIcons}"
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Bottom" 
-                   FontWeight="SemiBold"
-                   Content="© КТБ Проект" />
+
+
 
     </Grid>
 

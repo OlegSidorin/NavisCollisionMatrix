@@ -24,5 +24,10 @@ namespace СollisionMatrix
         {
             InitializeComponent();
         }
+
+        private void HeaderTextBox_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+        }
     }
 }
