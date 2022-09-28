@@ -214,7 +214,7 @@ namespace СollisionMatrix
             
             matrixCreatingWindow.Show();
         }
-        private bool CanMatrixCreatingCommandExecute(object p) => true;
+        private bool CanMatrixCreatingCommandExecute(object p) => true; 
 
         public ICommand ImportXMLClashtests { get; set; }
         private void OnImportXMLClashtestsExecuted(object p)

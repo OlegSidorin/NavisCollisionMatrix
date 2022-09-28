@@ -181,11 +181,13 @@
                 <Button  Style="{StaticResource ButtonSaveCollisionMatrix}"
                 ToolTip="Для последущего использования в Navisworks"
                 Margin="5 0 10 0" Height="70"
-                    Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}"
-            Content="Сохранить Матрицу коллизий в файл .xml"  />
-                <ComboBox x:Name="ComboBoxCategory" Grid.Row="1" Margin="0 25 0 0">
+                    Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}" Content="Сохранить Матрицу коллизий в файл .xml"  />
+                
+                <TextBlock Text="Категории в Ревит:" Margin="5 35 5 5" FontWeight="DemiBold"/>
+                <ComboBox x:Name="ComboBoxCategory" Grid.Row="1" Margin="5 0 5 5" 
+                          ItemsSource="{Binding Categories_in_revit}" SelectedValue="{Binding SelectedCategory}" />
+                <TextBox Text="{Binding SelectedCategory, Mode=OneWay}" Margin="5 0 5 5" />
 
-                </ComboBox>
             </StackPanel>
 
             <Label Grid.Row="1"  

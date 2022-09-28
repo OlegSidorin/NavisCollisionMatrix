@@ -46,34 +46,34 @@ namespace СollisionMatrix
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
             var new1 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR | Walls",
+                NameOfSelection = "АР | Стены",
                 SelectionIntersectionTolerance = new List<string>() 
                 {
-                    "15", "", "", ""
+                    "15", "30", "30", "30"
                 }
             };
             var new2 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR | Floors",
+                NameOfSelection = "АР | Перекрытия",
                 SelectionIntersectionTolerance = new List<string>()
                 {
-                    "", "30", "", ""
+                    "", "15", "30", "30"
                 }
             };
             var new3 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR | Doors",
+                NameOfSelection = "ОВ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов",
                 SelectionIntersectionTolerance = new List<string>()
                 {
-                    "", "", "80", ""
+                    "", "", "15", "30"
                 }
             };
             var new4 = new MatrixSelectionLineModel()
             {
-                NameOfSelection = "AR | Windows",
+                NameOfSelection = "ВК | Трубы, Соединительные детали трубопроводов",
                 SelectionIntersectionTolerance = new List<string>()
                 {
-                    "", "", "", "50"
+                    "", "", "", "15"
                 }
             };
 
@@ -164,19 +164,28 @@ namespace СollisionMatrix
                 MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)usercontrolline;
                 MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
 
-                var draft_name = "?";
-                var category_name = "Стены";
-                var draft_names = mslvm.NameOfSelection.Split('|');
-                if (draft_names.Count() > 1)
+                var part1ofSelectionName = "?AR";
+                var part2ofSelectionName = "Стены";
+                var partsOfSelectionName = mslvm.NameOfSelection.Split('|');
+
+                if (partsOfSelectionName.Count() > 1)
                 {
-                    draft_name = draft_names.First().TrimStart(' ').TrimEnd(' ');
-                    category_name = draft_names.Last().TrimStart(' ').TrimEnd(' ');
+                    part1ofSelectionName = partsOfSelectionName.First().TrimStart(' ').TrimEnd(' ');
+                    part2ofSelectionName = partsOfSelectionName.Last().TrimStart(' ').TrimEnd(' ');
+                }
+
+                string[] draft_category_names = part2ofSelectionName.Split(',');
+                List<string> category_names = new List<string>();
+                foreach (string category in draft_category_names)
+                {
+                    category_names.Add(category.TrimStart(' ').TrimEnd(' '));
                 }
 
                 if (mslvm.Selectionset != null)
                 {
                     mslvm.Selectionset.Tag_name = mslvm.NameOfSelection;
                 }
+
                 else if (mslvm.Selectionset == null)
                 {
                     mslvm.Selectionset = new Selectionset()
@@ -215,7 +224,7 @@ namespace СollisionMatrix
                             Data = new Data()
                             {
                                 Tag_type = "wstring",
-                                Tag_inner_text = draft_name
+                                Tag_inner_text = part1ofSelectionName
                             }
                         }
                     };
@@ -246,11 +255,52 @@ namespace СollisionMatrix
                             Data = new Data()
                             {
                                 Tag_type = "wstring",
-                                Tag_inner_text = GetSameCategory(category_name)
+                                Tag_inner_text = GetSameCategory(category_names.FirstOrDefault())
                             }
                         }
                     };
+
                     mslvm.Selectionset.Findspec.Conditions.Conditions_list.Add(mc2);
+
+                    if (category_names.Count > 1)
+                    {
+                        int i = 1;
+                        for (i = 1; i < category_names.Count; i++)
+                        {
+                            Models.Condition mc3 = new Models.Condition()
+                            {
+                                Tag_test = "equals",
+                                Tag_flags = "74",
+                                Category = new Category()
+                                {
+                                    Name = new Name()
+                                    {
+                                        Tag_internal = "LcRevitData_Element",
+                                        Tag_inner_text = "Объект"
+                                    }
+                                },
+                                Property = new Property()
+                                {
+                                    Name = new Name()
+                                    {
+                                        Tag_internal = "LcRevitPropertyElementCategory",
+                                        Tag_inner_text = "Категория"
+                                    }
+                                },
+                                Value = new Value()
+                                {
+                                    Data = new Data()
+                                    {
+                                        Tag_type = "wstring",
+                                        Tag_inner_text = GetSameCategory(category_names[i])
+                                    }
+                                }
+                            };
+
+                            mslvm.Selectionset.Findspec.Conditions.Conditions_list.Add(mc3);
+                        }
+                       
+                    }
 
                 }
 
@@ -898,17 +948,64 @@ namespace СollisionMatrix
         }
         private bool CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute(object p) => true;
 
-        private static List<string> categories_in_revit = new List<string>()
+        private string selectedCategory;
+        public string SelectedCategory 
+        { 
+            get { return selectedCategory; } 
+            set { selectedCategory = value; OnPropertyChanged(); } 
+        }
+        public ObservableCollection<string> Categories_in_revit
+
         {
-            "Стены", "Перекрытия", "Панели витража", "Импосты витража", "Потолки", "Окна", "Двери", "Лестницы", "Крыши", "Несущие колонны",
-            "Каркас несущий", "Лестницы", "Фундамент несущей конструкции", "Оборудование", 
-            "Арматура воздуховодов", "Воздуховоды", "Соединительные детали воздуховодов",
-            "Арматура трубопроводов", "Трубы", "Соединительные детали трубопроводов", "Спринклеры",
-            "Сантехнические приборы", "Электрооборудование", "Кабельные лотки", "Короба", "Осветительные приборы"
-        };
-        private static string GetSameCategory(string input_category)
+            get
+            {
+                return new ObservableCollection<string>()
+                {
+                    "Стены",
+                    "Перекрытия",
+                    "Панели витража",
+                    "Импосты витража",
+                    "Потолки",
+                    "Окна",
+                    "Двери",
+                    "Лестницы",
+                    "Крыши",
+                    "Несущие колонны",
+                    "Каркас несущий",
+                    "Фундамент несущей конструкции",
+                    "Оборудование",
+                    "Арматура воздуховодов",
+                    "Воздуховоды",
+                    "Воздуховоды по осевой",
+                    "Воздухораспределители",
+                    "Соединительные детали воздуховодов",
+                    "Арматура трубопроводов",
+                    "Трубы",
+                    "Трубопровод по осевой",
+                    "Трубы из базы данных производителя MEP",
+                    "Соединительные детали трубопроводов",
+                    "Спринклеры",
+                    "Сантехнические приборы",
+                    "Электрооборудование",
+                    "Кабельные лотки",
+                    "Соединительные детали кабельных лотков",
+                    "Короба",
+                    "Соединительные детали коробов",
+                    "Осветительные приборы",
+                    "Осветительная аппаратура",
+                    "Системы пожарной сигнализации",
+                    "Датчики",
+                    "Устройства связи",
+                    "Предохранительные устройства",
+                    "Устройства вызова и оповещения",
+                    "Телефонные устройства",
+                    "Система коммутации"
+                };
+            }
+        }
+        private string GetSameCategory(string input_category)
         {
-            foreach (string category in categories_in_revit)
+            foreach (string category in Categories_in_revit)
             {
                 if (category.ToLower().Contains(input_category.ToLower())) return category;
             }

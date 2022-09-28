@@ -31,8 +31,12 @@ namespace СollisionMatrix
 
         private void Grid1_MouseMove(object sender, MouseEventArgs e)
         {
-            GridSplitter1.Visibility = Visibility.Visible;
-            GridSplitter2.Visibility = Visibility.Visible;
+            if (ItemsControlNames != null && ItemsControlNames.Items != null && ItemsControlNames.Items.Count > 0)
+            {
+                GridSplitter1.Visibility = Visibility.Visible;
+                GridSplitter2.Visibility = Visibility.Visible;
+            }
+            
         }
 
         private void Grid1_MouseLeave(object sender, MouseEventArgs e)
