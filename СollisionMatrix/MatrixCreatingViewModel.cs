@@ -1,15 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using СollisionMatrix.Models;
 
@@ -17,6 +21,8 @@ namespace СollisionMatrix
 {
     public class MatrixCreatingViewModel : ObservableObject
     {
+        JS.Root root;
+        public JS.Root Root { get { return root; } set { root = value; OnPropertyChanged(); } }
         public ObservableCollection<MatrixSelectionLineModel> Selections { get; set; }
         public ObservableCollection<UserControl> UserControlsInWholeMatrix { get; set; }
         public ObservableCollection<UserControl> UserControlsInWholeMatrixHeaders { get; set; }
@@ -44,6 +50,7 @@ namespace СollisionMatrix
             };
 
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
+
             var new1 = new MatrixSelectionLineModel()
             {
                 NameOfSelection = "АР | Стены",
@@ -85,35 +92,36 @@ namespace СollisionMatrix
             UserControlsInWholeMatrix = new ObservableCollection<UserControl>();
             UserControlsInWholeMatrixHeaders = new ObservableCollection<UserControl>();
             UserControlsSelectionNames = new ObservableCollection<UserControl>();
+
             foreach (MatrixSelectionLineModel model in Selections)
             {
-                MatrixSelectionLineViewModel userControlvm = new MatrixSelectionLineViewModel();
-                userControlvm.MatrixSelectionLineModel = model;
-                userControlvm.RowNum = Selections.IndexOf(model);
-                userControlvm.Selections = Selections;
-                userControlvm.Selection = model;
+                MatrixSelectionLineViewModel lineVM = new MatrixSelectionLineViewModel();
+                lineVM.MatrixSelectionLineModel = model;
+                lineVM.RowNum = Selections.IndexOf(model);
+                lineVM.Selections = Selections;
+                lineVM.Selection = model;
                 
-                userControlvm.ToleranceViews = new ObservableCollection<UserControl>();
+                lineVM.ToleranceViews = new ObservableCollection<UserControl>();
                 foreach (string tolerance in model.SelectionIntersectionTolerance)
                 {
 
-                    MatrixSelectionCellViewModel cellViewModel = new MatrixSelectionCellViewModel()
+                    MatrixSelectionCellViewModel cellVM = new MatrixSelectionCellViewModel()
                     {
                         Tolerance = tolerance
                     };
                     MatrixSelectionCellUserControl cellView = new MatrixSelectionCellUserControl();
-                    cellView.DataContext = cellViewModel;
+                    cellView.DataContext = cellVM;
 
-                    userControlvm.ToleranceViews.Add(cellView);
+                    lineVM.ToleranceViews.Add(cellView);
                 }
 
                 MatrixSelectionLineUserControl userControl = new MatrixSelectionLineUserControl();
                 MatrixSelectionLineHeaderUserControl userControlHeaders = new MatrixSelectionLineHeaderUserControl();
-                userControlvm.UserControl_MatrixSelectionLineUserControl = userControl;
-                userControlvm.UserControlsInAllMatrixWithLineUserControls = UserControlsInWholeMatrix;
-                userControlvm.UserControlsInSelectionNameUserControls = UserControlsSelectionNames;
-                userControl.DataContext = userControlvm;
-                userControlHeaders.DataContext = userControlvm;
+                lineVM.UserControl_MatrixSelectionLineUserControl = userControl;
+                lineVM.UserControlsInAllMatrixWithLineUserControls = UserControlsInWholeMatrix;
+                lineVM.UserControlsInSelectionNameUserControls = UserControlsSelectionNames;
+                userControl.DataContext = lineVM;
+                userControlHeaders.DataContext = lineVM;
                 UserControlsInWholeMatrix.Add(userControl);
                 UserControlsInWholeMatrixHeaders.Add(userControlHeaders);
             };
@@ -601,7 +609,6 @@ namespace СollisionMatrix
         }
         private bool CanDoIfIClickOnSaveXMLCollisionMatrixButtonExecute(object p) => true;
 
-
         public ICommand DoIfIClickOnOpenXMLCollisionMatrixButton { get; set; }
         private void OnDoIfIClickOnOpenXMLCollisionMatrixButtonExecuted(object p)
         {
@@ -1010,6 +1017,327 @@ namespace СollisionMatrix
                 if (category.ToLower().Contains(input_category.ToLower())) return category;
             }
             return "Стены";
+        }
+
+        public void PerformConvertToJson()
+        {
+            #region reading xml file
+
+            bool success = true;
+
+            string pathtoxml = "";
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+
+            openFileDialog.ShowDialog();
+
+            pathtoxml = openFileDialog.FileName;
+
+            //Xceed.Wpf.Toolkit.MessageBox.Show("Приветики", "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            XmlDocument xDoc = new XmlDocument();
+
+            try
+            {
+                xDoc.Load(pathtoxml);
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!success) return;
+
+            #endregion
+
+            string json = JsonConvert.SerializeXmlNode(xDoc);
+
+            Debug.WriteLine(json);
+
+
+            JS.Root root = JsonConvert.DeserializeObject<JS.Root>(json);
+
+            Debug.WriteLine(root.exchange.batchtest.clashtests.clashtest.FirstOrDefault().Name);
+
+            foreach (var item in root.exchange.batchtest.clashtests.clashtest)
+            {
+                item.Name = item.Name.Replace("2_", "5 : ");
+            }
+
+            string json2 = JsonConvert.SerializeObject(root, Newtonsoft.Json.Formatting.Indented);
+
+            XNode node = JsonConvert.DeserializeXNode(json2, null);
+
+            Debug.WriteLine(node.ToString());
+
+            string path = @"C:\Users\o.sidorin\Downloads\Коммунарка\Navis\output.xml";
+            if (!File.Exists(path))
+            {
+                // Create a file to write to.
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.Write(node.ToString().Replace(@"<category />", ""));
+                }
+            }
+
+        }
+
+        public void PerformReadXML()
+        {
+            #region reading xml file
+
+            bool success = true;
+
+            string pathtoxml = "";
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+
+            openFileDialog.ShowDialog();
+
+            pathtoxml = openFileDialog.FileName;
+
+            //Xceed.Wpf.Toolkit.MessageBox.Show("Приветики", "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            XmlDocument xDoc = new XmlDocument();
+
+            try
+            {
+                xDoc.Load(pathtoxml);
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!success) return;
+
+            #endregion
+
+            string json = JsonConvert.SerializeXmlNode(xDoc);
+
+            Debug.WriteLine(json);
+
+
+            Root = JsonConvert.DeserializeObject<JS.Root>(json);
+
+            Debug.WriteLine(Root.exchange.batchtest.clashtests.clashtest.FirstOrDefault().Name);
+
+            UserControlsInWholeMatrix.Clear();
+            UserControlsSelectionNames.Clear();
+
+            //Selectionsets.Clear();
+            //Clashtests.Clear();
+
+
+
+        }
+
+        public void PerformSaveXML()
+        {
+            Root = new JS.Root()
+            {
+                Xml = new JS.Xml()
+                {
+                    Version = "1.0",
+                    Encoding = "UTF-8"
+                },
+                exchange = new JS.Exchange()
+                {
+                    XmlnsXsi = @"http://www.w3.org/2001/XMLSchema-instance",
+                    XsiNoNamespaceSchemaLocation = @"http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd",
+                    Units = "ft",
+                    Filename = "",
+                    Filepath = "",
+                    batchtest = new JS.Batchtest()
+                    {
+                        Name = "CKOM-AU1_PD",
+                        InternalName = "CKOM-AU1_PD",
+                        Units = "ft",
+                        clashtests = new JS.Clashtests()
+                        {
+                            clashtest = new List<JS.Clashtest>()
+                        },
+                        selectionsets = new JS.Selectionsets()
+                        {
+                            selectionset = new List<JS.Selectionset>()
+                        }
+                    }
+                }
+            };
+
+
+            Selectionsets.Clear();
+            Clashtests.Clear();
+
+            foreach (UserControl usercontrolline in UserControlsInWholeMatrix)
+            {
+                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)usercontrolline;
+                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
+
+                var ss = new JS.Selectionset()
+                {
+                    Name = mslvm.NameOfSelection,
+                    Guid = Guid.NewGuid().ToString().ToLower(),
+                    findspec = new JS.Findspec()
+                    {
+                        Mode = "all",
+                        Disjoint = "0",
+                        conditions = new JS.Conditions()
+                        {
+                            condition = new List<JS.Condition>()
+                            {
+                                new JS.Condition()
+                                {
+                                    Test = "contains",
+                                    Flags = "10",
+                                    property = new JS.Property()
+                                    {
+                                        name = new JS.Name() 
+                                        {
+                                            Internal = "LcOaNodeSourceFile",
+                                            Text = "Файл источника"
+                                        }
+                                    },
+                                    value = new JS.Value()
+                                    {
+                                        data = new JS.Data()
+                                        {
+                                            Type = "wstring",
+                                            Text = mslvm.NameOfSelection.Split('|').First().TrimStart(' ').TrimEnd(' ')
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        locator = @"/"
+                    }
+                };
+
+                if (mslvm.NameOfSelection.Split('|').Count() >= 1)
+                {
+                    for (int i = 0; i < mslvm.NameOfSelection.Split('|').Last().Split(',').Count(); i++)
+                    {
+                        if (i == 0)
+                        {
+                            ss.findspec.conditions.condition.Add(
+                                new JS.Condition()
+                                {
+                                    Test = "equals",
+                                    Flags = "10",
+                                    category = new JS.Category()
+                                    {
+                                        name = new JS.Name()
+                                        {
+                                            Internal = "LcRevitData_Element",
+                                            Text = "Объект"
+                                        }
+                                    },
+                                    property = new JS.Property()
+                                    {
+                                        name = new JS.Name()
+                                        {
+                                            Internal = "LcRevitPropertyElementCategory",
+                                            Text = "Категория"
+                                        }
+                                    },
+                                    value = new JS.Value()
+                                    {
+                                        data = new JS.Data()
+                                        {
+                                            Type = "wstring",
+                                            Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
+                                        }
+                                    }
+                                }
+                                );
+                        }
+                        else
+                        {
+                            ss.findspec.conditions.condition.Add(
+                                new JS.Condition()
+                                {
+                                    Test = "equals",
+                                    Flags = "74",
+                                    category = new JS.Category()
+                                    {
+                                        name = new JS.Name()
+                                        {
+                                            Internal = "LcRevitData_Element",
+                                            Text = "Объект"
+                                        }
+                                    },
+                                    property = new JS.Property()
+                                    {
+                                        name = new JS.Name()
+                                        {
+                                            Internal = "LcRevitPropertyElementCategory",
+                                            Text = "Категория"
+                                        }
+                                    },
+                                    value = new JS.Value()
+                                    {
+                                        data = new JS.Data()
+                                        {
+                                            Type = "wstring",
+                                            Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
+                                        }
+                                    }
+                                }
+                                );
+                        }
+                    }
+                }
+
+                Root.exchange.batchtest.selectionsets.selectionset.Add(ss);
+            }
+
+            //Debug.WriteLine(Root.exchange.batchtest.clashtests.clashtest.FirstOrDefault().Name);
+
+            //foreach (var item in root.exchange.batchtest.clashtests.clashtest)
+            //{
+            //    item.Name = item.Name.Replace("2_", "5 : ");
+            //}
+
+            string json2 = JsonConvert.SerializeObject(Root, Newtonsoft.Json.Formatting.Indented);
+
+            Debug.WriteLine(json2.ToString());
+
+            XNode node = JsonConvert.DeserializeXNode(json2, null);
+
+            Debug.WriteLine(node.ToString());
+
+            System.Windows.Forms.SaveFileDialog openFileDialog = new System.Windows.Forms.SaveFileDialog();
+            System.Windows.Forms.DialogResult dialog_result = openFileDialog.ShowDialog();
+            string pathtoxml = openFileDialog.FileName;
+
+            if (dialog_result == System.Windows.Forms.DialogResult.OK)
+            {
+                if (!pathtoxml.Contains(".xml"))
+                {
+                    pathtoxml += ".xml";
+                }
+                if (!File.Exists(pathtoxml))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(pathtoxml))
+                    {
+                        sw.Write(node.ToString().Replace(@"<category />", ""));
+                    }
+                }
+            }
+
+            //string path = @"C:\Users\o.sidorin\Downloads\Коммунарка\Navis\output.xml";
+            //if (!File.Exists(path))
+            //{
+            //    // Create a file to write to.
+            //    using (StreamWriter sw = File.CreateText(path))
+            //    {
+            //        sw.Write(node.ToString().Replace(@"<category />", ""));
+            //    }
+            //}
+
         }
     }
 }

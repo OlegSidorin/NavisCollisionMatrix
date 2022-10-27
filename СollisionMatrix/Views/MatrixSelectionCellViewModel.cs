@@ -23,18 +23,38 @@ namespace СollisionMatrix
             }
         }
 
-        private string _tolerance;
-        public string Tolerance
-        {
-            get { return _tolerance; }
-            set
-            {
-                if (_tolerance != value)
-                {
-                    _tolerance = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //JS.Clashtest jclashtest;
+        //public JS.Clashtest JClashtest { get { return jclashtest; } set { jclashtest = value; OnPropertyChanged(); }  }
+
+        private string tolerance;
+        public string Tolerance { get { return tolerance; } set { tolerance = value; OnPropertyChanged(); } }
+
+        //public string Tolerance
+        //{
+        //    get 
+        //    {
+        //        bool ok = double.TryParse(jclashtest.Tolerance, out double result);
+        //        if (ok)
+        //        {
+        //            return ((int)(result * 304.8)).ToString();
+        //        }
+        //        else
+        //        {
+        //            return jclashtest.Tolerance;
+        //        }
+        //    }
+        //    set
+        //    {
+        //        bool ok = int.TryParse(value, out int result);
+        //        if (ok)
+        //        {
+        //            tolerance = (result / 304.8).ToString();
+        //        }
+        //        else
+        //        {
+        //            tolerance = value;
+        //        }
+        //    }
+        //}
     }
 }

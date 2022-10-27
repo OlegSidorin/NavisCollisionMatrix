@@ -1,0 +1,1774 @@
+{
+  "?xml": {
+    "@version": "1.0",
+    "@encoding": "UTF-8"
+  },
+  "exchange": {
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "@xsi:noNamespaceSchemaLocation": "http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd",
+    "@units": "ft",
+    "@filename": "",
+    "@filepath": "",
+    "batchtest": {
+      "@name": "CKOM-AU1_PD",
+      "@internal_name": "CKOM-AU1_PD",
+      "@units": "ft",
+      "clashtests": {
+        "clashtest": [
+          {
+            "@name": "2_АР - АР (Заполнение проемов - Заполнение проемов)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - АР (Заполнение проемов - Кладка)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - АР (Заполнение проемов - Фасад)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - КР (Заполнение проемов - ЖБ)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - АР (Стены  - Стены )",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - АР (Кладка - Фасад)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - КР (Кладка - ЖБ)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - АР (Фасады - Фасады)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - КР (Фасад - ЖБ)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_АР - АР (Помещения - Помещения)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Помещения"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Помещения"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_КР - КР (ЖБ - ЖБ)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_КР - КР (ЖБ - Прочее)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.3281055187",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Прочее "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - АР (Воздуховоды, Воздухораспределители, Оборудование - Заполнение проемов)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - АР (Воздуховоды, Воздухораспределители, Оборудование - Кладка)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.3281055187",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - АР (Воздуховоды, Воздухораспределители, Оборудование - Фасад)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.3281055187",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - КР (Воздуховоды, Воздухораспределители, Оборудование - Стены)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - КР (Воздуховоды, Воздухораспределители, Оборудование - Несущие колонны, Каркас несущий, Марши)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Несущие колонны"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - КР (Воздуховоды, Воздухораспределители, Оборудование - Перекрытия, Площадки, Крыши, Фундамент несущей конструкции)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - ОВ (Воздуховоды, Воздухораспределители, Оборудование - Воздуховоды, Воздухораспределители, Оборудование)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - ВК (Воздуховоды, Воздухораспределители, Оборудование - Трубы, Сантехнические приборы, Оборудование)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ОВ - ЭОМ (Воздуховоды, Воздухораспределители, Оборудование - Кабельные лотки, Электрические приборы)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - ВК (Трубы, Сантехнические приборы, Оборудование - Заполнение проемов)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - АР (Трубы, Сантехнические приборы, Оборудование - Кладка)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.3281055187",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - АР (Трубы, Сантехнические приборы, Оборудование - Фасады)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.3281055187",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - КР (Трубы, Сантехнические приборы, Оборудование - Стены)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - КР (Трубы, Сантехнические приборы, Оборудование - Несущие колонны, Каркас несущий, Марши)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Несущие колонны"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - КР (Трубы, Сантехнические приборы, Оборудование -  Перекрытия, Площадки, Крыши, Фундамент несущей конструкции)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - ВК (Трубы, Сантехнические приборы, Оборудование - Трубы, Сантехнические приборы, Оборудование)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ВК - ЭОМ (Трубы, Сантехнические приборы, Оборудование - Кабельные лотки, Электрические приборы)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы "
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ЭОМ - АР (Кабельные лотки, Электрические приборы - Заполнение проемов)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Окна, Двери"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ЭОМ - АР (Кабельные лотки, Электрические приборы - Кладка)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.3281055187",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_AR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ЭОМ - ЭОМ (Кабельные лотки, Электрические приборы - Фасад)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.3281055187",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_FSD_ | Обобщенные модели"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ЭОМ - КР (Кабельные лотки, Электрические приборы - Стены)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Стены"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ЭОМ - КР (Кабельные лотки, Электрические приборы - Несущие колонны, Каркас несущий, Марши)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Несущие колонны"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ЭОМ - КР (Кабельные лотки, Электрические приборы - Перекрытия, Площадки, Крыши, Фундамент несущей конструкции)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_KR_ | Перекрытия, Фундамент несущей конструкции "
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "2_ЭОМ - ЭОМ (Кабельные лотки, Электрические приборы - Кабельные лотки, Электрические приборы)",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0328105518",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы"
+              }
+            },
+            "rules": null
+          }
+        ]
+      },
+      "selectionsets": {
+        "selectionset": [
+          {
+            "@name": "_AR_ | Окна, Двери",
+            "@guid": "473e2291-d65b-4619-a57e-2c3c52ab7e95",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_AR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Окна"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Двери"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_AR_ | Стены",
+            "@guid": "93fa8218-a7aa-4769-9af7-965fd828f8c6",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_AR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Стены"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_FSD_ | Обобщенные модели",
+            "@guid": "aeb6ee07-6089-4ce9-9778-89df4ee4554a",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_FSD_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Обобщенные модели"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_AR_ | Помещения",
+            "@guid": "228e3766-7a9a-4c7f-a862-44ca3f6a256d",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_AR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Помещения"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции ",
+            "@guid": "02517b14-ee1b-4cab-b1f9-24d0f472f4ea",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_KR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Стены"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Несущие колонны"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Перекрытия"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Фундамент несущей конструкции"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_KR_ | Стены",
+            "@guid": "726bb0db-4f70-45fd-8c5d-8792080214a5",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_KR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Стены"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_KR_ | Несущие колонны",
+            "@guid": "6c60b32b-e0cc-42cd-928c-aeb6e9f27442",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_KR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Несущие колонны"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_KR_ | Перекрытия, Фундамент несущей конструкции ",
+            "@guid": "0255ab26-a4c8-4352-9c87-a3a44aebbab5",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_KR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Перекрытия"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Фундамент несущей конструкции"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_KR_ | Прочее ",
+            "@guid": "ba5e2c2d-c127-4f8d-b441-16cf45574457",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_KR_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Лестницы"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_OV_ | Воздуховоды, Воздухораспределители, Соединительные детали воздуховодов, Оборудование",
+            "@guid": "8ec98e2d-5d2f-4c42-8630-0a734d7a2077",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_OV_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Воздуховоды"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Воздухораспределители"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Соединительные детали воздуховодов"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Оборудование"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_VK_ | Оборудование, Трубы, Соединительные детали трубопроводов, Арматура трубопроводов, Сантехнические приборы ",
+            "@guid": "6f9a6ee0-4dde-4edc-a263-a85739e63cef",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_VK_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Оборудование"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Трубы"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Соединительные детали трубопроводов"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Арматура трубопроводов"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Сантехнические приборы"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "_EOM_ | Кабельные лотки, Соединительные детали кабельных лотков, Электрические приборы",
+            "@guid": "5436ebac-65cb-4032-9488-be161bb24a77",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "_EOM_"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Кабельные лотки"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Соединительные детали кабельных лотков"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "74",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "Стены"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

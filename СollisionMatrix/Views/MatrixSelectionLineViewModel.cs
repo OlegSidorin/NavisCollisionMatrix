@@ -112,7 +112,7 @@ namespace СollisionMatrix
             int indexOfNewRow = RowNum + 1;
             MatrixSelectionLineViewModel lineViewModel_new = new MatrixSelectionLineViewModel();
             lineViewModel_new.RowNum = indexOfNewRow;
-            lineViewModel_new.NameOfSelection = "XX_New";
+            lineViewModel_new.NameOfSelection = "_АР_ | Стены, Перекрытия";
             
             lineViewModel_new.ToleranceViews = new ObservableCollection<UserControl>();
             for (int i = 0; i < UserControlsInAllMatrixWithLineUserControls.Count(); i++)
