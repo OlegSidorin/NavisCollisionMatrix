@@ -13,67 +13,88 @@ namespace СollisionMatrix
     public class MatrixSelectionLineViewModel : ObservableObject
     {
         public double headerWidth;
-        public double HeaderWidth
-        {
-            get { return headerWidth; }
-            set { headerWidth = value; OnPropertyChanged(); }
-        }
+        public double HeaderWidth { get { return headerWidth; } set { headerWidth = value; OnPropertyChanged(); } }
 
         private Models.Selectionset _selectionset;
-        public Models.Selectionset Selectionset
-        {
-            get { return _selectionset; }
-            set
-            {
-                if (_selectionset != value)
-                {
-                    _selectionset = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public Models.Selectionset Selectionset { get { return _selectionset; } set { _selectionset = value;OnPropertyChanged(); } }
+
+        private JS.Selectionset jselectionset;
+        public JS.Selectionset JSelectionset { get { return jselectionset; } set { jselectionset = value; OnPropertyChanged(); } }
 
         private MatrixSelectionLineModel _matrixSelectionLineModel;
-        public MatrixSelectionLineModel MatrixSelectionLineModel
-        {
-            get { return _matrixSelectionLineModel; }
-            set
-            {
-                if (_matrixSelectionLineModel != value)
-                {
-                    _matrixSelectionLineModel = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public MatrixSelectionLineModel MatrixSelectionLineModel { get { return _matrixSelectionLineModel; } set { _matrixSelectionLineModel = value; OnPropertyChanged(); } }
 
         private Visibility _buttonsVisibility;
-        public Visibility ButtonsVisibility
-        {
-            get { return _buttonsVisibility; }
-            set
-            {
-                if (_buttonsVisibility != value)
-                {
-                    _buttonsVisibility = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public Visibility ButtonsVisibility { get { return _buttonsVisibility; } set { _buttonsVisibility = value; OnPropertyChanged(); } }
 
         private int _rowNum;
-        public int RowNum
+        public int RowNum { get { return _rowNum; } set{ _rowNum = value; OnPropertyChanged(); } }
+
+        public ICommand DoIfIClickDownButton { get; set; }
+        private void OnDoIfIClickDownButtonExecuted(object p)
         {
-            get { return _rowNum; }
-            set
+            //MessageBox.Show($"{RowNum} from {Selections.Count} and {Selection.NameOfSelection}");
+            // Удалить ячейку с номером строки из всех строк из модели Пересечений Selections
+            //foreach (var ss in Selection.SelectionIntersectionTolerance)
+            //{
+            //    ss.Remove(ss.ElementAt(RowNum));
+            //}
+            // Удалить ячейку с номером строки из всех строк из списка вью-строчек на окне
+
+            UserControl userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(RowNum);
+
+            UserControlsInAllMatrixWithLineUserControls.RemoveAt(RowNum);
+            UserControlsInAllMatrixWithLineUserControls.Insert(RowNum + 1, userControl);
+
+            int i = 0;
+            foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
             {
-                if (_rowNum != value)
-                {
-                    _rowNum = value;
-                    OnPropertyChanged();
-                }
+                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)uc;
+                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
+                mslvm.RowNum = i;
+                i++;
+            }
+
+
+            //foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
+            //{
+            //    MatrixSelectionLineUserControl ucl = (MatrixSelectionLineUserControl)uc;
+            //    MatrixSelectionLineViewModel uclvm = (MatrixSelectionLineViewModel)ucl.DataContext;
+            //    if (RowNum < uclvm.ToleranceViews.Count()) uclvm.ToleranceViews.Remove(uclvm.ToleranceViews.ElementAt(RowNum));
+            //    if (uclvm.RowNum > RowNum) uclvm.RowNum -= 1;
+            //}
+            //Selections.Remove(Selection); // удалить из Общего списка Пересечений Selections из модели, которая будет использована для экспорта в xml в итоге
+            //UserControlsInAllMatrixWithLineUserControls.Remove(UserControl_MatrixSelectionLineUserControl); // Удалить из списка всех вью-строчек на окне
+            //MatrixSelectionNameUserControl userControlForDeleting = null;
+            //foreach (var uc in UserControlsInSelectionNameUserControls)
+            //{
+            //    MatrixSelectionNameUserControl msnuc = (MatrixSelectionNameUserControl)uc;
+            //    MatrixSelectionLineViewModel uclvm = (MatrixSelectionLineViewModel)msnuc.DataContext;
+            //    if (uclvm.NameOfSelection == NameOfSelection) userControlForDeleting = msnuc;
+            //}
+            //if (userControlForDeleting != null) UserControlsInSelectionNameUserControls.Remove(userControlForDeleting);
+        }
+        private bool CanDoIfIClickDownButtonExecute(object p) => true;
+
+        public ICommand DoIfIClickUpButton { get; set; }
+        private void OnDoIfIClickUpButtonExecuted(object p)
+        {
+            UserControl userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(RowNum);
+
+            UserControlsInAllMatrixWithLineUserControls.RemoveAt(RowNum);
+            UserControlsInAllMatrixWithLineUserControls.Insert(RowNum - 1, userControl);
+
+            int i = 0;
+            foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
+            {
+                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)uc;
+                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
+                mslvm.RowNum = i;
+                i++;
             }
         }
+        private bool CanDoIfIClickUpButtonExecute(object p) => true;
+
 
         public ICommand DoIfIClickDeleteButton { get; set; }
         private void OnDoIfIClickDeleteButtonExecuted(object p)
@@ -200,6 +221,8 @@ namespace СollisionMatrix
 
             DoIfIClickDeleteButton = new RelayCommand(OnDoIfIClickDeleteButtonExecuted, CanDoIfIClickDeleteButtonExecute);
             DoIfIClickBottomAddButton = new RelayCommand(OnDoIfIClickBottomAddButtonExecuted, CanDoIfIClickBottomAddButtonExecute);
+            DoIfIClickUpButton = new RelayCommand(OnDoIfIClickUpButtonExecuted, CanDoIfIClickUpButtonExecute);
+            DoIfIClickDownButton = new RelayCommand(OnDoIfIClickDownButtonExecuted, CanDoIfIClickDownButtonExecute);
 
 
         }

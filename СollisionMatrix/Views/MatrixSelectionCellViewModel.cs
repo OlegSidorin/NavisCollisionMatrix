@@ -23,36 +23,51 @@ namespace СollisionMatrix
             }
         }
 
-        //JS.Clashtest jclashtest;
-        //public JS.Clashtest JClashtest { get { return jclashtest; } set { jclashtest = value; OnPropertyChanged(); }  }
+        JS.Clashtest jclashtest;
+        public JS.Clashtest JClashtest { get { return jclashtest; } set { jclashtest = value; OnPropertyChanged(); } }
 
         private string tolerance;
         public string Tolerance { get { return tolerance; } set { tolerance = value; OnPropertyChanged(); } }
 
-        //public string Tolerance
+        //public string JTolerance
         //{
-        //    get 
+        //    get
         //    {
-        //        bool ok = double.TryParse(jclashtest.Tolerance, out double result);
-        //        if (ok)
+        //        if (jclashtest != null)
         //        {
-        //            return ((int)(result * 304.8)).ToString();
+        //            bool ok = double.TryParse(jclashtest.Tolerance.Replace(".", ","), out double result);
+        //            if (ok)
+        //            {
+        //                return ((int)(result * 304.8)).ToString();
+        //            }
+        //            else
+        //            {
+        //                return jclashtest.Tolerance;
+        //            }
         //        }
         //        else
         //        {
-        //            return jclashtest.Tolerance;
+        //            return "";
         //        }
+                
         //    }
         //    set
         //    {
-        //        bool ok = int.TryParse(value, out int result);
-        //        if (ok)
+        //        if (jclashtest != null)
         //        {
-        //            tolerance = (result / 304.8).ToString();
+        //            bool ok = int.TryParse(value, out int result);
+        //            if (ok)
+        //            {
+        //                jclashtest.Tolerance = (result / 304.8).ToString().Replace(",", ".");
+        //            }
+        //            else
+        //            {
+        //                jclashtest.Tolerance = value;
+        //            }
         //        }
         //        else
         //        {
-        //            tolerance = value;
+
         //        }
         //    }
         //}

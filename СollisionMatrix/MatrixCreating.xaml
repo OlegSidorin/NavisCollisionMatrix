@@ -182,8 +182,7 @@
                 ToolTip="Для последущего использования в Navisworks"
                 Margin="5 0 10 0" Height="70"
                     Command="{Binding DoIfIClickOnSaveXMLCollisionMatrixButton}" Content="Сохранить Матрицу коллизий в файл .xml"  />
-                <Button x:Name="ButtonReadXML" Content="Read XML" Click="ButtonReadXML_Click" Background="Beige" Margin="0 2 0 2"/>
-                <Button x:Name="ButtonSaveXML" Content="Save XML" Click="ButtonSaveXML_Click" Background="Beige" Margin="0 2 0 2"/>
+                
 
                 <TextBlock Text="Категории в Ревит:" Margin="5 35 5 5" FontWeight="DemiBold"/>
                 <ComboBox x:Name="ComboBoxCategory" Grid.Row="1" Margin="5 0 5 5" 
