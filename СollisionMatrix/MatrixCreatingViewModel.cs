@@ -693,18 +693,21 @@ namespace СollisionMatrix
                     "Предохранительные устройства",
                     "Устройства вызова и оповещения",
                     "Телефонные устройства",
-                    "Система коммутации"
+                    "Система коммутации",
+                    "Обобщенные модели",
+                    "Все"
                 };
             }
         }
-        private string GetSameCategory(string input_category)
-        {
-            foreach (string category in Categories_in_revit)
-            {
-                if (category.ToLower().Contains(input_category.ToLower())) return category;
-            }
-            return "Стены";
-        }
+
+        //public string GetSameCategory(string input_category)
+        //{
+        //    foreach (string category in Categories_in_revit)
+        //    {
+        //        if (category.ToLower().Contains(input_category.ToLower())) return category;
+        //    }
+        //    return "Стены";
+        //}
 
         public void PerformConvertToJson()
         {

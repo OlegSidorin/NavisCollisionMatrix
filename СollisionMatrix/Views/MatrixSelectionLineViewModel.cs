@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace СollisionMatrix
 {
@@ -43,17 +44,22 @@ namespace СollisionMatrix
 
             UserControl userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(RowNum);
 
-            UserControlsInAllMatrixWithLineUserControls.RemoveAt(RowNum);
-            UserControlsInAllMatrixWithLineUserControls.Insert(RowNum + 1, userControl);
-
-            int i = 0;
-            foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
+            if (RowNum < UserControlsInAllMatrixWithLineUserControls.Count() - 1)
             {
-                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)uc;
-                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
-                mslvm.RowNum = i;
-                i++;
+                UserControlsInAllMatrixWithLineUserControls.RemoveAt(RowNum);
+                UserControlsInAllMatrixWithLineUserControls.Insert(RowNum + 1, userControl);
+
+                int i = 0;
+                foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
+                {
+                    MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)uc;
+                    MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
+                    mslvm.RowNum = i;
+                    i++;
+                }
             }
+
+            
 
 
             //foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
@@ -93,7 +99,12 @@ namespace СollisionMatrix
                 i++;
             }
         }
-        private bool CanDoIfIClickUpButtonExecute(object p) => true;
+        private bool CanDoIfIClickUpButtonExecute(object p)
+        {
+            if (RowNum < 1) return false;
+            else return true;
+
+        }
 
 
         public ICommand DoIfIClickDeleteButton { get; set; }

@@ -40,16 +40,17 @@
         <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Visibility="{Binding ButtonsVisibility}">
             <Button Width="14" Height="14" Margin="0 0 0 0" 
                     Style="{StaticResource ButtonBlue}"
+                    Command="{Binding DoIfIClickUpButton}">
+                <Path StrokeThickness="0" Data="M512 320l213.333 213.333h-426.667l213.333-213.333z" Stretch="Uniform" Fill="DarkSalmon" Margin="2" />
+            </Button>
+            <Button Width="14" Height="14" Margin="0 0 0 0" 
+                    Style="{StaticResource ButtonBlue}"
                     Command="{Binding DoIfIClickDownButton}">
-                <Path StrokeThickness="0" Data="M1024 153.6l-512 512-512-512z" Stretch="Uniform" Fill="Aqua" Margin="2" />
+                <Path StrokeThickness="0" Data="M1024 153.6l-512 512-512-512z" Stretch="Uniform" Fill="DarkSalmon" Margin="2" />
             </Button>
         </StackPanel>
         <StackPanel Grid.Column="6" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Visibility="{Binding ButtonsVisibility}">
-            <Button Width="14" Height="14" Margin="0 0 0 0" 
-                    Style="{StaticResource ButtonBlue}"
-                    Command="{Binding DoIfIClickUpButton}">
-                <Path StrokeThickness="0" Data="M512 320l213.333 213.333h-426.667l213.333-213.333z" Stretch="Uniform" Fill="Aqua" Margin="2" />
-            </Button>
+            
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Visibility="{Binding ButtonsVisibility}">
             <Button Width="14" Height="14" Margin="0 0 0 0" 

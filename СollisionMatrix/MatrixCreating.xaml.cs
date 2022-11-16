@@ -54,16 +54,16 @@ namespace СollisionMatrix
             GridSplitter2.Visibility = Visibility.Collapsed;
         }
 
-        private void ButtonReadXML_Click(object sender, RoutedEventArgs e)
-        {
-            MatrixCreatingViewModel VM = (MatrixCreatingViewModel)DataContext;
-            VM.PerformReadXML();
-        }
+        //private void ButtonReadXML_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MatrixCreatingViewModel VM = (MatrixCreatingViewModel)DataContext;
+        //    VM.PerformReadXML();
+        //}
 
-        private void ButtonSaveXML_Click(object sender, RoutedEventArgs e)
-        {
-            MatrixCreatingViewModel VM = (MatrixCreatingViewModel)DataContext;
-            VM.PerformSaveXML();
-        }
+        //private void ButtonSaveXML_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MatrixCreatingViewModel VM = (MatrixCreatingViewModel)DataContext;
+        //    VM.PerformSaveXML();
+        //}
     }
 }
