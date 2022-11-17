@@ -8,8 +8,8 @@ namespace СollisionMatrix.Mainviews
 {
     public class MainCellViewModel : ObservableObject
     {
-        private Models.Clashtest _clashtest;
-        public Models.Clashtest Clashtest
+        private CT.Clashtest _clashtest;
+        public CT.Clashtest Clashtest
         {
             get { return _clashtest; }
             set

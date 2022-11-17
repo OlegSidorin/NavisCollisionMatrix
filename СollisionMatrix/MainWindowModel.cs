@@ -16,6 +16,11 @@ using OfficeOpenXml;
 using System.IO;
 using СollisionMatrix.Models;
 using System.Windows.Controls;
+using System.Xml.Serialization;
+using System.Windows.Shapes;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace СollisionMatrix
 {
@@ -127,9 +132,6 @@ namespace СollisionMatrix
         }
 
         List<string> SelectionsetNames { get; set; }
-        public List<Selectionset> Selectionsets { get; set; }
-        public List<Clashtest> Clashtests { get; set; }
-        public Batchtest Batchtest { get; set; }
         public ObservableCollection<UserControl> LineUserControls { get; set; }
         public ObservableCollection<UserControl> LineUserControls_Names { get; set; }
 
@@ -154,17 +156,12 @@ namespace СollisionMatrix
 
         public DataCellViewModel[,] DataCellViewModels { get; set; }
 
+        public List<CT.Clashtest> Clashtests { get; set; } = new List<CT.Clashtest>();
+
         public MainWindowModel()
         {
             LineUserControls = new ObservableCollection<UserControl>();
             LineUserControls_Names = new ObservableCollection<UserControl>();
-
-            Batchtest = new Batchtest()
-            {
-                Tag_name = "Report",
-                Tag_internal_name = "Report",
-                Tag_units = "m"
-            };
 
             SelectionsetNames = new List<string>();
 
@@ -224,8 +221,6 @@ namespace СollisionMatrix
             LineUserControls.Clear();
             LineUserControls_Names.Clear();
             SelectionsetNames.Clear();
-            Selectionsets = new List<Selectionset>();
-            Clashtests = new List<Clashtest>();
 
             #region reading xml file
 
@@ -238,8 +233,6 @@ namespace СollisionMatrix
             openFileDialog.ShowDialog();
             pathtoxml = openFileDialog.FileName;
 
-            //Xceed.Wpf.Toolkit.MessageBox.Show(pathtoxml, "Инфо к сведению", MessageBoxButton.OK, MessageBoxImage.Information);
-
             XmlDocument xDoc = new XmlDocument();
 
             try
@@ -249,194 +242,41 @@ namespace СollisionMatrix
             catch (Exception ex)
             {
                 success = false;
-                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Xceed.Wpf.Toolkit.MessageBox.Show($"Возможно, не выбран файл и вот что удалось узнать:\n{ex.Message}", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            string json = JsonConvert.SerializeXmlNode(xDoc);
+
+            CT.Root xmlRoot = null;
+
+            try
+            {
+                xmlRoot = JsonConvert.DeserializeObject<CT.Root>(json);
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                Xceed.Wpf.Toolkit.MessageBox.Show($"Возможно, не тот файл и вот что удалось узнать:\n{ex.Message}", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             if (!success) return;
+            if (xmlRoot == null) return;
 
             #endregion
 
             #region creating array Clashtests from xml file
-            
-            try
+
+            foreach (CT.Clashtest ct in xmlRoot.exchange.batchtest.clashtests.clashtest)
             {
-                XmlElement exchange_element = xDoc.DocumentElement; // <exchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd" units="ft" filename="" filepath="">
-
-                foreach (XmlNode batchtest_node in exchange_element) // <batchtest name="Без имени" internal_name="Без имени" units="ft">
-                {
-                    if (batchtest_node.Name == "batchtest")
-                    {
-                        Batchtest.Tag_name = batchtest_node.Attributes.GetNamedItem("name").InnerText;
-                        Batchtest.Tag_internal_name = batchtest_node.Attributes.GetNamedItem("internal_name").InnerText;
-                        Batchtest.Tag_units = batchtest_node.Attributes.GetNamedItem("units").InnerText;
-                        foreach (XmlNode node_in_batchtest_node in batchtest_node.ChildNodes) // <clashtests>
-                        {
-                            if (node_in_batchtest_node.Name == "clashtests")
-                            {
-                                foreach (XmlNode clashtest_node in node_in_batchtest_node.ChildNodes) // <clashtest name="АР_Вертикальные конструкции - АР_Вертикальные конструкции" test_type="duplicate" status="ok" tolerance="0.000" merge_composites="0">
-                                {
-                                    if (clashtest_node.Name == "clashtest")
-                                    {
-                                        Clashtest clashtest = new Clashtest();
-                                        clashtest.Tag_name = clashtest_node.Attributes.GetNamedItem("name").InnerText;
-                                        clashtest.Tag_test_type = clashtest_node.Attributes.GetNamedItem("test_type").InnerText;
-                                        clashtest.Tag_status = clashtest_node.Attributes.GetNamedItem("status").InnerText;
-                                        clashtest.Tag_merge_composites = clashtest_node.Attributes.GetNamedItem("merge_composites").InnerText;
-                                        clashtest.Tag_tolerance = clashtest_node.Attributes.GetNamedItem("tolerance").InnerText;
-                                        bool to_double = double.TryParse(clashtest.Tag_tolerance.Replace(".", ","), out double td);
-                                        if (Batchtest.Tag_units == "ft")
-                                        {
-                                            td *= 304.8;
-                                            clashtest.Tag_tolerance_in_mm = ((int)td).ToString();
-                                        } 
-                                        else if (Batchtest.Tag_units == "m")
-                                        {
-                                            td *= 1000;
-                                            clashtest.Tag_tolerance_in_mm = ((int)td).ToString();
-                                        }
-                                        foreach (XmlNode node_in_clashtest_node in clashtest_node.ChildNodes)
-                                        {
-                                            if (node_in_clashtest_node.Name == "linkage")
-                                            {
-                                                clashtest.Linkage = new Linkage();
-                                                clashtest.Linkage.Tag_mode = node_in_clashtest_node.Attributes.GetNamedItem("mode").InnerText;
-                                            }
-                                            else if (node_in_clashtest_node.Name == "left")
-                                            {
-                                                clashtest.Left = new Left();
-                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
-                                                {
-                                                    if (clashselection_node.Name == "clashselection")
-                                                    {
-                                                        clashtest.Left.Clashselection = new Clashselection();
-                                                        clashtest.Left.Clashselection.Tag_primtypes = clashselection_node.Attributes.GetNamedItem("primtypes").InnerText;
-                                                        clashtest.Left.Clashselection.Tag_selfintersect = clashselection_node.Attributes.GetNamedItem("selfintersect").InnerText;
-
-                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
-                                                        {
-                                                            if (locator_node.Name == "locator")
-                                                            {
-                                                                clashtest.Left.Clashselection.Locator = new Locator();
-                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
-                                                                //clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
-
-                                                                var folders_names = locator_node.InnerText.Split('/');
-                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
-                                                                clashtest.Left.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
-                                                                foreach (string folder_name in folders_names)
-                                                                {
-                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
-                                                                }
-
-                                                                var draft_names = clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
-                                                                if (draft_names.Count() > 1)
-                                                                {
-                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
-                                                                }
-                                                                else
-                                                                {
-                                                                    clashtest.Left.Clashselection.Locator.Tag_inner_text_draft_name = "?";
-                                                                }
-                                                                SelectionsetNames.Add(clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            else if (node_in_clashtest_node.Name == "right")
-                                            {
-                                                clashtest.Right = new Right();
-                                                foreach (XmlNode clashselection_node in node_in_clashtest_node.ChildNodes)
-                                                {
-                                                    if (clashselection_node.Name == "clashselection")
-                                                    {
-                                                        clashtest.Right.Clashselection = new Clashselection();
-                                                        clashtest.Right.Clashselection.Tag_primtypes = clashselection_node.Attributes.GetNamedItem("primtypes").InnerText;
-                                                        clashtest.Right.Clashselection.Tag_selfintersect = clashselection_node.Attributes.GetNamedItem("selfintersect").InnerText;
-
-                                                        foreach (XmlNode locator_node in clashselection_node.ChildNodes)
-                                                        {
-                                                            if (locator_node.Name == "locator")
-                                                            {
-                                                                clashtest.Right.Clashselection.Locator = new Locator();
-                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text = locator_node.InnerText;
-                                                                //clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = locator_node.InnerText.Replace("lcop_selection_set_tree/", "");
-
-                                                                var folders_names = locator_node.InnerText.Split('/');
-                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name = folders_names.LastOrDefault();
-                                                                clashtest.Right.Clashselection.Locator.Tag_inner_text_folders = new List<string>();
-                                                                foreach (string folder_name in folders_names)
-                                                                {
-                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_folders.Add(folder_name);
-                                                                }
-
-                                                                var draft_names = clashtest.Right.Clashselection.Locator.Tag_inner_text_selection_name.Split('_');
-                                                                if (draft_names.Count() > 1)
-                                                                {
-                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = draft_names.First();
-                                                                }
-                                                                else
-                                                                {
-                                                                    clashtest.Right.Clashselection.Locator.Tag_inner_text_draft_name = "?";
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            else if (node_in_clashtest_node.Name == "rules")
-                                            {
-                                                clashtest.Rules = new Rules();
-                                            }
-                                            else if (node_in_clashtest_node.Name == "summary")
-                                            {
-                                                clashtest.Summary = new Summary()
-                                                {
-                                                    Tag_total = node_in_clashtest_node.Attributes.GetNamedItem("total").InnerText,
-                                                    Tag_new = node_in_clashtest_node.Attributes.GetNamedItem("new").InnerText,
-                                                    Tag_active = node_in_clashtest_node.Attributes.GetNamedItem("active").InnerText,
-                                                    Tag_reviewed = node_in_clashtest_node.Attributes.GetNamedItem("reviewed").InnerText,
-                                                    Tag_approved = node_in_clashtest_node.Attributes.GetNamedItem("approved").InnerText,
-                                                    Tag_resolved = node_in_clashtest_node.Attributes.GetNamedItem("resolved").InnerText,
-                                                    Testtype = new Testtype(),
-                                                    Teststatus = new Teststatus()
-                                                };
-                                                if (int.TryParse(clashtest.Summary.Tag_total, out int int_total)) clashtest.Summary.Tag_total_int = int_total;
-                                                if (int.TryParse(clashtest.Summary.Tag_new, out int int_new)) clashtest.Summary.Tag_new_int = int_new;
-                                                if (int.TryParse(clashtest.Summary.Tag_active, out int int_active)) clashtest.Summary.Tag_active_int = int_active;
-                                                if (int.TryParse(clashtest.Summary.Tag_reviewed, out int int_reviewed)) clashtest.Summary.Tag_reviewed_int = int_reviewed;
-                                                if (int.TryParse(clashtest.Summary.Tag_approved, out int int_approved)) clashtest.Summary.Tag_approved_int = int_approved;
-                                                if (int.TryParse(clashtest.Summary.Tag_resolved, out int int_resolved)) clashtest.Summary.Tag_resolved_int = int_resolved;
-
-                                                foreach (XmlNode node_in_summary_node in node_in_clashtest_node.ChildNodes)
-                                                {
-                                                    if (node_in_summary_node.Name == "testtype")
-                                                    {
-                                                        clashtest.Summary.Testtype.Tag_inner_text = node_in_summary_node.InnerText;
-                                                    }
-                                                    else if (node_in_summary_node.Name == "teststatus")
-                                                    {
-                                                        clashtest.Summary.Teststatus.Tag_inner_text = node_in_summary_node.InnerText;
-                                                    }
-                                                }
-                                                
-                                            }
-                                        }
-
-                                        Clashtests.Add(clashtest);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                }
-                ThisView.notes.Visibility = Visibility.Visible;
-            } 
-            catch (Exception ex)
+                Clashtests.Add(ct);
+            }
+            foreach (CT.Clashtest ct in xmlRoot.exchange.batchtest.clashtests.clashtest)
             {
-                success = false;
-                Xceed.Wpf.Toolkit.MessageBox.Show("Возможно, файл не содержит результатов проверки... \n" + ex.ToString(), "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                SelectionsetNames.Add(ct.left?.clashselection?.locator);  //Replace("lcop_selection_set_tree/", ""));
+            }
+            foreach (CT.Clashtest ct in xmlRoot.exchange.batchtest.clashtests.clashtest)
+            {
+                SelectionsetNames.Add(ct.right?.clashselection?.locator);  //Replace("lcop_selection_set_tree/", ""));
             }
 
             List<string> SelectionsetsNamesDistinct = SelectionsetNames.ToArray().Distinct().ToList();
@@ -448,26 +288,23 @@ namespace СollisionMatrix
 
             #region creating array 
             int rn = 0;
-            foreach(string sel_name in SelectionsetsNamesDistinct)
+            foreach (string sel_name in SelectionsetsNamesDistinct)
             {
                 Mainviews.MainLineUserControl mluc = new Mainviews.MainLineUserControl();
                 Mainviews.MainLineViewModel mlvm = new Mainviews.MainLineViewModel();
                 mlvm.HeaderWidth = WidthColumn - 35;
-                mlvm.NameOfSelection = sel_name;
+                mlvm.NameOfSelection = sel_name.Replace("lcop_selection_set_tree/", "");
                 mlvm.RowNum = rn.ToString();
                 mlvm.CellViews = new ObservableCollection<UserControl>();
-                mlvm.Clashtests = new List<Clashtest>();
+                mlvm.Clashtests = new List<CT.Clashtest>();
 
-                Mainviews.MainSelectionNameUserControl msnuc = new Mainviews.MainSelectionNameUserControl();
+                Mainviews.MainSelectionNameUserControl msnuc = new Mainviews.MainSelectionNameUserControl(); // это верхняя строка с именами selection set
 
-                foreach (Clashtest clashtest in Clashtests)
+                foreach (CT.Clashtest clashtest in xmlRoot.exchange.batchtest.clashtests.clashtest)
                 {
-                    if (clashtest.Left != null && clashtest.Right != null)
+                    if (clashtest.left?.clashselection?.locator != null )
                     {
-                        if (clashtest.Left.Clashselection.Locator.Tag_inner_text_selection_name == sel_name)
-                        {
-                            mlvm.Clashtests.Add(clashtest);
-                        }
+                        if (clashtest.left.clashselection.locator.Equals(sel_name)) mlvm.Clashtests.Add(clashtest); 
                     }
                 }
 
@@ -476,17 +313,13 @@ namespace СollisionMatrix
                     Mainviews.MainCellUserConrol mcuc = new Mainviews.MainCellUserConrol();
                     Mainviews.MainCellViewModel mcvm = new Mainviews.MainCellViewModel();
                     mcvm.Presenter = "";
-                    foreach (Clashtest ct in mlvm.Clashtests)
+                    foreach (CT.Clashtest ct in mlvm.Clashtests)
                     {
-                        if (ct.Left != null && ct.Right != null && ct.Summary != null)
+                        if (ct.right.clashselection.locator.Equals(sel_name_2))
                         {
-                            if (ct.Right.Clashselection.Locator.Tag_inner_text_selection_name == sel_name_2)
-                            {
-                                mcvm.Clashtest = ct;
-                                mcvm.Presenter = ct.Summary.Tag_total;
-                            }
+                            mcvm.Clashtest = ct;
+                            mcvm.Presenter = ct.summary?.total;
                         }
-                            
                     }
                     mcuc.DataContext = mcvm;
                     mlvm.CellViews.Add(mcuc);
@@ -499,32 +332,62 @@ namespace СollisionMatrix
                 
                 rn++;
             }
-
+            
             foreach(UserControl uc_line in LineUserControls)
             {
                 Mainviews.MainLineViewModel mlvm = (Mainviews.MainLineViewModel)uc_line.DataContext;
+
                 foreach (UserControl uc_cell in mlvm.CellViews)
                 {
                     Mainviews.MainCellViewModel mcvm = (Mainviews.MainCellViewModel)uc_cell.DataContext;
-                    if(mcvm.Clashtest != null)
+                    double dt = Convert.ToDouble(mcvm.Clashtest?.tolerance, CultureInfo.InvariantCulture);
+                    if (dt != 0.0)
                     {
-                        if (double.TryParse(mcvm.Clashtest.Tag_tolerance_in_mm, out double dt))
+                        if (xmlRoot.exchange.batchtest.units.Equals("m"))
                         {
-                            if (dt <= 50.5) uc_cell.Background = Color50;
-                            if (dt <= 30.5) uc_cell.Background = Color30;
-                            if (dt <= 15.5) uc_cell.Background = Color15;
-                            if (dt > 50.5) uc_cell.Background = Color80;
-                            uc_cell.ToolTip = $"{mcvm.Clashtest.Tag_name} \n{mcvm.Clashtest.Tag_tolerance_in_mm} мм\n" +
-                                $"Новых: {mcvm.Clashtest.Summary.Tag_new}\n" +
-                                $"Активных: {mcvm.Clashtest.Summary.Tag_active}\n" +
-                                $"Проверенных: {mcvm.Clashtest.Summary.Tag_reviewed}\n" +
-                                $"Подтвержденных (не коллизия): {mcvm.Clashtest.Summary.Tag_approved}\n" +
-                                $"Исправленных: {mcvm.Clashtest.Summary.Tag_resolved}";
+                            if (dt * 1000 <= 50.5) uc_cell.Background = Color50;
+                            if (dt * 1000 <= 30.5) uc_cell.Background = Color30;
+                            if (dt * 1000 <= 15.5) uc_cell.Background = Color15;
+                            if (dt * 1000 > 50.5) uc_cell.Background = Color80;
+                            uc_cell.ToolTip =
+                                $"{mcvm.Clashtest.name} \n{dt * 1000} мм\n" +
+                                $"{mcvm.Clashtest.summary.testtype}: {mcvm.Clashtest.summary.teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest.summary.@new}\n" +
+                                $"Активных: {mcvm.Clashtest.summary.active}\n" +
+                                $"Проверенных: {mcvm.Clashtest.summary.reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest.summary.approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest.summary.resolved}";
+                        }
+                        else if (xmlRoot.exchange.batchtest.units.Equals("ft"))
+                        {
+                            if (dt * 304.8 <= 50.5) uc_cell.Background = Color50;
+                            if (dt * 304.8 <= 30.5) uc_cell.Background = Color30;
+                            if (dt * 304.8 <= 15.5) uc_cell.Background = Color15;
+                            if (dt * 304.8 > 50.5) uc_cell.Background = Color80;
+                            uc_cell.ToolTip =
+                                $"{mcvm.Clashtest.name} \n{dt * 304.8} мм\n" +
+                                $"{mcvm.Clashtest.summary.testtype}: {mcvm.Clashtest.summary.teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest.summary.@new}\n" +
+                                $"Активных: {mcvm.Clashtest.summary.active}\n" +
+                                $"Проверенных: {mcvm.Clashtest.summary.reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest.summary.approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest.summary.resolved}";
+                        }
+                        else
+                        {
+                            uc_cell.ToolTip =
+                                $"{mcvm.Clashtest.name} \n" +
+                                $"{mcvm.Clashtest.summary.testtype}: {mcvm.Clashtest.summary.teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest.summary.@new}\n" +
+                                $"Активных: {mcvm.Clashtest.summary.active}\n" +
+                                $"Проверенных: {mcvm.Clashtest.summary.reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest.summary.approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest.summary.resolved}";
                         }
                     }
                 }
             }
-
+            
             #endregion
 
             if (!success) return;
@@ -536,6 +399,7 @@ namespace СollisionMatrix
         public ICommand ExcelExport { get; set; }
         private void OnExcelExportExecuted(object p)
         {
+            /*
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
             ExcelPackage excel = new ExcelPackage();
 
@@ -628,35 +492,37 @@ namespace СollisionMatrix
                     Mainviews.MainCellViewModel mcvm = (Mainviews.MainCellViewModel)uc_cell.DataContext;
                     if (mcvm.Clashtest != null)
                     {
-                        int summary = mcvm.Clashtest.Summary.Tag_new_int + mcvm.Clashtest.Summary.Tag_active_int + mcvm.Clashtest.Summary.Tag_reviewed_int; // + approved;
+                        int summary = Convert.ToInt32(mcvm.Clashtest.summary.@new) + 
+                            Convert.ToInt32(mcvm.Clashtest.summary.active) +
+                            Convert.ToInt32(mcvm.Clashtest.summary.reviewed); // + approved;
                         foreach (ExcelWorksheet worksheet in worksheets)
                         {
                             if (worksheet.Name.Equals("Matrix"))
-                                worksheet.Cells[rowCount, colCount].Value = summary + "(" + mcvm.Clashtest.Summary.Tag_resolved + ")" + "\n" + mcvm.Clashtest.Summary.Tag_total;
+                                worksheet.Cells[rowCount, colCount].Value = summary + "(" + mcvm.Clashtest.summary.resolved + ")" + "\n" + mcvm.Clashtest.summary.total;
                             else if (worksheet.Name.Equals("Matrix-New"))
-                                worksheet.Cells[rowCount, colCount].Value = mcvm.Clashtest.Summary.Tag_new_int;
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.@new);
                             else if (worksheet.Name.Equals("Matrix-Active"))
-                                worksheet.Cells[rowCount, colCount].Value = mcvm.Clashtest.Summary.Tag_active_int;
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.active);
                             else if (worksheet.Name.Equals("Matrix-Reviewed"))
-                                worksheet.Cells[rowCount, colCount].Value = mcvm.Clashtest.Summary.Tag_reviewed_int;
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.reviewed);
                             else if (worksheet.Name.Equals("Matrix-Approved"))
-                                worksheet.Cells[rowCount, colCount].Value = mcvm.Clashtest.Summary.Tag_approved_int;
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.approved);
                             else if (worksheet.Name.Equals("Matrix-Resolved"))
-                                worksheet.Cells[rowCount, colCount].Value = mcvm.Clashtest.Summary.Tag_resolved_int;
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.resolved);
                             else if (worksheet.Name.Equals("Matrix-Total"))
-                                worksheet.Cells[rowCount, colCount].Value = mcvm.Clashtest.Summary.Tag_total_int;
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.total);
 
-                            if (mcvm.Clashtest.Summary.Tag_total_int == 0)
+                            if (Convert.ToInt32(mcvm.Clashtest.summary.total) == 0)
                             {
                                 worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
                             }
-                            else if (mcvm.Clashtest.Summary.Tag_resolved_int == mcvm.Clashtest.Summary.Tag_total_int)
+                            else if (mcvm.Clashtest.summary.resolved == mcvm.Clashtest.summary.total)
                             {
                                 worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
                             }
-                            else if (mcvm.Clashtest.Summary.Tag_resolved_int == 0)
+                            else if (Convert.ToInt32(mcvm.Clashtest.summary.resolved) == 0)
                             {
                                 worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
@@ -1206,7 +1072,7 @@ namespace СollisionMatrix
             {
                 System.Diagnostics.Process.Start(pathtoxls);
             }
-
+            */
         }
         private bool CanExcelExportExecute(object p) => true;
 

@@ -125,6 +125,30 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClashTest.cs" />
+    <Compile Include="CT\Approveddate.cs" />
+    <Compile Include="CT\Batchtest.cs" />
+    <Compile Include="CT\Clashobject.cs" />
+    <Compile Include="CT\Clashobjects.cs" />
+    <Compile Include="CT\Clashpoint.cs" />
+    <Compile Include="CT\Clashresult.cs" />
+    <Compile Include="CT\Clashresults.cs" />
+    <Compile Include="CT\Clashselection.cs" />
+    <Compile Include="CT\Clashtest.cs" />
+    <Compile Include="CT\Clashtests.cs" />
+    <Compile Include="CT\Createddate.cs" />
+    <Compile Include="CT\Date.cs" />
+    <Compile Include="CT\Exchange.cs" />
+    <Compile Include="CT\Left.cs" />
+    <Compile Include="CT\Linkage.cs" />
+    <Compile Include="CT\Objectattribute.cs" />
+    <Compile Include="CT\Pathlink.cs" />
+    <Compile Include="CT\Pos3f.cs" />
+    <Compile Include="CT\Right.cs" />
+    <Compile Include="CT\Root.cs" />
+    <Compile Include="CT\Smarttag.cs" />
+    <Compile Include="CT\Smarttags.cs" />
+    <Compile Include="CT\Summary.cs" />
+    <Compile Include="CT\Xml.cs" />
     <Compile Include="JS\Batchtest.cs" />
     <Compile Include="JS\Category.cs" />
     <Compile Include="JS\Clashselection.cs" />
@@ -231,6 +255,28 @@
     </Compile>
     <Compile Include="Subviews\SubNodeVViewModel.cs" />
     <Compile Include="WidthConverter.cs" />
+    <Compile Include="XML\Approveddate.cs" />
+    <Compile Include="XML\Batchtest.cs" />
+    <Compile Include="XML\Clashobject.cs" />
+    <Compile Include="XML\Clashobjects.cs" />
+    <Compile Include="XML\Clashpoint.cs" />
+    <Compile Include="XML\Clashresult.cs" />
+    <Compile Include="XML\Clashresults.cs" />
+    <Compile Include="XML\Clashselection.cs" />
+    <Compile Include="XML\Clashtest.cs" />
+    <Compile Include="XML\Clashtests.cs" />
+    <Compile Include="XML\Createddate.cs" />
+    <Compile Include="XML\Date.cs" />
+    <Compile Include="XML\Exchange.cs" />
+    <Compile Include="XML\Left.cs" />
+    <Compile Include="XML\Linkage.cs" />
+    <Compile Include="XML\Objectattribute.cs" />
+    <Compile Include="XML\Pathlink.cs" />
+    <Compile Include="XML\Pos3f.cs" />
+    <Compile Include="XML\Right.cs" />
+    <Compile Include="XML\Smarttag.cs" />
+    <Compile Include="XML\Smarttags.cs" />
+    <Compile Include="XML\Summary.cs" />
     <Page Include="Views\DataCellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
