@@ -31,21 +31,22 @@ namespace СollisionMatrix
         public ICommand DoIfIClickDownButton { get; set; }
         private void OnDoIfIClickDownButtonExecuted(object p)
         {
-            //MessageBox.Show($"{RowNum} from {Selections.Count} and {Selection.NameOfSelection}");
-            // Удалить ячейку с номером строки из всех строк из модели Пересечений Selections
-            //foreach (var SS in Selection.SelectionIntersectionTolerance)
-            //{
-            //    SS.Remove(SS.ElementAt(RowNum));
-            //}
-            // Удалить ячейку с номером строки из всех строк из списка вью-строчек на окне
+            var numOfRow = RowNum; // запишем исходное значение, вдруг поменяется еще во время расстановок 
 
-            UserControl userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(RowNum);
+            UserControl userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(numOfRow);
+            UserControl userControl2 = UserControlsInSelectionNameUserControls.ElementAt(numOfRow);
 
-            if (RowNum < UserControlsInAllMatrixWithLineUserControls.Count() - 1)
+            if (numOfRow < UserControlsInAllMatrixWithLineUserControls.Count() - 1)
             {
-                UserControlsInAllMatrixWithLineUserControls.RemoveAt(RowNum);
-                UserControlsInAllMatrixWithLineUserControls.Insert(RowNum + 1, userControl);
+                // Поменять местами сверху вниз строки в матрице
+                UserControlsInAllMatrixWithLineUserControls.RemoveAt(numOfRow);
+                UserControlsInAllMatrixWithLineUserControls.Insert(numOfRow + 1, userControl);
 
+                // Меняем вверху заголовки наименования между собой слева направо
+                UserControlsInSelectionNameUserControls.RemoveAt(numOfRow);
+                UserControlsInSelectionNameUserControls.Insert(numOfRow + 1, userControl2);
+
+                // Меняем нумерацию строк в матрице 
                 int i = 0;
                 foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
                 {
@@ -54,39 +55,39 @@ namespace СollisionMatrix
                     mslvm.RowNum = i;
                     i++;
                 }
+
+                for (int k = 0; k < UserControlsInAllMatrixWithLineUserControls.Count; k++)
+                {
+                    // меняем на строчке k местами два квадратика
+                    userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(k);
+
+                    MatrixSelectionLineUserControl uc = (MatrixSelectionLineUserControl)userControl;
+                    MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)uc.DataContext;
+                    UserControl tvAtNunOfRow2 = vm.ToleranceViews.ElementAt(numOfRow);
+                    vm.ToleranceViews.RemoveAt(numOfRow);
+                    vm.ToleranceViews.Insert(numOfRow + 1, tvAtNunOfRow2);
+                }
             }
-
-            
-
-
-            //foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
-            //{
-            //    MatrixSelectionLineUserControl ucl = (MatrixSelectionLineUserControl)uc;
-            //    MatrixSelectionLineViewModel uclvm = (MatrixSelectionLineViewModel)ucl.DataContext;
-            //    if (RowNum < uclvm.ToleranceViews.Count()) uclvm.ToleranceViews.Remove(uclvm.ToleranceViews.ElementAt(RowNum));
-            //    if (uclvm.RowNum > RowNum) uclvm.RowNum -= 1;
-            //}
-            //Selections.Remove(Selection); // удалить из Общего списка Пересечений Selections из модели, которая будет использована для экспорта в xml в итоге
-            //UserControlsInAllMatrixWithLineUserControls.Remove(UserControl_MatrixSelectionLineUserControl); // Удалить из списка всех вью-строчек на окне
-            //MatrixSelectionNameUserControl userControlForDeleting = null;
-            //foreach (var uc in UserControlsInSelectionNameUserControls)
-            //{
-            //    MatrixSelectionNameUserControl msnuc = (MatrixSelectionNameUserControl)uc;
-            //    MatrixSelectionLineViewModel uclvm = (MatrixSelectionLineViewModel)msnuc.DataContext;
-            //    if (uclvm.NameOfSelection == NameOfSelection) userControlForDeleting = msnuc;
-            //}
-            //if (userControlForDeleting != null) UserControlsInSelectionNameUserControls.Remove(userControlForDeleting);
         }
         private bool CanDoIfIClickDownButtonExecute(object p) => true;
 
         public ICommand DoIfIClickUpButton { get; set; }
         private void OnDoIfIClickUpButtonExecuted(object p)
         {
-            UserControl userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(RowNum);
+            var numOfRow = RowNum; // запишем исходное значение, вдруг поменяется еще во время расстановок 
 
-            UserControlsInAllMatrixWithLineUserControls.RemoveAt(RowNum);
-            UserControlsInAllMatrixWithLineUserControls.Insert(RowNum - 1, userControl);
+            UserControl userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(numOfRow);
+            UserControl userControl2 = UserControlsInSelectionNameUserControls.ElementAt(numOfRow);
 
+            // Поменять местами снизу вверх строки в матрице
+            UserControlsInAllMatrixWithLineUserControls.RemoveAt(numOfRow);
+            UserControlsInAllMatrixWithLineUserControls.Insert(numOfRow - 1, userControl);
+
+            // Меняем вверху заголовки наименования между собой справа налево
+            UserControlsInSelectionNameUserControls.RemoveAt(numOfRow);
+            UserControlsInSelectionNameUserControls.Insert(numOfRow - 1, userControl2);
+
+            // Меняем нумерацию строк в матрице 
             int i = 0;
             foreach (var uc in UserControlsInAllMatrixWithLineUserControls)
             {
@@ -95,14 +96,25 @@ namespace СollisionMatrix
                 mslvm.RowNum = i;
                 i++;
             }
+
+            for (int k = 0; k < UserControlsInAllMatrixWithLineUserControls.Count; k++)
+            {
+                // меняем на строчке k местами два квадратика
+                userControl = UserControlsInAllMatrixWithLineUserControls.ElementAt(k);
+
+                MatrixSelectionLineUserControl uc = (MatrixSelectionLineUserControl)userControl;
+                MatrixSelectionLineViewModel vm = (MatrixSelectionLineViewModel)uc.DataContext;
+                UserControl tvAtNunOfRow2 = vm.ToleranceViews.ElementAt(numOfRow);
+                vm.ToleranceViews.RemoveAt(numOfRow);
+                vm.ToleranceViews.Insert(numOfRow - 1, tvAtNunOfRow2);
+            }
+
         }
         private bool CanDoIfIClickUpButtonExecute(object p)
         {
             if (RowNum < 1) return false;
             else return true;
-
         }
-
 
         public ICommand DoIfIClickDeleteButton { get; set; }
         private void OnDoIfIClickDeleteButtonExecuted(object p)
@@ -142,6 +154,7 @@ namespace СollisionMatrix
             MatrixSelectionLineViewModel lineViewModel_new = new MatrixSelectionLineViewModel();
             lineViewModel_new.RowNum = indexOfNewRow;
             lineViewModel_new.NameOfSelection = "_АР_ | Стены, Перекрытия";
+            lineViewModel_new.HeaderWidth = HeaderWidth;
             
             lineViewModel_new.ToleranceViews = new ObservableCollection<UserControl>();
             for (int i = 0; i < UserControlsInAllMatrixWithLineUserControls.Count(); i++)

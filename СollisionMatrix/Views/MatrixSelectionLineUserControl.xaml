@@ -59,7 +59,8 @@
                 <Path Stroke="DarkOliveGreen" StrokeThickness="2" Data="M 1 7 L 13 7 M 7 1 L 7 13"/>
             </Button>
         </StackPanel>
-        <Label Grid.Row="1" Grid.Column="3" Content="{Binding RowNum}" 
+        <Border Grid.Row="1" Grid.Column="3" Background="#22222222" BorderBrush="#55555555" Margin="0 2 0 2" BorderThickness="0 0 1 0"/>
+        <Label Grid.Row="1" Grid.Column="3" Content="{Binding RowNum}" Margin="0 0 1 0"
                  HorizontalAlignment="Right" VerticalAlignment="Center" />
         <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding NameOfSelection}" Height="24"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="1"

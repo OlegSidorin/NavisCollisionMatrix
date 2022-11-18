@@ -284,7 +284,6 @@ namespace СollisionMatrix
 
             #endregion
 
-
             #region creating array 
             int rn = 0;
             foreach (string sel_name in SelectionsetsNamesDistinct)
@@ -349,13 +348,13 @@ namespace СollisionMatrix
                             if (dt * 1000 <= 15.5) uc_cell.Background = Color15;
                             if (dt * 1000 > 50.5) uc_cell.Background = Color80;
                             uc_cell.ToolTip =
-                                $"{mcvm.Clashtest.name} \n{dt * 1000} мм\n" +
-                                $"{mcvm.Clashtest.summary.testtype}: {mcvm.Clashtest.summary.teststatus}\n" +
-                                $"Новых: {mcvm.Clashtest.summary.@new}\n" +
-                                $"Активных: {mcvm.Clashtest.summary.active}\n" +
-                                $"Проверенных: {mcvm.Clashtest.summary.reviewed}\n" +
-                                $"Подтвержденных (не коллизия): {mcvm.Clashtest.summary.approved}\n" +
-                                $"Исправленных: {mcvm.Clashtest.summary.resolved}";
+                                $"{mcvm.Clashtest?.name} \n{dt * 1000} мм\n" +
+                                $"{mcvm.Clashtest?.summary?.testtype}: {mcvm.Clashtest?.summary?.teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest?.summary?.@new}\n" +
+                                $"Активных: {mcvm.Clashtest?.summary?.active}\n" +
+                                $"Проверенных: {mcvm.Clashtest?.summary?.reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.summary?.approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest?.summary?.resolved}";
                         }
                         else if (xmlRoot.exchange.batchtest.units.Equals("ft"))
                         {
@@ -364,24 +363,24 @@ namespace СollisionMatrix
                             if (dt * 304.8 <= 15.5) uc_cell.Background = Color15;
                             if (dt * 304.8 > 50.5) uc_cell.Background = Color80;
                             uc_cell.ToolTip =
-                                $"{mcvm.Clashtest.name} \n{dt * 304.8} мм\n" +
-                                $"{mcvm.Clashtest.summary.testtype}: {mcvm.Clashtest.summary.teststatus}\n" +
-                                $"Новых: {mcvm.Clashtest.summary.@new}\n" +
-                                $"Активных: {mcvm.Clashtest.summary.active}\n" +
-                                $"Проверенных: {mcvm.Clashtest.summary.reviewed}\n" +
-                                $"Подтвержденных (не коллизия): {mcvm.Clashtest.summary.approved}\n" +
-                                $"Исправленных: {mcvm.Clashtest.summary.resolved}";
+                                $"{mcvm.Clashtest?.name} \n{dt * 304.8} мм\n" +
+                                $"{mcvm.Clashtest?.summary?.testtype}: {mcvm.Clashtest?.summary?.teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest?.summary?.@new}\n" +
+                                $"Активных: {mcvm.Clashtest?.summary?.active}\n" +
+                                $"Проверенных: {mcvm.Clashtest?.summary?.reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.summary?.approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest?.summary?.resolved}";
                         }
                         else
                         {
                             uc_cell.ToolTip =
-                                $"{mcvm.Clashtest.name} \n" +
-                                $"{mcvm.Clashtest.summary.testtype}: {mcvm.Clashtest.summary.teststatus}\n" +
-                                $"Новых: {mcvm.Clashtest.summary.@new}\n" +
-                                $"Активных: {mcvm.Clashtest.summary.active}\n" +
-                                $"Проверенных: {mcvm.Clashtest.summary.reviewed}\n" +
-                                $"Подтвержденных (не коллизия): {mcvm.Clashtest.summary.approved}\n" +
-                                $"Исправленных: {mcvm.Clashtest.summary.resolved}";
+                                $"{mcvm.Clashtest?.name} \n" +
+                                $"{mcvm.Clashtest?.summary?.testtype}: {mcvm.Clashtest?.summary?.teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest?.summary?.@new}\n" +
+                                $"Активных: {mcvm.Clashtest?.summary?.active}\n" +
+                                $"Проверенных: {mcvm.Clashtest?.summary?.reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.summary?.approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest?.summary?.resolved}";
                         }
                     }
                 }

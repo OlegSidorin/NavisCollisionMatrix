@@ -10,7 +10,15 @@
         <local:MatrixSelectionLineViewModel />
     </UserControl.DataContext>
     <Grid>
-        <TextBlock Name="HeaderTextBox"  Text="{Binding NameOfSelection}" RenderTransformOrigin="0.5,0.5" TextAlignment="Left" VerticalAlignment="Bottom">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="22" />
+        </Grid.RowDefinitions>
+        <TextBlock Name="HeaderTextBox"  
+                   Text="{Binding NameOfSelection}" 
+                   RenderTransformOrigin="0.5,0.5" 
+                   TextAlignment="Center" VerticalAlignment="Bottom"
+                   Margin="3 0 0 3">
             <TextBlock.LayoutTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -20,5 +28,11 @@
                 </TransformGroup>
             </TextBlock.LayoutTransform>
         </TextBlock>
+        <TextBlock Grid.Row="1" Text="{Binding RowNum}"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <Border BorderThickness="0 1 0 0" Background="#22222222" Grid.Row="1" BorderBrush="#55555555" Margin="1 0 1 0">
+           
+        </Border>
+        
     </Grid>
 </UserControl>

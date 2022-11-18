@@ -21,6 +21,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
+        <Border Grid.Row="1" Grid.Column="1" Background="#555555" />
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding RowNum}" 
                  HorizontalAlignment="Right" VerticalAlignment="Center" />
         <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NameOfSelection}" Height="24"
