@@ -16,11 +16,8 @@ namespace СollisionMatrix
         public double headerWidth;
         public double HeaderWidth { get { return headerWidth; } set { headerWidth = value; OnPropertyChanged(); } }
 
-        private Models.Selectionset _selectionset;
-        public Models.Selectionset Selectionset { get { return _selectionset; } set { _selectionset = value;OnPropertyChanged(); } }
-
-        private JS.Selectionset jselectionset;
-        public JS.Selectionset JSelectionset { get { return jselectionset; } set { jselectionset = value; OnPropertyChanged(); } }
+        private SS.Selectionset jselectionset;
+        public SS.Selectionset JSelectionset { get { return jselectionset; } set { jselectionset = value; OnPropertyChanged(); } }
 
         private MatrixSelectionLineModel _matrixSelectionLineModel;
         public MatrixSelectionLineModel MatrixSelectionLineModel { get { return _matrixSelectionLineModel; } set { _matrixSelectionLineModel = value; OnPropertyChanged(); } }
@@ -36,9 +33,9 @@ namespace СollisionMatrix
         {
             //MessageBox.Show($"{RowNum} from {Selections.Count} and {Selection.NameOfSelection}");
             // Удалить ячейку с номером строки из всех строк из модели Пересечений Selections
-            //foreach (var ss in Selection.SelectionIntersectionTolerance)
+            //foreach (var SS in Selection.SelectionIntersectionTolerance)
             //{
-            //    ss.Remove(ss.ElementAt(RowNum));
+            //    SS.Remove(SS.ElementAt(RowNum));
             //}
             // Удалить ячейку с номером строки из всех строк из списка вью-строчек на окне
 
@@ -112,9 +109,9 @@ namespace СollisionMatrix
         {
             //MessageBox.Show($"{RowNum} from {Selections.Count} and {Selection.NameOfSelection}");
             // Удалить ячейку с номером строки из всех строк из модели Пересечений Selections
-            //foreach (var ss in Selection.SelectionIntersectionTolerance)
+            //foreach (var SS in Selection.SelectionIntersectionTolerance)
             //{
-            //    ss.Remove(ss.ElementAt(RowNum));
+            //    SS.Remove(SS.ElementAt(RowNum));
             //}
             // Удалить ячейку с номером строки из всех строк из списка вью-строчек на окне
             foreach (var uc in UserControlsInAllMatrixWithLineUserControls)

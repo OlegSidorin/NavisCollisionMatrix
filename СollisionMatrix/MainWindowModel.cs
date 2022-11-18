@@ -14,7 +14,6 @@ using System.Reflection;
 using Forms = System.Windows.Forms;
 using OfficeOpenXml;
 using System.IO;
-using СollisionMatrix.Models;
 using System.Windows.Controls;
 using System.Xml.Serialization;
 using System.Windows.Shapes;
@@ -399,7 +398,7 @@ namespace СollisionMatrix
         public ICommand ExcelExport { get; set; }
         private void OnExcelExportExecuted(object p)
         {
-            /*
+
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
             ExcelPackage excel = new ExcelPackage();
 
@@ -1072,7 +1071,7 @@ namespace СollisionMatrix
             {
                 System.Diagnostics.Process.Start(pathtoxls);
             }
-            */
+            
         }
         private bool CanExcelExportExecute(object p) => true;
 

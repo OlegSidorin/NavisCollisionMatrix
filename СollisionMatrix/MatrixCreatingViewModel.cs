@@ -16,21 +16,17 @@ using System.Windows.Navigation;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using СollisionMatrix.Models;
 
 namespace СollisionMatrix
 {
     public class MatrixCreatingViewModel : ObservableObject
     {
-        JS.Root root;
-        public JS.Root Root { get { return root; } set { root = value; OnPropertyChanged(); } }
+        SS.Root root;
+        public SS.Root Root { get { return root; } set { root = value; OnPropertyChanged(); } }
         public ObservableCollection<MatrixSelectionLineModel> Selections { get; set; }
         public ObservableCollection<UserControl> UserControlsInWholeMatrix { get; set; }
         //public ObservableCollection<UserControl> UserControlsInWholeMatrixHeaders { get; set; }
         public ObservableCollection<UserControl> UserControlsSelectionNames { get; set; }
-        public List<Selectionset> Selectionsets { get; set; }
-        public List<Clashtest> Clashtests { get; set; }
-        public Batchtest Batchtest { get; set; }
 
         public double widthColumn;
         public double WidthColumn
@@ -41,14 +37,6 @@ namespace СollisionMatrix
         public MatrixCreatingViewModel()
         {
             WidthColumn = 183;
-            Selectionsets = new List<Selectionset>();
-            Clashtests = new List<Clashtest>();
-            Batchtest = new Batchtest()
-            {
-                Tag_name = "Экспорт проверок",
-                Tag_internal_name = "Экспорт проверок",
-                Tag_units = "ft"
-            };
 
             Selections = new ObservableCollection<MatrixSelectionLineModel>();
 
@@ -139,55 +127,39 @@ namespace СollisionMatrix
 
             DoIfIClickOnSaveXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnSaveXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnSaveXMLCollisionMatrixButtonExecute);
             DoIfIClickOnOpenXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnOpenXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute);
-
-            int linecounter = 0;
-            int cellcounter = 0;
-            foreach (UserControl usercontrolline in UserControlsInWholeMatrix)
-            {
-                MatrixSelectionLineUserControl msluc = (MatrixSelectionLineUserControl)usercontrolline;
-                MatrixSelectionLineViewModel mslvm = (MatrixSelectionLineViewModel)msluc.DataContext;
-                cellcounter = 0;
-                foreach (UserControl usercontrolcell in mslvm.ToleranceViews)
-                {
-                    MatrixSelectionCellUserControl mscuc = (MatrixSelectionCellUserControl)usercontrolcell;
-                    MatrixSelectionCellViewModel mscvm = (MatrixSelectionCellViewModel)mscuc.DataContext;
-
-                    cellcounter += 1;
-                }
-                linecounter += 1;
-            }
+            
 
         }
 
         public ICommand DoIfIClickOnSaveXMLCollisionMatrixButton { get; set; }
         private void OnDoIfIClickOnSaveXMLCollisionMatrixButtonExecuted(object p)
         {
-            Root = new JS.Root()
+            Root = new SS.Root()
             {
-                Xml = new JS.Xml()
+                Xml = new SS.Xml()
                 {
                     Version = "1.0",
                     Encoding = "UTF-8"
                 },
-                exchange = new JS.Exchange()
+                exchange = new SS.Exchange()
                 {
                     XmlnsXsi = @"http://www.w3.org/2001/XMLSchema-instance",
                     XsiNoNamespaceSchemaLocation = @"http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd",
                     Units = "ft",
                     Filename = "",
                     Filepath = "",
-                    batchtest = new JS.Batchtest()
+                    batchtest = new SS.Batchtest()
                     {
                         Name = "Tests",
                         InternalName = "Tests",
                         Units = "ft",
-                        clashtests = new JS.Clashtests()
+                        clashtests = new SS.Clashtests()
                         {
-                            clashtest = new List<JS.Clashtest>()
+                            clashtest = new List<SS.Clashtest>()
                         },
-                        selectionsets = new JS.Selectionsets()
+                        selectionsets = new SS.Selectionsets()
                         {
-                            selectionset = new List<JS.Selectionset>()
+                            selectionset = new List<SS.Selectionset>()
                         }
                     }
                 }
@@ -204,33 +176,33 @@ namespace СollisionMatrix
                 {
                     #region setting selectionset
 
-                    var ss = new JS.Selectionset()
+                    var ss = new SS.Selectionset()
                     {
                         Name = mslvm.NameOfSelection,
                         Guid = Guid.NewGuid().ToString().ToLower(),
-                        findspec = new JS.Findspec()
+                        findspec = new SS.Findspec()
                         {
                             Mode = "all",
                             Disjoint = "0",
-                            conditions = new JS.Conditions()
+                            conditions = new SS.Conditions()
                             {
-                                condition = new List<JS.Condition>()
+                                condition = new List<SS.Condition>()
                             {
-                                new JS.Condition()
+                                new SS.Condition()
                                 {
                                     Test = "contains",
                                     Flags = "10",
-                                    property = new JS.Property()
+                                    property = new SS.Property()
                                     {
-                                        name = new JS.Name()
+                                        name = new SS.Name()
                                         {
                                             Internal = "LcOaNodeSourceFile",
                                             Text = "Файл источника"
                                         }
                                     },
-                                    value = new JS.Value()
+                                    value = new SS.Value()
                                     {
-                                        data = new JS.Data()
+                                        data = new SS.Data()
                                         {
                                             Type = "wstring",
                                             Text = mslvm.NameOfSelection.Split('|').First().TrimStart(' ').TrimEnd(' ')
@@ -250,29 +222,29 @@ namespace СollisionMatrix
                             if (i == 0)
                             {
                                 ss.findspec.conditions.condition.Add(
-                                    new JS.Condition()
+                                    new SS.Condition()
                                     {
                                         Test = "equals",
                                         Flags = "10",
-                                        category = new JS.Category()
+                                        category = new SS.Category()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitData_Element",
                                                 Text = "Объект"
                                             }
                                         },
-                                        property = new JS.Property()
+                                        property = new SS.Property()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitPropertyElementCategory",
                                                 Text = "Категория"
                                             }
                                         },
-                                        value = new JS.Value()
+                                        value = new SS.Value()
                                         {
-                                            data = new JS.Data()
+                                            data = new SS.Data()
                                             {
                                                 Type = "wstring",
                                                 Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
@@ -284,29 +256,29 @@ namespace СollisionMatrix
                             else
                             {
                                 ss.findspec.conditions.condition.Add(
-                                    new JS.Condition()
+                                    new SS.Condition()
                                     {
                                         Test = "equals",
                                         Flags = "74",
-                                        category = new JS.Category()
+                                        category = new SS.Category()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitData_Element",
                                                 Text = "Объект"
                                             }
                                         },
-                                        property = new JS.Property()
+                                        property = new SS.Property()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitPropertyElementCategory",
                                                 Text = "Категория"
                                             }
                                         },
-                                        value = new JS.Value()
+                                        value = new SS.Value()
                                         {
-                                            data = new JS.Data()
+                                            data = new SS.Data()
                                             {
                                                 Type = "wstring",
                                                 Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
@@ -324,7 +296,7 @@ namespace СollisionMatrix
                 }
                 else
                 {
-                    var ss = new JS.Selectionset()
+                    var ss = new SS.Selectionset()
                     {
                         Name = mslvm.NameOfSelection,
                         Guid = mslvm.JSelectionset.Guid,
@@ -357,26 +329,26 @@ namespace СollisionMatrix
                     {
                         if (!string.IsNullOrEmpty(mscvm.Tolerance))
                         {
-                            JS.Clashtest ct = new JS.Clashtest()
+                            SS.Clashtest ct = new SS.Clashtest()
                             {
                                 Name = $"{mslvm.NameOfSelection} - {getSelectionName(ix)}", // left selset name plus right sel set
                                 TestType = "hard",
                                 Status = "ok",
                                 Tolerance = toFt(mscvm.Tolerance),
                                 MergeComposites = "1",
-                                linkage = new JS.Linkage() { Mode = "none" },
-                                left = new JS.Left()
+                                linkage = new SS.Linkage() { Mode = "none" },
+                                left = new SS.Left()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = "0",
                                         Primtypes = "1",
                                         locator = $@"lcop_selection_set_tree/{mslvm.NameOfSelection}",
                                     }
                                 },
-                                right = new JS.Right()
+                                right = new SS.Right()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = "0",
                                         Primtypes = "1",
@@ -393,7 +365,7 @@ namespace СollisionMatrix
                     {
                         if (!string.IsNullOrEmpty(mscvm.Tolerance))
                         {
-                            JS.Clashtest ct = new JS.Clashtest()
+                            SS.Clashtest ct = new SS.Clashtest()
                             {
                                 Name = mscvm.JClashtest.Name,
                                 TestType = mscvm.JClashtest.TestType,
@@ -401,18 +373,18 @@ namespace СollisionMatrix
                                 Tolerance = toFt(mscvm.Tolerance),
                                 MergeComposites = "1",
                                 linkage = mscvm.JClashtest.linkage,
-                                left = new JS.Left()
+                                left = new SS.Left()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = mscvm.JClashtest.left.clashselection.Selfintersect,
                                         Primtypes = mscvm.JClashtest.left.clashselection.Primtypes,
                                         locator = $@"lcop_selection_set_tree/{mslvm.NameOfSelection}",
                                     }
                                 },
-                                right = new JS.Right()
+                                right = new SS.Right()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = mscvm.JClashtest.right.clashselection.Selfintersect,
                                         Primtypes = mscvm.JClashtest.right.clashselection.Primtypes,
@@ -526,7 +498,7 @@ namespace СollisionMatrix
 
             Debug.WriteLine(json);
 
-            Root = JsonConvert.DeserializeObject<JS.Root>(json);
+            Root = JsonConvert.DeserializeObject<SS.Root>(json);
 
             Debug.WriteLine(Root.exchange.batchtest.clashtests.clashtest.FirstOrDefault().Name);
 
@@ -540,7 +512,7 @@ namespace СollisionMatrix
                 if (Root.exchange.batchtest.selectionsets.selectionset != null)
                 {
                     int i = 0;
-                    foreach (JS.Selectionset ss in Root.exchange.batchtest.selectionsets.selectionset)
+                    foreach (SS.Selectionset ss in Root.exchange.batchtest.selectionsets.selectionset)
                     {
                         MatrixSelectionLineViewModel mslvm = new MatrixSelectionLineViewModel()
                         {
@@ -626,7 +598,7 @@ namespace СollisionMatrix
             {
                 if (Root.exchange.batchtest.clashtests.clashtest != null)
                 {
-                    foreach (JS.Clashtest ct in Root.exchange.batchtest.clashtests.clashtest)
+                    foreach (SS.Clashtest ct in Root.exchange.batchtest.clashtests.clashtest)
                     {
                         MatrixSelectionCellViewModel mscvm = getClashVM(ct.left.clashselection.locator.Replace(@"lcop_selection_set_tree/", ""), ct.right.clashselection.locator.Replace(@"lcop_selection_set_tree/", ""));
                         if (mscvm != null)
@@ -746,7 +718,7 @@ namespace СollisionMatrix
             Debug.WriteLine(json);
 
 
-            JS.Root root = JsonConvert.DeserializeObject<JS.Root>(json);
+            SS.Root root = JsonConvert.DeserializeObject<SS.Root>(json);
 
             Debug.WriteLine(root.exchange.batchtest.clashtests.clashtest.FirstOrDefault().Name);
 
@@ -809,7 +781,7 @@ namespace СollisionMatrix
 
             Debug.WriteLine(json);
 
-            Root = JsonConvert.DeserializeObject<JS.Root>(json);
+            Root = JsonConvert.DeserializeObject<SS.Root>(json);
 
             Debug.WriteLine(Root.exchange.batchtest.clashtests.clashtest.FirstOrDefault().Name);
 
@@ -823,7 +795,7 @@ namespace СollisionMatrix
                 if (Root.exchange.batchtest.selectionsets.selectionset != null)
                 {
                     int i = 0;
-                    foreach(JS.Selectionset ss in Root.exchange.batchtest.selectionsets.selectionset)
+                    foreach(SS.Selectionset ss in Root.exchange.batchtest.selectionsets.selectionset)
                     {
                         MatrixSelectionLineViewModel mslvm = new MatrixSelectionLineViewModel()
                         {
@@ -905,7 +877,7 @@ namespace СollisionMatrix
             {
                 if (Root.exchange.batchtest.clashtests.clashtest != null)
                 {
-                    foreach(JS.Clashtest ct in Root.exchange.batchtest.clashtests.clashtest)
+                    foreach(SS.Clashtest ct in Root.exchange.batchtest.clashtests.clashtest)
                     {
                         MatrixSelectionCellViewModel mscvm = getClashVM(ct.left.clashselection.locator.Replace(@"lcop_selection_set_tree/", ""), ct.right.clashselection.locator.Replace(@"lcop_selection_set_tree/", ""));
                         if (mscvm != null)
@@ -923,32 +895,32 @@ namespace СollisionMatrix
 
         public void PerformSaveXML()
         {
-            Root = new JS.Root()
+            Root = new SS.Root()
             {
-                Xml = new JS.Xml()
+                Xml = new SS.Xml()
                 {
                     Version = "1.0",
                     Encoding = "UTF-8"
                 },
-                exchange = new JS.Exchange()
+                exchange = new SS.Exchange()
                 {
                     XmlnsXsi = @"http://www.w3.org/2001/XMLSchema-instance",
                     XsiNoNamespaceSchemaLocation = @"http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd",
                     Units = "ft",
                     Filename = "",
                     Filepath = "",
-                    batchtest = new JS.Batchtest()
+                    batchtest = new SS.Batchtest()
                     {
                         Name = "Tests",
                         InternalName = "Tests",
                         Units = "ft",
-                        clashtests = new JS.Clashtests()
+                        clashtests = new SS.Clashtests()
                         {
-                            clashtest = new List<JS.Clashtest>()
+                            clashtest = new List<SS.Clashtest>()
                         },
-                        selectionsets = new JS.Selectionsets()
+                        selectionsets = new SS.Selectionsets()
                         {
-                            selectionset = new List<JS.Selectionset>()
+                            selectionset = new List<SS.Selectionset>()
                         }
                     }
                 }
@@ -965,33 +937,33 @@ namespace СollisionMatrix
                 {
                     #region setting selectionset
 
-                    var ss = new JS.Selectionset()
+                    var ss = new SS.Selectionset()
                     {
                         Name = mslvm.NameOfSelection,
                         Guid = Guid.NewGuid().ToString().ToLower(),
-                        findspec = new JS.Findspec()
+                        findspec = new SS.Findspec()
                         {
                             Mode = "all",
                             Disjoint = "0",
-                            conditions = new JS.Conditions()
+                            conditions = new SS.Conditions()
                             {
-                                condition = new List<JS.Condition>()
+                                condition = new List<SS.Condition>()
                             {
-                                new JS.Condition()
+                                new SS.Condition()
                                 {
                                     Test = "contains",
                                     Flags = "10",
-                                    property = new JS.Property()
+                                    property = new SS.Property()
                                     {
-                                        name = new JS.Name()
+                                        name = new SS.Name()
                                         {
                                             Internal = "LcOaNodeSourceFile",
                                             Text = "Файл источника"
                                         }
                                     },
-                                    value = new JS.Value()
+                                    value = new SS.Value()
                                     {
-                                        data = new JS.Data()
+                                        data = new SS.Data()
                                         {
                                             Type = "wstring",
                                             Text = mslvm.NameOfSelection.Split('|').First().TrimStart(' ').TrimEnd(' ')
@@ -1011,29 +983,29 @@ namespace СollisionMatrix
                             if (i == 0)
                             {
                                 ss.findspec.conditions.condition.Add(
-                                    new JS.Condition()
+                                    new SS.Condition()
                                     {
                                         Test = "equals",
                                         Flags = "10",
-                                        category = new JS.Category()
+                                        category = new SS.Category()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitData_Element",
                                                 Text = "Объект"
                                             }
                                         },
-                                        property = new JS.Property()
+                                        property = new SS.Property()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitPropertyElementCategory",
                                                 Text = "Категория"
                                             }
                                         },
-                                        value = new JS.Value()
+                                        value = new SS.Value()
                                         {
-                                            data = new JS.Data()
+                                            data = new SS.Data()
                                             {
                                                 Type = "wstring",
                                                 Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
@@ -1045,29 +1017,29 @@ namespace СollisionMatrix
                             else
                             {
                                 ss.findspec.conditions.condition.Add(
-                                    new JS.Condition()
+                                    new SS.Condition()
                                     {
                                         Test = "equals",
                                         Flags = "74",
-                                        category = new JS.Category()
+                                        category = new SS.Category()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitData_Element",
                                                 Text = "Объект"
                                             }
                                         },
-                                        property = new JS.Property()
+                                        property = new SS.Property()
                                         {
-                                            name = new JS.Name()
+                                            name = new SS.Name()
                                             {
                                                 Internal = "LcRevitPropertyElementCategory",
                                                 Text = "Категория"
                                             }
                                         },
-                                        value = new JS.Value()
+                                        value = new SS.Value()
                                         {
-                                            data = new JS.Data()
+                                            data = new SS.Data()
                                             {
                                                 Type = "wstring",
                                                 Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
@@ -1085,7 +1057,7 @@ namespace СollisionMatrix
                 }
                 else
                 {
-                    var ss = new JS.Selectionset()
+                    var ss = new SS.Selectionset()
                     {
                         Name = mslvm.NameOfSelection,
                         Guid = mslvm.JSelectionset.Guid,
@@ -1118,26 +1090,26 @@ namespace СollisionMatrix
                     {
                         if (!string.IsNullOrEmpty(mscvm.Tolerance))
                         {
-                            JS.Clashtest ct = new JS.Clashtest()
+                            SS.Clashtest ct = new SS.Clashtest()
                             {
                                 Name = $"{mslvm.NameOfSelection} - {getSelectionName(ix)}", // left selset name plus right sel set
                                 TestType = "hard",
                                 Status = "ok",
                                 Tolerance = toFt(mscvm.Tolerance),
                                 MergeComposites = "1",
-                                linkage = new JS.Linkage() { Mode = "none" },
-                                left = new JS.Left()
+                                linkage = new SS.Linkage() { Mode = "none" },
+                                left = new SS.Left()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = "0",
                                         Primtypes = "1",
                                         locator = $@"lcop_selection_set_tree/{mslvm.NameOfSelection}",
                                     }
                                 },
-                                right = new JS.Right()
+                                right = new SS.Right()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = "0",
                                         Primtypes = "1",
@@ -1154,7 +1126,7 @@ namespace СollisionMatrix
                     {
                         if (!string.IsNullOrEmpty(mscvm.Tolerance))
                         {
-                            JS.Clashtest ct = new JS.Clashtest()
+                            SS.Clashtest ct = new SS.Clashtest()
                             {
                                 Name = mscvm.JClashtest.Name,
                                 TestType = mscvm.JClashtest.TestType,
@@ -1162,18 +1134,18 @@ namespace СollisionMatrix
                                 Tolerance = toFt(mscvm.Tolerance),
                                 MergeComposites = "1",
                                 linkage = mscvm.JClashtest.linkage,
-                                left = new JS.Left()
+                                left = new SS.Left()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = mscvm.JClashtest.left.clashselection.Selfintersect,
                                         Primtypes = mscvm.JClashtest.left.clashselection.Primtypes,
                                         locator = $@"lcop_selection_set_tree/{mslvm.NameOfSelection}",
                                     }
                                 },
-                                right = new JS.Right()
+                                right = new SS.Right()
                                 {
-                                    clashselection = new JS.Clashselection()
+                                    clashselection = new SS.Clashselection()
                                     {
                                         Selfintersect = mscvm.JClashtest.right.clashselection.Selfintersect,
                                         Primtypes = mscvm.JClashtest.right.clashselection.Primtypes,

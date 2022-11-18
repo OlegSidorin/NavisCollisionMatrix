@@ -149,26 +149,26 @@
     <Compile Include="CT\Smarttags.cs" />
     <Compile Include="CT\Summary.cs" />
     <Compile Include="CT\Xml.cs" />
-    <Compile Include="JS\Batchtest.cs" />
-    <Compile Include="JS\Category.cs" />
-    <Compile Include="JS\Clashselection.cs" />
-    <Compile Include="JS\Clashtest.cs" />
-    <Compile Include="JS\Clashtests.cs" />
-    <Compile Include="JS\Condition.cs" />
-    <Compile Include="JS\Conditions.cs" />
-    <Compile Include="JS\Data.cs" />
-    <Compile Include="JS\Exchange.cs" />
-    <Compile Include="JS\Findspec.cs" />
-    <Compile Include="JS\Left.cs" />
-    <Compile Include="JS\Linkage.cs" />
-    <Compile Include="JS\Name.cs" />
-    <Compile Include="JS\Property.cs" />
-    <Compile Include="JS\Right.cs" />
-    <Compile Include="JS\Root.cs" />
-    <Compile Include="JS\Selectionset.cs" />
-    <Compile Include="JS\Selectionsets.cs" />
-    <Compile Include="JS\Value.cs" />
-    <Compile Include="JS\Xml.cs" />
+    <Compile Include="SS\Batchtest.cs" />
+    <Compile Include="SS\Category.cs" />
+    <Compile Include="SS\Clashselection.cs" />
+    <Compile Include="SS\Clashtest.cs" />
+    <Compile Include="SS\Clashtests.cs" />
+    <Compile Include="SS\Condition.cs" />
+    <Compile Include="SS\Conditions.cs" />
+    <Compile Include="SS\Data.cs" />
+    <Compile Include="SS\Exchange.cs" />
+    <Compile Include="SS\Findspec.cs" />
+    <Compile Include="SS\Left.cs" />
+    <Compile Include="SS\Linkage.cs" />
+    <Compile Include="SS\Name.cs" />
+    <Compile Include="SS\Property.cs" />
+    <Compile Include="SS\Right.cs" />
+    <Compile Include="SS\Root.cs" />
+    <Compile Include="SS\Selectionset.cs" />
+    <Compile Include="SS\Selectionsets.cs" />
+    <Compile Include="SS\Value.cs" />
+    <Compile Include="SS\Xml.cs" />
     <Compile Include="Views\DataCellView.xaml.cs">
       <DependentUpon>DataCellView.xaml</DependentUpon>
     </Compile>
@@ -207,27 +207,6 @@
     <Compile Include="Views\MatrixSelectionNameUserControl.xaml.cs">
       <DependentUpon>MatrixSelectionNameUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Batchtest.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Clashresult.cs" />
-    <Compile Include="Models\Clashselection.cs" />
-    <Compile Include="Models\Clashtest.cs" />
-    <Compile Include="Models\Condition.cs" />
-    <Compile Include="Models\Conditions.cs" />
-    <Compile Include="Models\Data.cs" />
-    <Compile Include="Models\Findspec.cs" />
-    <Compile Include="Models\Left.cs" />
-    <Compile Include="Models\Linkage.cs" />
-    <Compile Include="Models\Locator.cs" />
-    <Compile Include="Models\Name.cs" />
-    <Compile Include="Models\Property.cs" />
-    <Compile Include="Models\Right.cs" />
-    <Compile Include="Models\Rules.cs" />
-    <Compile Include="Models\Selectionset.cs" />
-    <Compile Include="Models\Summary.cs" />
-    <Compile Include="Models\Teststatus.cs" />
-    <Compile Include="Models\Testtype.cs" />
-    <Compile Include="Models\Value.cs" />
     <Compile Include="SelectionSet.cs" />
     <Compile Include="Models\ObservableObject.cs" />
     <Compile Include="Models\RelayCommand.cs" />
@@ -255,28 +234,6 @@
     </Compile>
     <Compile Include="Subviews\SubNodeVViewModel.cs" />
     <Compile Include="WidthConverter.cs" />
-    <Compile Include="XML\Approveddate.cs" />
-    <Compile Include="XML\Batchtest.cs" />
-    <Compile Include="XML\Clashobject.cs" />
-    <Compile Include="XML\Clashobjects.cs" />
-    <Compile Include="XML\Clashpoint.cs" />
-    <Compile Include="XML\Clashresult.cs" />
-    <Compile Include="XML\Clashresults.cs" />
-    <Compile Include="XML\Clashselection.cs" />
-    <Compile Include="XML\Clashtest.cs" />
-    <Compile Include="XML\Clashtests.cs" />
-    <Compile Include="XML\Createddate.cs" />
-    <Compile Include="XML\Date.cs" />
-    <Compile Include="XML\Exchange.cs" />
-    <Compile Include="XML\Left.cs" />
-    <Compile Include="XML\Linkage.cs" />
-    <Compile Include="XML\Objectattribute.cs" />
-    <Compile Include="XML\Pathlink.cs" />
-    <Compile Include="XML\Pos3f.cs" />
-    <Compile Include="XML\Right.cs" />
-    <Compile Include="XML\Smarttag.cs" />
-    <Compile Include="XML\Smarttags.cs" />
-    <Compile Include="XML\Summary.cs" />
     <Page Include="Views\DataCellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
