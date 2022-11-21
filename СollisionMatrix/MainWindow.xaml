@@ -89,7 +89,7 @@
                         </Grid.Resources>
                         
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" MinHeight="0" MaxHeight="380" />
+                            <RowDefinition Height="50" MinHeight="0" MaxHeight="380" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 

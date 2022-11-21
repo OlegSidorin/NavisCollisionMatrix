@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
+using System.Xml.Serialization;
 
 namespace СollisionMatrix
 {
@@ -155,7 +156,7 @@ namespace СollisionMatrix
 
         public DataCellViewModel[,] DataCellViewModels { get; set; }
 
-        public List<CT.Clashtest> Clashtests { get; set; } = new List<CT.Clashtest>();
+        public List<XMLCT.Clashtest> Clashtests { get; set; } = new List<XMLCT.Clashtest>();
 
         public MainWindowModel()
         {
@@ -179,6 +180,7 @@ namespace СollisionMatrix
             ExcelExport = new RelayCommand(OnExcelExportExecuted, CanExcelExportExecute);
 
             WidthColumn = 210;
+            
 
         }
 
@@ -232,50 +234,98 @@ namespace СollisionMatrix
             openFileDialog.ShowDialog();
             pathtoxml = openFileDialog.FileName;
 
-            XmlDocument xDoc = new XmlDocument();
+            //XmlDocument xDoc = new XmlDocument();
 
+            //try
+            //{
+            //    xDoc.Load(pathtoxml);
+            //}
+            //catch (Exception ex)
+            //{
+            //    success = false;
+            //    Xceed.Wpf.Toolkit.MessageBox.Show($"Возможно, не выбран файл и вот что удалось узнать:\n{ex.Message}", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+
+            //string json = JsonConvert.SerializeXmlNode(xDoc);
+
+            //Debug.WriteLine(json);
+
+            //return;
+
+            string xml = string.Empty;
+
+            int i = 0;
+            StringBuilder stringBuilder = new StringBuilder();
             try
             {
-                xDoc.Load(pathtoxml);
+                foreach (string line in System.IO.File.ReadLines(pathtoxml))
+                {
+                    if (i < 4)
+                    {
+                        if (!string.IsNullOrEmpty(line))
+                        {
+                            if (!line.Contains("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"))
+                            {
+                                stringBuilder.Append(line.Replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ", ""));
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        stringBuilder.Append(line);
+                    }
+                    i++;
+                }
             }
-            catch (Exception ex)
+            catch(Exception ex) 
             {
-                success = false;
-                Xceed.Wpf.Toolkit.MessageBox.Show($"Возможно, не выбран файл и вот что удалось узнать:\n{ex.Message}", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.ToString());
+                success = false; 
             }
 
-            string json = JsonConvert.SerializeXmlNode(xDoc);
+            XMLCT.Exchange exchange = null;
 
-            CT.Root xmlRoot = null;
+            XmlSerializer serializer = new XmlSerializer(typeof(XMLCT.Exchange));
+            using (StringReader reader = new StringReader(stringBuilder.ToString()))
+            {
+                Debug.WriteLine(reader.ToString());
+                exchange = (XMLCT.Exchange)serializer.Deserialize(reader);
+            }
 
-            try
-            {
-                xmlRoot = JsonConvert.DeserializeObject<CT.Root>(json);
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                Xceed.Wpf.Toolkit.MessageBox.Show($"Возможно, не тот файл и вот что удалось узнать:\n{ex.Message}", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //CT.Root xmlRoot = null;
+
+            //try
+            //{
+            //    xmlRoot = JsonConvert.DeserializeObject<CT.Root>(json);
+            //}
+            //catch (Exception ex)
+            //{
+            //    success = false;
+            //    Xceed.Wpf.Toolkit.MessageBox.Show($"Возможно, не тот файл и вот что удалось узнать:\n{ex.Message}", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
 
             if (!success) return;
-            if (xmlRoot == null) return;
+            //if (xmlRoot == null) return;
+            if (exchange == null) return;
 
             #endregion
 
             #region creating array Clashtests from xml file
 
-            foreach (CT.Clashtest ct in xmlRoot.exchange.batchtest.clashtests.clashtest)
+            foreach (XMLCT.Clashtest ct in exchange.Batchtest.Clashtests.Clashtest)
             {
                 Clashtests.Add(ct);
             }
-            foreach (CT.Clashtest ct in xmlRoot.exchange.batchtest.clashtests.clashtest)
+            foreach (XMLCT.Clashtest ct in exchange.Batchtest.Clashtests.Clashtest)
             {
-                SelectionsetNames.Add(ct.left?.clashselection?.locator);  //Replace("lcop_selection_set_tree/", ""));
+                string str = ct.Left?.Clashselection?.Locator;
+                if (!string.IsNullOrEmpty(str)) SelectionsetNames.Add(str);  //Replace("lcop_selection_set_tree/", ""));
             }
-            foreach (CT.Clashtest ct in xmlRoot.exchange.batchtest.clashtests.clashtest)
+            foreach (XMLCT.Clashtest ct in exchange.Batchtest.Clashtests.Clashtest)
             {
-                SelectionsetNames.Add(ct.right?.clashselection?.locator);  //Replace("lcop_selection_set_tree/", ""));
+                string str = ct.Right?.Clashselection?.Locator;
+                if (!string.IsNullOrEmpty(str)) SelectionsetNames.Add(str);  //Replace("lcop_selection_set_tree/", ""));
             }
 
             List<string> SelectionsetsNamesDistinct = SelectionsetNames.ToArray().Distinct().ToList();
@@ -291,18 +341,18 @@ namespace СollisionMatrix
                 Mainviews.MainLineUserControl mluc = new Mainviews.MainLineUserControl();
                 Mainviews.MainLineViewModel mlvm = new Mainviews.MainLineViewModel();
                 mlvm.HeaderWidth = WidthColumn - 35;
-                mlvm.NameOfSelection = sel_name.Replace("lcop_selection_set_tree/", "");
+                mlvm.NameOfSelection = sel_name?.Replace("lcop_selection_set_tree/", "");
                 mlvm.RowNum = rn.ToString();
                 mlvm.CellViews = new ObservableCollection<UserControl>();
-                mlvm.Clashtests = new List<CT.Clashtest>();
+                mlvm.Clashtests = new List<XMLCT.Clashtest>();
 
                 Mainviews.MainSelectionNameUserControl msnuc = new Mainviews.MainSelectionNameUserControl(); // это верхняя строка с именами selection set
 
-                foreach (CT.Clashtest clashtest in xmlRoot.exchange.batchtest.clashtests.clashtest)
+                foreach (XMLCT.Clashtest clashtest in exchange.Batchtest.Clashtests.Clashtest)
                 {
-                    if (clashtest.left?.clashselection?.locator != null )
+                    if (clashtest.Left?.Clashselection?.Locator != null )
                     {
-                        if (clashtest.left.clashselection.locator.Equals(sel_name)) mlvm.Clashtests.Add(clashtest); 
+                        if (clashtest.Left.Clashselection.Locator.Equals(sel_name)) mlvm.Clashtests.Add(clashtest); 
                     }
                 }
 
@@ -311,12 +361,12 @@ namespace СollisionMatrix
                     Mainviews.MainCellUserConrol mcuc = new Mainviews.MainCellUserConrol();
                     Mainviews.MainCellViewModel mcvm = new Mainviews.MainCellViewModel();
                     mcvm.Presenter = "";
-                    foreach (CT.Clashtest ct in mlvm.Clashtests)
+                    foreach (XMLCT.Clashtest ct in mlvm.Clashtests)
                     {
-                        if (ct.right.clashselection.locator.Equals(sel_name_2))
+                        if (ct.Right.Clashselection.Locator.Equals(sel_name_2))
                         {
                             mcvm.Clashtest = ct;
-                            mcvm.Presenter = ct.summary?.total;
+                            mcvm.Presenter = ct.Summary?.Total.ToString();
                         }
                     }
                     mcuc.DataContext = mcvm;
@@ -338,49 +388,49 @@ namespace СollisionMatrix
                 foreach (UserControl uc_cell in mlvm.CellViews)
                 {
                     Mainviews.MainCellViewModel mcvm = (Mainviews.MainCellViewModel)uc_cell.DataContext;
-                    double dt = Convert.ToDouble(mcvm.Clashtest?.tolerance, CultureInfo.InvariantCulture);
+                    double dt = Convert.ToDouble(mcvm.Clashtest?.Tolerance, CultureInfo.InvariantCulture);
                     if (dt != 0.0)
                     {
-                        if (xmlRoot.exchange.batchtest.units.Equals("m"))
+                        if (exchange.Batchtest.Units.Equals("m"))
                         {
                             if (dt * 1000 <= 50.5) uc_cell.Background = Color50;
                             if (dt * 1000 <= 30.5) uc_cell.Background = Color30;
                             if (dt * 1000 <= 15.5) uc_cell.Background = Color15;
                             if (dt * 1000 > 50.5) uc_cell.Background = Color80;
                             uc_cell.ToolTip =
-                                $"{mcvm.Clashtest?.name} \n{dt * 1000} мм\n" +
-                                $"{mcvm.Clashtest?.summary?.testtype}: {mcvm.Clashtest?.summary?.teststatus}\n" +
-                                $"Новых: {mcvm.Clashtest?.summary?.@new}\n" +
-                                $"Активных: {mcvm.Clashtest?.summary?.active}\n" +
-                                $"Проверенных: {mcvm.Clashtest?.summary?.reviewed}\n" +
-                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.summary?.approved}\n" +
-                                $"Исправленных: {mcvm.Clashtest?.summary?.resolved}";
+                                $"{mcvm.Clashtest?.Name} \n{dt * 1000} мм\n" +
+                                $"{mcvm.Clashtest?.Summary?.Testtype}: {mcvm.Clashtest?.Summary?.Teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest?.Summary?.@New}\n" +
+                                $"Активных: {mcvm.Clashtest?.Summary?.Active}\n" +
+                                $"Проверенных: {mcvm.Clashtest?.Summary?.Reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.Summary?.Approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest?.Summary?.Resolved}";
                         }
-                        else if (xmlRoot.exchange.batchtest.units.Equals("ft"))
+                        else if (exchange.Batchtest.Units.Equals("ft"))
                         {
                             if (dt * 304.8 <= 50.5) uc_cell.Background = Color50;
                             if (dt * 304.8 <= 30.5) uc_cell.Background = Color30;
                             if (dt * 304.8 <= 15.5) uc_cell.Background = Color15;
                             if (dt * 304.8 > 50.5) uc_cell.Background = Color80;
                             uc_cell.ToolTip =
-                                $"{mcvm.Clashtest?.name} \n{dt * 304.8} мм\n" +
-                                $"{mcvm.Clashtest?.summary?.testtype}: {mcvm.Clashtest?.summary?.teststatus}\n" +
-                                $"Новых: {mcvm.Clashtest?.summary?.@new}\n" +
-                                $"Активных: {mcvm.Clashtest?.summary?.active}\n" +
-                                $"Проверенных: {mcvm.Clashtest?.summary?.reviewed}\n" +
-                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.summary?.approved}\n" +
-                                $"Исправленных: {mcvm.Clashtest?.summary?.resolved}";
+                                $"{mcvm.Clashtest?.Name} \n{dt * 304.8} мм\n" +
+                                $"{mcvm.Clashtest?.Summary?.Testtype}: {mcvm.Clashtest?.Summary?.Teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest?.Summary?.@New}\n" +
+                                $"Активных: {mcvm.Clashtest?.Summary?.Active}\n" +
+                                $"Проверенных: {mcvm.Clashtest?.Summary?.Reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.Summary?.Approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest?.Summary?.Resolved}";
                         }
                         else
                         {
                             uc_cell.ToolTip =
-                                $"{mcvm.Clashtest?.name} \n" +
-                                $"{mcvm.Clashtest?.summary?.testtype}: {mcvm.Clashtest?.summary?.teststatus}\n" +
-                                $"Новых: {mcvm.Clashtest?.summary?.@new}\n" +
-                                $"Активных: {mcvm.Clashtest?.summary?.active}\n" +
-                                $"Проверенных: {mcvm.Clashtest?.summary?.reviewed}\n" +
-                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.summary?.approved}\n" +
-                                $"Исправленных: {mcvm.Clashtest?.summary?.resolved}";
+                                $"{mcvm.Clashtest?.Name} \n" +
+                                $"{mcvm.Clashtest?.Summary?.Testtype}: {mcvm.Clashtest?.Summary?.Teststatus}\n" +
+                                $"Новых: {mcvm.Clashtest?.Summary?.@New}\n" +
+                                $"Активных: {mcvm.Clashtest?.Summary?.Active}\n" +
+                                $"Проверенных: {mcvm.Clashtest?.Summary?.Reviewed}\n" +
+                                $"Подтвержденных (не коллизия): {mcvm.Clashtest?.Summary?.Approved}\n" +
+                                $"Исправленных: {mcvm.Clashtest?.Summary?.Resolved}";
                         }
                     }
                 }
@@ -397,7 +447,7 @@ namespace СollisionMatrix
         public ICommand ExcelExport { get; set; }
         private void OnExcelExportExecuted(object p)
         {
-
+            ///*
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
             ExcelPackage excel = new ExcelPackage();
 
@@ -490,37 +540,37 @@ namespace СollisionMatrix
                     Mainviews.MainCellViewModel mcvm = (Mainviews.MainCellViewModel)uc_cell.DataContext;
                     if (mcvm.Clashtest != null)
                     {
-                        int summary = Convert.ToInt32(mcvm.Clashtest.summary.@new) + 
-                            Convert.ToInt32(mcvm.Clashtest.summary.active) +
-                            Convert.ToInt32(mcvm.Clashtest.summary.reviewed); // + approved;
+                        int summary = Convert.ToInt32(mcvm.Clashtest.Summary.@New) + 
+                            Convert.ToInt32(mcvm.Clashtest.Summary.Active) +
+                            Convert.ToInt32(mcvm.Clashtest.Summary.Reviewed); // + approved;
                         foreach (ExcelWorksheet worksheet in worksheets)
                         {
                             if (worksheet.Name.Equals("Matrix"))
-                                worksheet.Cells[rowCount, colCount].Value = summary + "(" + mcvm.Clashtest.summary.resolved + ")" + "\n" + mcvm.Clashtest.summary.total;
+                                worksheet.Cells[rowCount, colCount].Value = summary + "(" + mcvm.Clashtest.Summary.Resolved + ")" + "\n" + mcvm.Clashtest.Summary.Total;
                             else if (worksheet.Name.Equals("Matrix-New"))
-                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.@new);
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.Summary.@New);
                             else if (worksheet.Name.Equals("Matrix-Active"))
-                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.active);
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.Summary.Active);
                             else if (worksheet.Name.Equals("Matrix-Reviewed"))
-                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.reviewed);
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.Summary.Reviewed);
                             else if (worksheet.Name.Equals("Matrix-Approved"))
-                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.approved);
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.Summary.Approved);
                             else if (worksheet.Name.Equals("Matrix-Resolved"))
-                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.resolved);
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.Summary.Resolved);
                             else if (worksheet.Name.Equals("Matrix-Total"))
-                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.summary.total);
+                                worksheet.Cells[rowCount, colCount].Value = Convert.ToInt32(mcvm.Clashtest.Summary.Total);
 
-                            if (Convert.ToInt32(mcvm.Clashtest.summary.total) == 0)
+                            if (Convert.ToInt32(mcvm.Clashtest.Summary.Total) == 0)
                             {
                                 worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(236, 236, 236));
                             }
-                            else if (mcvm.Clashtest.summary.resolved == mcvm.Clashtest.summary.total)
+                            else if (mcvm.Clashtest.Summary.Resolved == mcvm.Clashtest.Summary.Total)
                             {
                                 worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(202, 255, 191));
                             }
-                            else if (Convert.ToInt32(mcvm.Clashtest.summary.resolved) == 0)
+                            else if (Convert.ToInt32(mcvm.Clashtest.Summary.Resolved) == 0)
                             {
                                 worksheet.Cells[rowCount, colCount].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheet.Cells[rowCount, colCount].Style.Fill.SetBackground(System.Drawing.Color.FromArgb(255, 254, 191));
@@ -1070,7 +1120,8 @@ namespace СollisionMatrix
             {
                 System.Diagnostics.Process.Start(pathtoxls);
             }
-            
+
+            //*/
         }
         private bool CanExcelExportExecute(object p) => true;
 

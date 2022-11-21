@@ -1,0 +1,4883 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<exchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" units="m" filename="" filepath="">
+	<batchtest name="Report" internal_name="Report" units="m">
+		<clashtests>
+			<clashtest name="2_АР - АР (Заполнение проемов - Заполнение проемов)" test_type="hard" status="ok" tolerance="0.010" merge_composites="1">
+				<linkage mode="none"/>
+				<left>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Окна, Двери</locator>
+					</clashselection>
+				</left>
+				<right>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Окна, Двери</locator>
+					</clashselection>
+				</right>
+				<rules/>
+				<summary total="0" new="0" active="0" reviewed="0" approved="0" resolved="0">
+					<testtype>По пересечению</testtype>
+					<teststatus>ОК</teststatus>
+				</summary>
+				<clashresults/>
+			</clashtest>
+			<clashtest name="2_АР - АР (Заполнение проемов - Кладка)" test_type="hard" status="ok" tolerance="0.010" merge_composites="1">
+				<linkage mode="none"/>
+				<left>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Окна, Двери</locator>
+					</clashselection>
+				</left>
+				<right>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Стены</locator>
+					</clashselection>
+				</right>
+				<rules/>
+				<summary total="3" new="3" active="0" reviewed="0" approved="0" resolved="0">
+					<testtype>По пересечению</testtype>
+					<teststatus>ОК</teststatus>
+				</summary>
+				<clashresults>
+					<clashresult name="Конфликт1" guid="8d07f05a-1ee2-4c85-a74b-98fdd7e9089f" status="new" distance="-0.400">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="3.935" y="15.878" z="3.165"/>
+						</clashpoint>
+						<gridlocation>А-3 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9088691</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Двери</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>ADSK_Остекление_Стекло синий_Закаленное</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>ADSK_Остекление_Стекло синий_Закаленное</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8952011</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФВ)-СН-6___-300</node>
+									<node>Базовая стена</node>
+									<node>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт2" guid="1609977c-5c9e-4809-ae1f-e8fbedbe0f97" status="new" distance="-0.126">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="2.438" y="15.983" z="3.035"/>
+						</clashpoint>
+						<gridlocation>А-3 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9088691</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Двери</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>ADSK_Металл_С порошковым покрытием темно-серый</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>ADSK_Металл_С порошковым покрытием темно-серый</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8956372</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФВ)-СН-6___-300</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт3" guid="aa3f6973-25f1-4f71-b05a-a00f88ea9849" status="new" distance="-0.100">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="2.275" y="16.352" z="3.275"/>
+						</clashpoint>
+						<gridlocation>А-3 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9088691</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Двери</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>Козырек</node>
+									<node>ADSK_Металл_С порошковым покрытием темно-серый</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>ADSK_Металл_С порошковым покрытием темно-серый</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8541997</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+				</clashresults>
+			</clashtest>
+			<clashtest name="2_АР - АР (Заполнение проемов - Фасад)" test_type="hard" status="ok" tolerance="0.010" merge_composites="1">
+				<linkage mode="none"/>
+				<left>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Окна, Двери</locator>
+					</clashselection>
+				</left>
+				<right>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_FSD_ | Обобщенные модели</locator>
+					</clashselection>
+				</right>
+				<rules/>
+				<summary total="0" new="0" active="0" reviewed="0" approved="0" resolved="0">
+					<testtype>По пересечению</testtype>
+					<teststatus>ОК</teststatus>
+				</summary>
+				<clashresults/>
+			</clashtest>
+			<clashtest name="2_АР - КР (Заполнение проемов - ЖБ)" test_type="hard" status="ok" tolerance="0.010" merge_composites="1">
+				<linkage mode="none"/>
+				<left>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Окна, Двери</locator>
+					</clashselection>
+				</left>
+				<right>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_KR_ | Стены, Несущие колонны, Перекрытия, Фундамент несущей конструкции </locator>
+					</clashselection>
+				</right>
+				<rules/>
+				<summary total="4" new="4" active="0" reviewed="0" approved="0" resolved="0">
+					<testtype>По пересечению</testtype>
+					<teststatus>ОК</teststatus>
+				</summary>
+				<clashresults>
+					<clashresult name="Конфликт1" guid="e92f9b03-0bdd-486f-8d43-224587432642" status="new" distance="-0.053">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-2.924" y="81.309" z="14.700"/>
+						</clashpoint>
+						<gridlocation>В-12 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8620254</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Двери</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>DR_Сталь окрашенная</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>DR_Сталь окрашенная</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>3425908</value>
+								</objectattribute>
+								<layer>ПДЛ_План 05_+13.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_KR_PRK.nwc</node>
+									<node>ПДЛ_План 05_+13.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>КР_Железобетон_B25, F150, W4 - 180 мм</node>
+									<node>Базовая стена</node>
+									<node>г02.04.01.01_ЖБ_B25,F150,W4_Устройство монолитных ж/б стен</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>г02.04.01.01_ЖБ_B25,F150,W4_Устройство монолитных ж/б стен</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт2" guid="21f4df7b-ae3b-4518-bda0-c676c62c7ada" status="new" distance="-0.050">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="5.711" y="73.271" z="-2.200"/>
+						</clashpoint>
+						<gridlocation>А-11 : П01 этаж_-2.850</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9352551</value>
+								</objectattribute>
+								<layer>П01 этаж_-2.850</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>П01 этаж_-2.850</node>
+									<node>Двери</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>DR_Сталь</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>DR_Сталь</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8545786</value>
+								</objectattribute>
+								<layer>П01 этаж_-2.850</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>П01 этаж_-2.850</node>
+									<node>Перекрытия</node>
+									<node>Перекрытие</node>
+									<node>(КР) ЖБ-500_Концепция</node>
+									<node>Перекрытие</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт3" guid="a788a14e-a5e3-4595-96ec-07637d7a8872" status="new" distance="-0.050">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="5.711" y="73.271" z="-2.200"/>
+						</clashpoint>
+						<gridlocation>А-11 : П01 этаж_-2.850</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9352551</value>
+								</objectattribute>
+								<layer>П01 этаж_-2.850</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>П01 этаж_-2.850</node>
+									<node>Двери</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>DR_Сталь</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>DR_Сталь</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>3730487</value>
+								</objectattribute>
+								<layer>П01 этаж_-2.850</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_KR_PRK.nwc</node>
+									<node>П01 этаж_-2.850</node>
+									<node>Фундамент несущей конструкции</node>
+									<node>Фундаментная плита</node>
+									<node>КЖ_Фундаментная плита_Железобетон В30, F150, W6_500</node>
+									<node>Фундаментная плита</node>
+									<node>г02.02.06_ЖБ_B30,F150,W6_Устройство фундаментной плиты_н.ц.</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>г02.02.06_ЖБ_B30,F150,W6_Устройство фундаментной плиты_н.ц.</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт4" guid="fa656146-6bed-4070-a0c3-a4841e258c05" status="new" distance="-0.050">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="5.711" y="73.271" z="-2.200"/>
+						</clashpoint>
+						<gridlocation>А-11 : П01 этаж_-2.850</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9352551</value>
+								</objectattribute>
+								<layer>П01 этаж_-2.850</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>П01 этаж_-2.850</node>
+									<node>Двери</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>1_03-2_Дверь_Проектируемая</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>ДГ_Мет_ОС_EI</node>
+									<node>DR_Сталь</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>DR_Сталь</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>3730985</value>
+								</objectattribute>
+								<layer>П01 этаж_-2.850</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_KR_PRK.nwc</node>
+									<node>П01 этаж_-2.850</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>КР_Железобетон_B25, F150, W4 - 200 мм</node>
+									<node>Базовая стена</node>
+									<node>г02.04.01.01_ЖБ_B25,F150,W4_Устройство монолитных ж/б стен</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>г02.04.01.01_ЖБ_B25,F150,W4_Устройство монолитных ж/б стен</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+				</clashresults>
+			</clashtest>
+			<clashtest name="2_АР - АР (Стены  - Стены )" test_type="hard" status="ok" tolerance="0.010" merge_composites="1">
+				<linkage mode="none"/>
+				<left>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Стены</locator>
+					</clashselection>
+				</left>
+				<right>
+					<clashselection selfintersect="0" primtypes="1">
+						<locator>lcop_selection_set_tree/_AR_ | Стены</locator>
+					</clashselection>
+				</right>
+				<rules/>
+				<summary total="62" new="62" active="0" reviewed="0" approved="0" resolved="0">
+					<testtype>По пересечению</testtype>
+					<teststatus>ОК</teststatus>
+				</summary>
+				<clashresults>
+					<clashresult name="Конфликт1" guid="536acf2a-8284-4ee9-a5d8-abde4b721257" status="new" distance="-2.471">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-9.756" y="67.120" z="-0.200"/>
+						</clashpoint>
+						<gridlocation>Г-10 : П01 этаж_-1,750</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8058371</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-200</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8065400</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт2" guid="c83f3236-d19c-4169-9bbb-8ba087ad1a9d" status="new" distance="-0.447">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="13.666" y="64.995" z="3.943"/>
+						</clashpoint>
+						<gridlocation>А/1-10 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8940185</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-100</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8569187</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт3" guid="f67ac74a-7247-428a-9461-ce04be0d2d37" status="new" distance="-0.400">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="1.809" y="14.491" z="4.500"/>
+						</clashpoint>
+						<gridlocation>А-3 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8544006</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>7845842</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт4" guid="d83d2e4e-149d-4673-abe9-0bcf233493e8" status="new" distance="-0.322">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="13.485" y="72.534" z="4.500"/>
+						</clashpoint>
+						<gridlocation>А/1-11 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8940117</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-100</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8569187</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт5" guid="9a28f6eb-6a1b-4f8b-9321-2e4edfb8994d" status="new" distance="-0.200">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="2.008" y="14.470" z="4.263"/>
+						</clashpoint>
+						<gridlocation>А-3 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8954115</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФВ)-СН-6___-300</node>
+									<node>Базовая стена</node>
+									<node>_!г02.07.42_Минераловатный утеплитель_Устройство фасадов_Устройство утепления фасада минераловатными плитами</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.07.42_Минераловатный утеплитель_Устройство фасадов_Устройство утепления фасада минераловатными плитами</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8544006</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт6" guid="8676358e-5f64-48bf-b7ea-a2d9d1188629" status="new" distance="-0.200">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="13.482" y="72.645" z="4.148"/>
+						</clashpoint>
+						<gridlocation>А/1-11 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9272217</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-200</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8569187</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт7" guid="a0a38670-0c4f-45c0-85da-b326ab2e7c28" status="new" distance="-0.200">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.031" y="6.816" z="4.800"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9077778</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФМ) ФДШ-10 30 (ЦСП-20 ФДШ-10) RAL #### Наружная отделка поверх утеплителя</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8403804</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт8" guid="bc4d2497-f95b-4b66-b402-bfe79b55f17f" status="new" distance="-0.200">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-4.959" y="74.765" z="8.602"/>
+						</clashpoint>
+						<gridlocation>В-11 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8932692</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8053530</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-200</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт9" guid="39d7a65b-8e51-4380-a21e-c021ec9449ae" status="new" distance="-0.200">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-4.959" y="74.765" z="6.427"/>
+						</clashpoint>
+						<gridlocation>В-11 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8932692</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8114178</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-200</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт10" guid="4399a1c9-8698-4ad0-aafd-c62f8952ee8b" status="new" distance="-0.200">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-8.918" y="75.177" z="7.334"/>
+						</clashpoint>
+						<gridlocation>Г-11 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8731530</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8114178</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-200</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт11" guid="90ab620d-0d02-4f6a-9d06-f6cf4af3cc09" status="new" distance="-0.180">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-18.788" y="4.468" z="12.698"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8048771</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8743207</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт12" guid="e98c1002-69cf-4ec4-a20f-575477d5285b" status="new" distance="-0.180">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-18.788" y="4.468" z="7.039"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8703592</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8331156</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт13" guid="495c46f2-5781-4f28-8ddf-f0f2a7e34f0f" status="new" distance="-0.180">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.699" y="3.939" z="17.100"/>
+						</clashpoint>
+						<gridlocation>В-1 : 06 этаж_+16.200</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744311</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8529819</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт14" guid="59a3977f-2d41-4180-a603-c5cb509b09ad" status="new" distance="-0.180">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-8.289" y="79.485" z="6.008"/>
+						</clashpoint>
+						<gridlocation>Г-12 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8294946</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8731839</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт15" guid="fd6a3219-0d6e-44b4-8b96-cf7c7a03af8a" status="new" distance="-0.150">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="9.497" y="80.650" z="3.150"/>
+						</clashpoint>
+						<gridlocation>А-12 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9219756</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-1 ГБ-600 МОП Стена_Концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8960368</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФВ)-СН-6___-300</node>
+									<node>Базовая стена</node>
+									<node>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт16" guid="b0c11ccb-5e5d-4d51-bc92-f118ac355c49" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.582" y="6.642" z="18.007"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 06 этаж_+16.200</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744315</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744314</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт17" guid="cab556fd-a3a9-4faf-a205-e085c896d55c" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.701" y="6.654" z="16.140"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744086</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744314</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт18" guid="f3f7201f-796e-41e8-9857-aef5ecc9a163" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.701" y="6.654" z="10.440"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8742820</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8743210</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт19" guid="0cbc0317-3703-487f-8804-1c86315bc2b3" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.701" y="6.654" z="8.097"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8742820</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8742819</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт20" guid="95ac4561-5996-4f65-af0d-d5569e195a83" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.582" y="6.642" z="7.340"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8707536</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8707588</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт21" guid="305f1d59-26ca-4a15-a7c0-9ea19692cdf8" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.701" y="6.654" z="7.489"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8742819</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8707588</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт22" guid="75af137c-da83-4d75-8825-5f584d0fa1a0" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.582" y="6.642" z="15.157"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744085</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744086</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт23" guid="0dae7cb4-e8fb-4c2c-9036-15a5d8242059" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.701" y="6.654" z="13.189"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8743211</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744085</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт24" guid="180141ca-eff1-4589-865b-a02824eb5271" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.582" y="6.642" z="13.040"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8743210</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8743211</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт25" guid="e9736330-2cff-4dc4-b726-fcae18e2af04" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.055" y="6.587" z="4.600"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8156344</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8707588</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт26" guid="c53eaed8-fac5-4154-8b41-cc8b278baf4d" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.055" y="6.587" z="4.600"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8707588</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8403804</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт27" guid="04d0edfd-79ec-4c0e-8f1f-b9d4aaa4efa4" status="new" distance="-0.120">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-3.037" y="78.938" z="11.540"/>
+						</clashpoint>
+						<gridlocation>В-12 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8366466</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8921932</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт28" guid="faf5fad7-b8e4-4b5b-b38f-d4f970166d63" status="new" distance="-0.100">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-2.162" y="66.672" z="0.048"/>
+						</clashpoint>
+						<gridlocation>В-10 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9069992</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФМ) ФДШ-10 30 (ЦСП-20 ФДШ-10) RAL #### Наружная отделка поверх утеплителя</node>
+									<node>Базовая стена</node>
+									<node>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.07.73_Керамогранитная плитка RAL ####_Устройство фасадов_Облицовка фасада керамогранитной плиткой на подсистеме с открытой системой крепления</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8292571</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт29" guid="5187f9f1-f6a8-40b3-b034-11fb6c8c7753" status="new" distance="-0.090">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-15.214" y="6.117" z="16.200"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744299</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744074</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт30" guid="72e23a2b-e161-4a54-acc2-6fdc44d3a750" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-18.788" y="4.468" z="13.290"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744082</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8529818</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт31" guid="be21f3f2-adea-4519-b5fc-9d6d8456164c" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.716" y="3.941" z="4.600"/>
+						</clashpoint>
+						<gridlocation>В-1 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8033670</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8703592</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт32" guid="518ffd35-0d06-4830-94a5-3becf37e8d98" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.708" y="4.020" z="8.972"/>
+						</clashpoint>
+						<gridlocation>В-1 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8742816</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8047475</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт33" guid="3cb1e3a7-a09c-4cef-b7f4-e75b8e7bbbbb" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.716" y="3.941" z="11.540"/>
+						</clashpoint>
+						<gridlocation>В-1 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8743207</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8047475</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт34" guid="75aeeddf-1e21-4106-8d27-6ddba013e527" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.707" y="3.940" z="14.390"/>
+						</clashpoint>
+						<gridlocation>В-1 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744082</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8048772</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт35" guid="79b2b457-88b0-45d0-84aa-577a15b38d57" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.636" y="3.932" z="11.790"/>
+						</clashpoint>
+						<gridlocation>В-1 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8743207</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8048772</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт36" guid="50b6c01e-eb93-41e5-b146-481affeac93f" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.716" y="3.941" z="5.950"/>
+						</clashpoint>
+						<gridlocation>В-1 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8703592</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8331110</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт37" guid="4326b373-56cd-4861-af5e-dbf596aea133" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.708" y="4.020" z="14.672"/>
+						</clashpoint>
+						<gridlocation>В-1 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744082</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8529819</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт38" guid="764faa5a-6408-40fd-9ab4-2b845a583af8" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-18.788" y="4.468" z="7.590"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8047474</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8742816</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт39" guid="68d659b1-33c1-4769-871e-b1c2d04c9af5" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.845" y="3.954" z="5.902"/>
+						</clashpoint>
+						<gridlocation>В-1 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8431684</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-130_Концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8703592</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт40" guid="0ef9ee0b-8c03-4cf4-945d-390af59ec84f" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.707" y="3.940" z="8.690"/>
+						</clashpoint>
+						<gridlocation>В-1 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8742816</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8331110</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт41" guid="f5741876-ea74-4452-9c25-79cb9eacb0f4" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-4.660" y="77.639" z="6.174"/>
+						</clashpoint>
+						<gridlocation>В-11 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8932692</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8932591</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт42" guid="e7fafdef-1c27-4c4c-9628-8fd08588ca80" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-8.289" y="79.485" z="11.622"/>
+						</clashpoint>
+						<gridlocation>Г-12 : 04 этаж_+10.500</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8921932</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8048781</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт43" guid="8198858f-0dba-4013-91a9-d66e19c40d5a" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-8.160" y="79.471" z="0.000"/>
+						</clashpoint>
+						<gridlocation>Г-12 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8622463</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8622460</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-130_Концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт44" guid="9a1f88df-e71a-4a85-a12f-09c7f6893d3c" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-3.216" y="78.957" z="5.700"/>
+						</clashpoint>
+						<gridlocation>В-12 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8314993</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8731839</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт45" guid="1b504367-f8e8-435c-8a91-2c0c33e6e29d" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-3.346" y="78.970" z="0.663"/>
+						</clashpoint>
+						<gridlocation>В-12 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8622462</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-130_Концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8622463</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт46" guid="01dc953d-3870-468f-ba3f-4876d46a48c3" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-3.038" y="78.938" z="5.950"/>
+						</clashpoint>
+						<gridlocation>В-12 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8290974</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8731839</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт47" guid="ceaf7089-ea15-44d0-942a-fe3a7c7945e4" status="new" distance="-0.080">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-3.346" y="78.970" z="6.000"/>
+						</clashpoint>
+						<gridlocation>В-12 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8622462</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-130_Концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8731839</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт48" guid="6511721e-6df9-46e1-95a2-f256f8c94df7" status="new" distance="-0.077">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.708" y="4.020" z="18.860"/>
+						</clashpoint>
+						<gridlocation>В-1 : 06 этаж_+16.200</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8369669</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744311</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт49" guid="e10e4a8c-bb5d-4c98-a2d5-c4003fa65e7d" status="new" distance="-0.065">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-3.223" y="78.893" z="4.600"/>
+						</clashpoint>
+						<gridlocation>В-12 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8622463</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8731839</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт50" guid="70689938-7c17-4ee2-9df3-7bf7eab8c4cb" status="new" distance="-0.060">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-19.234" y="1.921" z="16.000"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744321</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8529822</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт51" guid="54aad514-12f3-47ce-b253-46e3cf67edfb" status="new" distance="-0.060">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-18.780" y="4.548" z="10.440"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8048771</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8047461</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт52" guid="32ee84c2-463f-461f-90a8-6631f3147345" status="new" distance="-0.059">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-13.839" y="4.016" z="4.600"/>
+						</clashpoint>
+						<gridlocation>В-1 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8431618</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8703592</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт53" guid="a63c82b2-8f38-48e4-9e87-85a1981cc539" status="new" distance="-0.054">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-17.223" y="6.417" z="16.153"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744330</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) СВ-4 К-120 Коммерция Шахта</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.06_Кирпич Кр-р-по 250х120х65 1НФ/2/100/50 на ц/п растворе М100_Кладка внутренних стен и перегородок_Кладка перегородок армированных из кирпича</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744302</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт54" guid="df1a4d69-e780-4de4-8a2e-a571bd11b795" status="new" distance="-0.050">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-8.160" y="79.471" z="4.650"/>
+						</clashpoint>
+						<gridlocation>Г-12 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8622460</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-130_Концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8731839</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.65_Минераловатный утеплитель_Кладка внутренних стен и перегородок_Устройство утепления из минераловатных плит</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт55" guid="1b4b27d0-861c-4d24-bf79-d50054e4a83d" status="new" distance="-0.050">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="2.271" y="16.001" z="3.850"/>
+						</clashpoint>
+						<gridlocation>А-3 : 01 этаж_0.000</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8956372</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФВ)-СН-6___-300</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8954115</value>
+								</objectattribute>
+								<layer>01 этаж_0.000</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>01 этаж_0.000</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФВ)-СН-6___-300</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт56" guid="17f3b2e1-e087-4ee7-b030-b7e1bbcb5f3a" status="new" distance="-0.030">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-16.031" y="6.816" z="4.800"/>
+						</clashpoint>
+						<gridlocation>Г-2 : 02 этаж_+4.800</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8156344</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(Н) СН-1 ГБ-200 Стена</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.47_Газобетонный блок D600_Кладка наружных стен и перегородок_Кладка стен армированных из газобетонных блоков с креплением</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9077778</value>
+								</objectattribute>
+								<layer>02 этаж_+4.800</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>02 этаж_+4.800</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФМ) ФДШ-10 30 (ЦСП-20 ФДШ-10) RAL #### Наружная отделка поверх утеплителя</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт57" guid="65a64e8d-3426-49ac-9874-24f72376a2ad" status="new" distance="-0.020">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-19.062" y="4.447" z="16.040"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9078167</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФМ) ФДШ-10 30 (ЦСП-20 ФДШ-10) RAL #### Наружная отделка поверх утеплителя</node>
+									<node>Базовая стена</node>
+									<node>Штукатурка</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Штукатурка</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9119553</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция 2</node>
+									<node>Базовая стена</node>
+									<node>_!г02.05.01_Газобетон D600_Кладка наружных стен и перегородок_Кладка парапетов из газобетонных блоков</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.05.01_Газобетон D600_Кладка наружных стен и перегородок_Кладка парапетов из газобетонных блоков</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт58" guid="cd8ae4e9-9a17-4643-95d1-69460f6f43de" status="new" distance="-0.020">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-14.015" y="1.258" z="10.500"/>
+						</clashpoint>
+						<gridlocation>В-1 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8047943</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8047992</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт59" guid="604ddb77-e3c4-4608-ab13-cdce935b6a27" status="new" distance="-0.020">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-14.015" y="1.257" z="10.500"/>
+						</clashpoint>
+						<gridlocation>В-1 : 03 этаж_+7.650</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8512089</value>
+								</objectattribute>
+								<layer>04 этаж_+10.500</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>04 этаж_+10.500</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8047992</value>
+								</objectattribute>
+								<layer>03 этаж_+7.650</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>03 этаж_+7.650</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(К) ЖБ-180</node>
+									<node>Базовая стена</node>
+									<node>_!Железобетон</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!Железобетон</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт60" guid="8d3f7613-976a-4263-ba11-6536b70310ff" status="new" distance="-0.010">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-20.831" y="6.883" z="16.040"/>
+						</clashpoint>
+						<gridlocation>Д-2 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744326</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция 2</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9078311</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФМ) ФДШ-10 30 (ЦСП-20 ФДШ-10) RAL #### Наружная отделка поверх утеплителя</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт61" guid="ad4f99cf-5c78-43f0-bff3-6a79e83c1842" status="new" distance="-0.010">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-21.050" y="4.764" z="16.000"/>
+						</clashpoint>
+						<gridlocation>Д-1 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744327</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция 2</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9078311</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФМ) ФДШ-10 30 (ЦСП-20 ФДШ-10) RAL #### Наружная отделка поверх утеплителя</node>
+									<node>Базовая стена</node>
+									<node>_!г02.07.236_ЦСП_Устройство фасадов_Облицовка плитами ЦСП на клею</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.07.236_ЦСП_Устройство фасадов_Облицовка плитами ЦСП на клею</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+					<clashresult name="Конфликт62" guid="84387ac4-915a-4da7-bf03-d2844a9a43dc" status="new" distance="-0.010">
+						<description>По пересечению</description>
+						<resultstatus>Создать</resultstatus>
+						<clashpoint>
+							<pos3f x="-20.821" y="6.962" z="16.000"/>
+						</clashpoint>
+						<gridlocation>Д-2 : 05 этаж_+13.350</gridlocation>
+						<createddate>
+							<date year="2022" month="10" day="26" hour="15" minute="15" second="11"/>
+						</createddate>
+						<clashobjects>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>8744309</value>
+								</objectattribute>
+								<layer>06 этаж_+16.200</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>06 этаж_+16.200</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(В) УВ-2 У-80_концепция 2</node>
+									<node>Базовая стена</node>
+									<node>Твердое тело</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>Базовая стена</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+							<clashobject>
+								<objectattribute>
+									<name>ID объекта</name>
+									<value>9078311</value>
+								</objectattribute>
+								<layer>05 этаж_+13.350</layer>
+								<pathlink>
+									<node>Файл</node>
+									<node>Файл</node>
+									<node>CKOM-AU1_PD_AR_PRK.nwc</node>
+									<node>05 этаж_+13.350</node>
+									<node>Стены</node>
+									<node>Базовая стена</node>
+									<node>(ФМ) ФДШ-10 30 (ЦСП-20 ФДШ-10) RAL #### Наружная отделка поверх утеплителя</node>
+									<node>Базовая стена</node>
+									<node>_!г02.07.236_ЦСП_Устройство фасадов_Облицовка плитами ЦСП на клею</node>
+								</pathlink>
+								<smarttags>
+									<smarttag>
+										<name>Элемент Имя</name>
+										<value>_!г02.07.236_ЦСП_Устройство фасадов_Облицовка плитами ЦСП на клею</value>
+									</smarttag>
+									<smarttag>
+										<name>Элемент Тип</name>
+										<value>Твердое тело</value>
+									</smarttag>
+								</smarttags>
+							</clashobject>
+						</clashobjects>
+					</clashresult>
+				</clashresults>
+			</clashtest>
+
+		</clashtests>
+		<selectionsets/>
+	</batchtest>
+</exchange>

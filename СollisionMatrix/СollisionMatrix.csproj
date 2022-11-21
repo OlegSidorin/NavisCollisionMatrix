@@ -234,6 +234,27 @@
     </Compile>
     <Compile Include="Subviews\SubNodeVViewModel.cs" />
     <Compile Include="WidthConverter.cs" />
+    <Compile Include="XMLCT\Batchtest.cs" />
+    <Compile Include="XMLCT\Clashobject.cs" />
+    <Compile Include="XMLCT\Clashobjects.cs" />
+    <Compile Include="XMLCT\Clashpoint.cs" />
+    <Compile Include="XMLCT\Clashresult.cs" />
+    <Compile Include="XMLCT\Clashresults.cs" />
+    <Compile Include="XMLCT\Clashselection.cs" />
+    <Compile Include="XMLCT\Clashtest.cs" />
+    <Compile Include="XMLCT\Clashtests.cs" />
+    <Compile Include="XMLCT\Createddate.cs" />
+    <Compile Include="XMLCT\Date.cs" />
+    <Compile Include="XMLCT\Exchange.cs" />
+    <Compile Include="XMLCT\Left.cs" />
+    <Compile Include="XMLCT\Linkage.cs" />
+    <Compile Include="XMLCT\Objectattribute.cs" />
+    <Compile Include="XMLCT\Pathlink.cs" />
+    <Compile Include="XMLCT\Pos3f.cs" />
+    <Compile Include="XMLCT\Right.cs" />
+    <Compile Include="XMLCT\Smarttag.cs" />
+    <Compile Include="XMLCT\Smarttags.cs" />
+    <Compile Include="XMLCT\Summary.cs" />
     <Page Include="Views\DataCellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -376,6 +397,7 @@
     <Resource Include="Examples\output.xml" />
     <Resource Include="Examples\CKOM-AU1_PD.xml" />
     <Resource Include="Examples\output — копия.xml" />
+    <Resource Include="CT\XMLFile1.xml" />
     <Content Include="selectionsets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

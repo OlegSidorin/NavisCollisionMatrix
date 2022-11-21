@@ -21,7 +21,7 @@ namespace СollisionMatrix.CT
         public Linkage linkage { get; set; }
         public Left left { get; set; }
         public Right right { get; set; }
-        public object rules { get; set; }
+        public string rules { get; set; }
         public Summary summary { get; set; }
         public Clashresults clashresults { get; set; }
     }
