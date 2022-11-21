@@ -221,7 +221,10 @@ namespace СollisionMatrix
                         {
                             if (i == 0)
                             {
-                                ss.findspec.conditions.condition.Add(
+                                string categoria = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ');
+                                if (!categoria.ToLower().Equals("все"))
+                                {
+                                    ss.findspec.conditions.condition.Add(
                                     new SS.Condition()
                                     {
                                         Test = "equals",
@@ -252,6 +255,8 @@ namespace СollisionMatrix
                                         }
                                     }
                                     );
+                                }
+                                
                             }
                             else
                             {
@@ -621,7 +626,6 @@ namespace СollisionMatrix
             set { selectedCategory = value; OnPropertyChanged(); } 
         }
         public ObservableCollection<string> Categories_in_revit
-
         {
             get
             {
