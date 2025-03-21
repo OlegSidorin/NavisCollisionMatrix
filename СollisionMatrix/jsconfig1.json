@@ -1,0 +1,598 @@
+{
+  "exchange": {
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "@xsi:noNamespaceSchemaLocation": "http://download.autodesk.com/us/navisworks/schemas/nw-exchange-12.0.xsd",
+    "@units": "ft",
+    "@filename": "",
+    "@filepath": "",
+    "batchtest": {
+      "@name": "Tests",
+      "@internal_name": "Tests",
+      "@units": "ft",
+      "clashtests": {
+        "clashtest": [
+          {
+            "@name": "AR - AR",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0492125984251968",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/AR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/AR"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "AR - KR",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/AR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/KR"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "AR - PT",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/AR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/PT"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "AR - ОВ1",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/AR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ1"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "AR - ОВ2",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/AR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ2"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "KR - KR",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0492125984251968",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/KR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/KR"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "KR - PT",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/KR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/PT"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "KR - ОВ1",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/KR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ1"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "KR - ОВ2",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/KR"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ2"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "PT - PT",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0492125984251968",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/PT"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/PT"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "PT - ОВ1",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/PT"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ1"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "PT - ОВ2",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/PT"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ2"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "ОВ1 - ОВ1",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0492125984251968",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ1"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ1"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "ОВ1 - ОВ2",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0984251968503937",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ1"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ2"
+              }
+            },
+            "rules": null
+          },
+          {
+            "@name": "ОВ2 - ОВ2",
+            "@test_type": "hard",
+            "@status": "ok",
+            "@tolerance": "0.0492125984251968",
+            "@merge_composites": "1",
+            "linkage": { "@mode": "none" },
+            "left": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ2"
+              }
+            },
+            "right": {
+              "clashselection": {
+                "@selfintersect": "0",
+                "@primtypes": "1",
+                "locator": "lcop_selection_set_tree/ОВ2"
+              }
+            },
+            "rules": null
+          }
+        ]
+      },
+      "selectionsets": {
+        "selectionset": [
+          {
+            "@name": "AR",
+            "@guid": "cff2912e-e360-4d48-acb6-38b2681fc834",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "AR"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "AR"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "KR",
+            "@guid": "bb71a7d0-f768-416f-8fb3-bcf0e85d7406",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "KR"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "KR"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "PT",
+            "@guid": "74956efe-1a9e-4d93-8185-a78fa5d58a40",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "PT"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "PT"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "ОВ1",
+            "@guid": "a57aa4c4-70c7-4009-9131-0c4af1e73b68",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": [
+                  {
+                    "@test": "contains",
+                    "@flags": "10",
+                    "property": {
+                      "name": {
+                        "@internal": "LcOaNodeSourceFile",
+                        "#text": "Файл источника"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "ОВ1"
+                      }
+                    }
+                  },
+                  {
+                    "@test": "equals",
+                    "@flags": "10",
+                    "category": {
+                      "name": {
+                        "@internal": "LcRevitData_Element",
+                        "#text": "Объект"
+                      }
+                    },
+                    "property": {
+                      "name": {
+                        "@internal": "LcRevitPropertyElementCategory",
+                        "#text": "Категория"
+                      }
+                    },
+                    "value": {
+                      "data": {
+                        "@type": "wstring",
+                        "#text": "ОВ1"
+                      }
+                    }
+                  }
+                ]
+              },
+              "locator": "/"
+            }
+          },
+          {
+            "@name": "ОВ2",
+            "@guid": "0ceb0971-901a-4456-807a-b17fc80e3c76",
+            "findspec": {
+              "@mode": "all",
+              "@disjoint": "0",
+              "conditions": {
+                "condition": {
+                  "@test": "contains",
+                  "@flags": "10",
+                  "property": {
+                    "name": {
+                      "@internal": "LcOaNodeSourceFile",
+                      "#text": "Файл источника"
+                    }
+                  },
+                  "value": {
+                    "data": {
+                      "@type": "wstring",
+                      "#text": "ОВ2"
+                    }
+                  }
+                }
+              },
+              "locator": "/"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

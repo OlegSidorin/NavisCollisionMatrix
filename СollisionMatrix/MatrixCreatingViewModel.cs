@@ -127,7 +127,6 @@ namespace СollisionMatrix
 
             DoIfIClickOnSaveXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnSaveXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnSaveXMLCollisionMatrixButtonExecute);
             DoIfIClickOnOpenXMLCollisionMatrixButton = new RelayCommand(OnDoIfIClickOnOpenXMLCollisionMatrixButtonExecuted, CanDoIfIClickOnOpenXMLCollisionMatrixButtonExecute);
-            
 
         }
 
@@ -188,6 +187,70 @@ namespace СollisionMatrix
                             {
                                 condition = new List<SS.Condition>()
                             {
+                                    new SS.Condition()
+                                {
+                                    Test = "contains",
+                                    Flags = "10",
+                                    property = new SS.Property()
+                                    {
+                                        name = new SS.Name()
+                                        {
+                                            Internal = "LcOaSceneBaseUserName",
+                                            Text = "Имя"
+                                        }
+                                    },
+                                    value = new SS.Value()
+                                    {
+                                        data = new SS.Data()
+                                        {
+                                            Type = "wstring",
+                                            Text = mslvm.NameOfSelection.Split('|').First().TrimStart(' ').TrimEnd(' ')
+                                        }
+                                    }
+                                },
+                                    new SS.Condition()
+                                {
+                                    Test = "contains",
+                                    Flags = "10",
+                                    property = new SS.Property()
+                                    {
+                                        name = new SS.Name()
+                                        {
+                                            Internal = "LcOaSceneBaseUserName",
+                                            Text = "Имя"
+                                        }
+                                    },
+                                    value = new SS.Value()
+                                    {
+                                        data = new SS.Data()
+                                        {
+                                            Type = "wstring",
+                                            Text = "nwc"
+                                        }
+                                    }
+                                }
+                                /*
+                                new SS.Condition()
+                                {
+                                    Test = "contains",
+                                    Flags = "10",
+                                    property = new SS.Property()
+                                    {
+                                        name = new SS.Name()
+                                        {
+                                            Internal = "LcOaNodeSourceFile",
+                                            Text = "Файл источника"
+                                        }
+                                    },
+                                    value = new SS.Value()
+                                    {
+                                        data = new SS.Data()
+                                        {
+                                            Type = "wstring",
+                                            Text = mslvm.NameOfSelection.Split('|').First().TrimStart(' ').TrimEnd(' ')
+                                        }
+                                    }
+                                },
                                 new SS.Condition()
                                 {
                                     Test = "contains",
@@ -209,92 +272,148 @@ namespace СollisionMatrix
                                         }
                                     }
                                 }
+                                */
                             }
                             },
                             locator = @"/"
                         }
                     };
-
-                    if (mslvm.NameOfSelection.Split('|').Count() >= 1)
+                    /*
+                    if (mslvm.NameOfSelection.Contains("|"))
                     {
-                        for (int i = 0; i < mslvm.NameOfSelection.Split('|').Last().Split(',').Count(); i++)
+                        if (mslvm.NameOfSelection.Split('|').Count() >= 1)
                         {
-                            if (i == 0)
+                            for (int i = 0; i < mslvm.NameOfSelection.Split('|').Last().Split(',').Count(); i++)
                             {
-                                string categoria = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ');
-                                if (!categoria.ToLower().Equals("все"))
+                                if (i == 0)
+                                {
+                                    string categoria = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ');
+                                    if (!categoria.ToLower().Equals("все"))
+                                    {
+                                        ss.findspec.conditions.condition.Add(
+                                        new SS.Condition()
+                                        {
+                                            Test = "equals",
+                                            Flags = "10",
+                                            category = new SS.Category()
+                                            {
+                                                name = new SS.Name()
+                                                {
+                                                    Internal = "LcRevitData_Element",
+                                                    Text = "Объект"
+                                                }
+                                            },
+                                            property = new SS.Property()
+                                            {
+                                                name = new SS.Name()
+                                                {
+                                                    Internal = "LcRevitPropertyElementCategory",
+                                                    Text = "Категория"
+                                                }
+                                            },
+                                            value = new SS.Value()
+                                            {
+                                                data = new SS.Data()
+                                                {
+                                                    Type = "wstring",
+                                                    Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
+                                                }
+                                            }
+                                        }
+                                        );
+                                    }
+
+                                }
+                                else
                                 {
                                     ss.findspec.conditions.condition.Add(
-                                    new SS.Condition()
-                                    {
-                                        Test = "equals",
-                                        Flags = "10",
-                                        category = new SS.Category()
+                                        new SS.Condition()
                                         {
-                                            name = new SS.Name()
+                                            Test = "equals",
+                                            Flags = "74",
+                                            category = new SS.Category()
                                             {
-                                                Internal = "LcRevitData_Element",
-                                                Text = "Объект"
-                                            }
-                                        },
-                                        property = new SS.Property()
-                                        {
-                                            name = new SS.Name()
+                                                name = new SS.Name()
+                                                {
+                                                    Internal = "LcRevitData_Element",
+                                                    Text = "Объект"
+                                                }
+                                            },
+                                            property = new SS.Property()
                                             {
-                                                Internal = "LcRevitPropertyElementCategory",
-                                                Text = "Категория"
-                                            }
-                                        },
-                                        value = new SS.Value()
-                                        {
-                                            data = new SS.Data()
+                                                name = new SS.Name()
+                                                {
+                                                    Internal = "LcRevitPropertyElementCategory",
+                                                    Text = "Категория"
+                                                }
+                                            },
+                                            value = new SS.Value()
                                             {
-                                                Type = "wstring",
-                                                Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
+                                                data = new SS.Data()
+                                                {
+                                                    Type = "wstring",
+                                                    Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
+                                                }
                                             }
                                         }
-                                    }
-                                    );
+                                        );
                                 }
-                                
-                            }
-                            else
-                            {
-                                ss.findspec.conditions.condition.Add(
-                                    new SS.Condition()
-                                    {
-                                        Test = "equals",
-                                        Flags = "74",
-                                        category = new SS.Category()
-                                        {
-                                            name = new SS.Name()
-                                            {
-                                                Internal = "LcRevitData_Element",
-                                                Text = "Объект"
-                                            }
-                                        },
-                                        property = new SS.Property()
-                                        {
-                                            name = new SS.Name()
-                                            {
-                                                Internal = "LcRevitPropertyElementCategory",
-                                                Text = "Категория"
-                                            }
-                                        },
-                                        value = new SS.Value()
-                                        {
-                                            data = new SS.Data()
-                                            {
-                                                Type = "wstring",
-                                                Text = mslvm.NameOfSelection.Split('|').Last().Split(',')[i].TrimStart(' ').TrimEnd(' ')
-                                            }
-                                        }
-                                    }
-                                    );
                             }
                         }
+                        else
+                        {
+                            //    ss.findspec.conditions.condition.Add(
+                            //               new SS.Condition()
+                            //               {
+                            //                   Test = "contains",
+                            //                   Flags = "74",
+                            //                   property = new SS.Property()
+                            //                   {
+                            //                       name = new SS.Name()
+                            //                       {
+                            //                           Internal = "LcOaNodeSourceFile",
+                            //                           Text = "Файл источника"
+                            //                       }
+                            //                   },
+                            //                   value = new SS.Value()
+                            //                   {
+                            //                       data = new SS.Data()
+                            //                       {
+                            //                           Type = "wstring",
+                            //                           Text = mslvm.NameOfSelection.Split('|').First().TrimStart(' ').TrimEnd(' ')
+                            //                       }
+                            //                   }
+                            //               }
+                            //               );
+                        }
                     }
-
+                    else
+                    {
+                        //ss.findspec.conditions.condition.Add(
+                        //               new SS.Condition()
+                        //               {
+                        //                   Test = "contains",
+                        //                   Flags = "74",
+                        //                   property = new SS.Property()
+                        //                   {
+                        //                       name = new SS.Name()
+                        //                       {
+                        //                           Internal = "LcOaNodeSourceFile",
+                        //                           Text = "Файл источника"
+                        //                       }
+                        //                   },
+                        //                   value = new SS.Value()
+                        //                   {
+                        //                       data = new SS.Data()
+                        //                       {
+                        //                           Type = "wstring",
+                        //                           Text = mslvm.NameOfSelection.Split('|').First().TrimStart(' ').TrimEnd(' ')
+                        //                       }
+                        //                   }
+                        //               }
+                        //               );
+                    }
+                    */
                     #endregion
 
                     Root.exchange.batchtest.selectionsets.selectionset.Add(ss);
@@ -471,7 +590,7 @@ namespace СollisionMatrix
         {
             #region reading xml file
 
-            bool success = true;
+            bool fatalError = false;
 
             string pathtoxml = "";
 
@@ -491,19 +610,40 @@ namespace СollisionMatrix
             }
             catch (Exception ex)
             {
-                success = false;
-                MessageBox.Show("Возможно, не выбран файл ... \n", "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+                fatalError = true;
+                System.Windows.MessageBox.Show(ex.Message, "Ошибка загрузки xml", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            if (!success) return;
+            if (fatalError) return;
 
             #endregion
 
-            string json = JsonConvert.SerializeXmlNode(xDoc);
+            string json = "";
+            try
+            {
+                json = JsonConvert.SerializeXmlNode(xDoc);
+            }
+            catch (Exception ex)
+            {
+                fatalError = true;
+                System.Windows.MessageBox.Show(ex.Message, "Ошибка преобразования в формат json", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-            Debug.WriteLine(json);
+            if (fatalError) return;
 
-            Root = JsonConvert.DeserializeObject<SS.Root>(json);
+            Debug.WriteLine("json: " + json);
+
+            try
+            {
+                Root = JsonConvert.DeserializeObject<SS.Root>(json);
+            }
+            catch (Exception ex)
+            {
+                fatalError = true;
+                System.Windows.MessageBox.Show(ex.Message, "Ошибка получения объекта из json", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (fatalError) return;
 
             Debug.WriteLine(Root.exchange.batchtest.clashtests.clashtest.FirstOrDefault().Name);
 

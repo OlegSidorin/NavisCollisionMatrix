@@ -49,9 +49,6 @@
     <Reference Include="EPPlus.System.Drawing, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.System.Drawing.6.0.0\lib\net452\EPPlus.System.Drawing.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.2.2.0\lib\net462\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
@@ -76,18 +73,9 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
-    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Json, Version=6.0.0.6, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.6.0.6\lib\net461\System.Text.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
@@ -103,21 +91,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -169,6 +142,32 @@
     <Compile Include="SS\Selectionsets.cs" />
     <Compile Include="SS\Value.cs" />
     <Compile Include="SS\Xml.cs" />
+    <Compile Include="ModelXML\exchange.cs" />
+    <Compile Include="ModelXML\exchangeBatchtest.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionset.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspec.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspecCondition.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspecConditionCategory.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspecConditionCategoryName.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspecConditionProperty.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspecConditionPropertyName.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspecConditionValue.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestSelectionsetFindspecConditionValueData.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtest.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresult.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresultClashobject.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresultClashobjectObjectattribute.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresultClashobjectSmarttag.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresultClashpoint.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresultClashpointPos3f.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresultCreateddate.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestClashresultCreateddateDate.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestLeft.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestLeftClashselection.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestLinkage.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestRight.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestRightClashselection.cs" />
+    <Compile Include="ModelXML\exchangeBatchtestClashtestSummary.cs" />
     <Compile Include="Views\DataCellView.xaml.cs">
       <DependentUpon>DataCellView.xaml</DependentUpon>
     </Compile>
@@ -371,6 +370,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Examples\jscon-example.json" />
+    <None Include="jsconfig1.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -406,12 +406,8 @@
     </Content>
     <Resource Include="М1_Поисковые наборы новые.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Testik\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets'))" />
-  </Target>
 </Project>

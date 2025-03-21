@@ -18,6 +18,12 @@ namespace СollisionMatrix.XMLCT
         [XmlAttribute(AttributeName = "filepath")]
         public string Filepath { get; set; }
 
+        [XmlAttribute(AttributeName = "xmlns_xsi")]
+        public string XmlnsXsi { get; set; }
+
+        [XmlAttribute(AttributeName = "xsi_noNamespaceSchemaLocation")]
+        public string XsiNoNamespaceSchemaLocation { get; set; }
+
         [XmlText]
         public string Text { get; set; }
     }
